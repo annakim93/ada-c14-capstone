@@ -5,33 +5,36 @@ import android.os.Bundle
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.adacapstone.Fragments.HomeFragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.adacapstone.Fragments.ContactsFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textMessage: TextView
+    private var selectedFragment: Fragment? = null
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
-                textMessage.text = "Home"
-//                moveToFragment(HomeFragment())
-                return@OnNavigationItemSelectedListener true
+                selectedFragment = HomeFragment()
             }
             R.id.nav_add -> {
-                textMessage.text = "Add Post"
 //                item.isChecked = false
 //                startActivity(Intent(this@MainActivity, AddPostActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_contacts -> {
-                textMessage.text = "Contacts"
 //                moveToFragment(ContactsFragment())
-                return@OnNavigationItemSelectedListener true
+                selectedFragment = ContactsFragment()
             }
+        }
+
+        if (selectedFragment != null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment!!).commit()
         }
 
         false
@@ -42,8 +45,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
 
 //        val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
