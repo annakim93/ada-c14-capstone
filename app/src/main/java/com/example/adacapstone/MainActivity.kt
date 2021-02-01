@@ -15,12 +15,11 @@ import com.example.adacapstone.Fragments.ContactsFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private var selectedFragment: Fragment? = null
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
-                selectedFragment = HomeFragment()
+                setFragment(HomeFragment())
+                return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add -> {
 //                item.isChecked = false
@@ -28,13 +27,9 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_contacts -> {
-//                moveToFragment(ContactsFragment())
-                selectedFragment = ContactsFragment()
+                setFragment(ContactsFragment())
+                return@OnNavigationItemSelectedListener true
             }
-        }
-
-        if (selectedFragment != null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment!!).commit()
         }
 
         false
@@ -47,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
+        setFragment(HomeFragment())
 
 //        val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -56,5 +51,9 @@ class MainActivity : AppCompatActivity() {
 //                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 }
