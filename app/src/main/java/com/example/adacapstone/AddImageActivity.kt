@@ -6,23 +6,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
 import androidx.core.app.ActivityCompat
+import com.example.adacapstone.Utils.FileSearch
 import com.example.adacapstone.Utils.Permissions
 import com.google.android.material.tabs.TabLayout
 
 class AddImageActivity : AppCompatActivity() {
+    // Permissions constants
     private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
 
+    // Camera constants
     private val CAMERA_TAB_NUM = 1
     private val CAMERA_REQUEST_CODE = 5
 
+    // File paths
     private val ROOT_DIR = getExternalFilesDir(null)?.absolutePath
     private val PICS_DIR = "$ROOT_DIR/Pictures"
     private val CAMERA_DIR = "$ROOT_DIR/DCIM/camera"
 
+    private lateinit var directories: ArrayList<String>
+
+    // Widgets
     private lateinit var galleryGrid: GridView
     private lateinit var selectedImg: ImageView
     private lateinit var directorySpinner: Spinner
@@ -65,6 +71,10 @@ class AddImageActivity : AppCompatActivity() {
 
         val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
 //        nextActivityBtn.setOnClickListener() // TO:DO --> NAV TO MESSAGE SAVE SCREEN
+
+        directories = arrayListOf<String>()
+
+        init()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -92,5 +102,29 @@ class AddImageActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this@AddImageActivity, permissions, VERIFY_PERMISSIONS_REQUEST_CODE)
     }
 
-    // Gallery - directory nav
+    // Gallery - directory search
+    private fun init() {
+        if (FileSearch.getDirectoryPaths(PICS_DIR) != null) {
+            directories = FileSearch.getDirectoryPaths(PICS_DIR)
+        }
+        directories.add(CAMERA_DIR)
+
+        val adapter = ArrayAdapter<String>(
+                this@AddImageActivity,
+                android.R.layout.simple_spinner_item,
+                directories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        directorySpinner.adapter = adapter
+
+        directorySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            }
+        }
+    }
 }
