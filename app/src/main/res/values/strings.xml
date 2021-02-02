@@ -3,7 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_add">Add New Image</string>
     <string name="title_contacts">Contacts</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="img_msg_hint">Alert to send to your trusted contacts</string>
     <string name="add_img_bottom_tab_0">Gallery</string>
