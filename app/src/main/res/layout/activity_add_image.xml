@@ -21,7 +21,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp">
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp">
 
                 <ImageView
                     android:id="@+id/close_add_img_btn"
@@ -40,8 +41,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="4dp"
-                    android:textSize="16dp"
-                    android:text="New Image"
+                    android:textSize="16sp"
+                    android:text="@string/new_image_activity_header"
                     android:textStyle="bold"/>
 
                 <ImageView
@@ -112,12 +113,13 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Gallery"/>
+                android:text="@string/add_img_bottom_tab_0"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_camera"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Camera"/>
+                android:text="@string/add_img_bottom_tab_1"/>
 
         </com.google.android.material.tabs.TabLayout>
 
