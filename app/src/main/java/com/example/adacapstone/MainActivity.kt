@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_add -> {
-//                item.isChecked = false
-//                startActivity(Intent(this@MainActivity, AddPostActivity::class.java))
+                item.isChecked = false
+                startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_contacts -> {

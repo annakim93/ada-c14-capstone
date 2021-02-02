@@ -50,7 +50,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_baseline_check_24"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
                     app:tint="@color/blue" />
 
             </RelativeLayout>
@@ -63,22 +63,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:weightSum="100"
         android:layout_below="@+id/app_bar_layout_add_img">
 
-        <ImageView
-            android:id="@+id/current_img"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"/>
+            android:layout_height="0dp"
+            android:layout_weight="60">
+
+            <ImageView
+                android:id="@+id/current_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+        </RelativeLayout>
         
-        <EditText
-            android:id="@+id/img_msg"
+        <GridView
+            android:id="@+id/gallery_imgs_grid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/img_msg_hint"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/white"/>
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:numColumns="5"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:stretchMode="none"
+            android:gravity="center"
+            android:layout_marginTop="1dp">
+
+        </GridView>
 
     </LinearLayout>
 
