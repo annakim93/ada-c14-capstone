@@ -1,4 +1,4 @@
-package com.example.adacapstone
+package com.example.adacapstone.Utils
 import android.Manifest
 
 class Permissions {

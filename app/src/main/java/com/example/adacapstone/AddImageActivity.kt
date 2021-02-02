@@ -1,23 +1,27 @@
 package com.example.adacapstone
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.core.app.ActivityCompat
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.internal.ContextUtils.getActivity
+import com.example.adacapstone.Utils.Permissions
 import com.google.android.material.tabs.TabLayout
 
 class AddImageActivity : AppCompatActivity() {
-    private val CAMERA_TAB_NUM = 1
     private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
+
+    private val CAMERA_TAB_NUM = 1
     private val CAMERA_REQUEST_CODE = 5
+
+    private val ROOT_DIR = getExternalFilesDir(null)?.absolutePath
+    private val PICS_DIR = "$ROOT_DIR/Pictures"
+    private val CAMERA_DIR = "$ROOT_DIR/DCIM/camera"
 
     private lateinit var galleryGrid: GridView
     private lateinit var selectedImg: ImageView
@@ -58,6 +62,9 @@ class AddImageActivity : AppCompatActivity() {
 
         val newImgCloseBtn: ImageView = findViewById(R.id.close_add_img_btn)
         newImgCloseBtn.setOnClickListener { this@AddImageActivity.finish() }
+
+        val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
+//        nextActivityBtn.setOnClickListener() // TO:DO --> NAV TO MESSAGE SAVE SCREEN
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,4 +91,6 @@ class AddImageActivity : AppCompatActivity() {
     fun verifyPermissions(permissions: Array<String>) {
         ActivityCompat.requestPermissions(this@AddImageActivity, permissions, VERIFY_PERMISSIONS_REQUEST_CODE)
     }
+
+    // Gallery - directory nav
 }

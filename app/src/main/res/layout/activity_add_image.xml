@@ -51,9 +51,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/add_img_activity_title"
+                    android:layout_toEndOf="@+id/add_img_activity_title"
                     android:text="Gallery"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical" />
 
                 <ImageView
                     android:id="@+id/cont_add_img_btn"
