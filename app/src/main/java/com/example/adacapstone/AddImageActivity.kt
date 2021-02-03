@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import com.example.adacapstone.Utils.FilePaths
 import com.example.adacapstone.Utils.FileSearch
 import com.example.adacapstone.Utils.GridImageAdapter
 import com.example.adacapstone.Utils.Permissions
@@ -22,16 +23,11 @@ class AddImageActivity : AppCompatActivity() {
     private val CAMERA_TAB_NUM = 1
     private val CAMERA_REQUEST_CODE = 5
 
-    // File paths
-    private val ROOT_DIR = getExternalFilesDir(null)?.absolutePath
-    private val PICS_DIR = "$ROOT_DIR/Pictures"
-    private val CAMERA_DIR = "$ROOT_DIR/DCIM/camera"
-
     // Gallery grid view
     private val NUM_GRID_COLS = 3
 
     // Gallery dir
-    private lateinit var directories: ArrayList<String>
+    private lateinit var directories: ArrayList<String?>
 
     // Widgets
     private lateinit var galleryGrid: GridView
@@ -77,7 +73,7 @@ class AddImageActivity : AppCompatActivity() {
         val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
 //        nextActivityBtn.setOnClickListener() // TO:DO --> NAV TO MESSAGE SAVE SCREEN
 
-        directories = arrayListOf<String>()
+        directories = arrayListOf<String?>()
 
         init()
     }
@@ -109,8 +105,9 @@ class AddImageActivity : AppCompatActivity() {
 
     // Gallery - directory search
     private fun init() {
-        directories = FileSearch.getDirectoryPaths(PICS_DIR)
-        directories.add(CAMERA_DIR)
+        val filePaths = FilePaths(this@AddImageActivity)
+        directories = FileSearch.getDirectoryPaths(filePaths.PICS_DIR)
+        directories.add(filePaths.CAM_DIR)
 
         val adapter = ArrayAdapter<String>(
                 this@AddImageActivity,
@@ -130,7 +127,7 @@ class AddImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpGrid(selectedDir: String) {
+    private fun setUpGrid(selectedDir: String?) {
         val imgURLs = FileSearch.getFilePaths(selectedDir)
 
         val gridWidth = resources.displayMetrics.widthPixels
