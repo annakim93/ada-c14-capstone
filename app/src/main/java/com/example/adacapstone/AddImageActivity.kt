@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import com.example.adacapstone.Utils.FileSearch
+import com.example.adacapstone.Utils.GridImageAdapter
 import com.example.adacapstone.Utils.Permissions
 import com.google.android.material.tabs.TabLayout
 
@@ -26,6 +27,10 @@ class AddImageActivity : AppCompatActivity() {
     private val PICS_DIR = "$ROOT_DIR/Pictures"
     private val CAMERA_DIR = "$ROOT_DIR/DCIM/camera"
 
+    // Gallery grid view
+    private val NUM_GRID_COLS = 3
+
+    // Gallery dir
     private lateinit var directories: ArrayList<String>
 
     // Widgets
@@ -104,9 +109,7 @@ class AddImageActivity : AppCompatActivity() {
 
     // Gallery - directory search
     private fun init() {
-        if (FileSearch.getDirectoryPaths(PICS_DIR) != null) {
-            directories = FileSearch.getDirectoryPaths(PICS_DIR)
-        }
+        directories = FileSearch.getDirectoryPaths(PICS_DIR)
         directories.add(CAMERA_DIR)
 
         val adapter = ArrayAdapter<String>(
@@ -118,13 +121,23 @@ class AddImageActivity : AppCompatActivity() {
         directorySpinner.adapter = adapter
 
         directorySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                setUpGrid(directories[position])
+            }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-            }
         }
+    }
+
+    private fun setUpGrid(selectedDir: String) {
+        val imgURLs = FileSearch.getFilePaths(selectedDir)
+
+        val gridWidth = resources.displayMetrics.widthPixels
+        val imageWidth = gridWidth / NUM_GRID_COLS
+        galleryGrid.columnWidth = imageWidth
+
+        val gridImageAdapter = GridImageAdapter(this@AddImageActivity, R.layout.grid_image_view, imgURLs)
+        galleryGrid.adapter = gridImageAdapter
     }
 }
