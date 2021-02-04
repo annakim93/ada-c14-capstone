@@ -1,12 +1,15 @@
 package com.example.adacapstone
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.adacapstone.Fragments.ContactsFragment
 import com.example.adacapstone.Fragments.HomeFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.RelativeCornerSize
 import com.google.android.material.shape.RoundedCornerTreatment
@@ -35,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         navView.background = null
         navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        // FAB
+        val fab: FloatingActionButton = findViewById(R.id.add_img_fab)
+        fab.setOnClickListener {
+            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+        }
 
         setFragment(HomeFragment())
 
