@@ -7,9 +7,8 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/nav_add"
-        android:icon="@drawable/add_insta"
-        android:title="@string/title_add" />
+        android:id="@+id/placeholder"
+        android:title="" />
 
     <item
         android:id="@+id/nav_contacts"

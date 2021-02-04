@@ -1,27 +1,39 @@
 package com.example.adacapstone
 
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.TextView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.example.adacapstone.Fragments.HomeFragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.adacapstone.Fragments.ContactsFragment
+import com.example.adacapstone.Fragments.HomeFragment
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.RelativeCornerSize
+import com.google.android.material.shape.RoundedCornerTreatment
+
 
 class MainActivity : AppCompatActivity() {
+
+    // Constants
+    private val PLACEHOLDER_INDEX = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Bottom App Bar
+        val bottomAppBar: BottomAppBar = findViewById(R.id.bottom_app_bar)
+        val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
+        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
+            .toBuilder()
+            .setTopLeftCorner(RoundedCornerTreatment()).setTopLeftCornerSize(RelativeCornerSize(0.5f))
+            .setTopRightCorner(RoundedCornerTreatment()).setTopRightCornerSize(RelativeCornerSize(0.5f))
+            .build()
+
+        // Navigation Menu
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView.background = null
+        navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         setFragment(HomeFragment())
@@ -41,11 +53,11 @@ class MainActivity : AppCompatActivity() {
                 setFragment(HomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_add -> {
-                item.isChecked = false
-                startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
-                return@OnNavigationItemSelectedListener true
-            }
+//            R.id.nav_add -> {
+//                item.isChecked = false
+//                startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+//                return@OnNavigationItemSelectedListener true
+//            }
             R.id.nav_contacts -> {
                 setFragment(ContactsFragment())
                 return@OnNavigationItemSelectedListener true
