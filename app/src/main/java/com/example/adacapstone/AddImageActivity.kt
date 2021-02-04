@@ -48,7 +48,7 @@ class AddImageActivity : AppCompatActivity() {
         newImgCloseBtn.setOnClickListener { this@AddImageActivity.finish() }
 
         val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
-//        nextActivityBtn.setOnClickListener() // TO:DO --> NAV TO MESSAGE SAVE SCREEN
+        nextActivityBtn.setOnClickListener {} // TO:DO --> NAV TO MESSAGE SAVE SCREEN
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

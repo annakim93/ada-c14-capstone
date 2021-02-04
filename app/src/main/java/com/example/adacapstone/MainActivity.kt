@@ -2,7 +2,6 @@ package com.example.adacapstone
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.adacapstone.Fragments.ContactsFragment
@@ -62,11 +61,6 @@ class MainActivity : AppCompatActivity() {
                 setFragment(HomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.nav_add -> {
-//                item.isChecked = false
-//                startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
-//                return@OnNavigationItemSelectedListener true
-//            }
             R.id.nav_contacts -> {
                 setFragment(ContactsFragment())
                 return@OnNavigationItemSelectedListener true
