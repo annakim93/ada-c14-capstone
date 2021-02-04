@@ -118,12 +118,13 @@
                 android:id="@+id/alertText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"
                 android:hint="@string/img_msg_hint"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"/>
+                android:layout_marginEnd="20dp"
+                android:inputType="textMultiLine|textAutoCorrect"
+                android:scrollHorizontally="false" />
 
         </LinearLayout>
 
