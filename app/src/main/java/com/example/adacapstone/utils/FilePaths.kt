@@ -1,4 +1,4 @@
-package com.example.adacapstone.Utils
+package com.example.adacapstone.utils
 
 import android.content.Context
 

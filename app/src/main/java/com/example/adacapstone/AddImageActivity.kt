@@ -5,16 +5,10 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
-import com.example.adacapstone.Utils.FilePaths
-import com.example.adacapstone.Utils.FileSearch
-import com.example.adacapstone.Utils.GridImageAdapter
-import com.example.adacapstone.Utils.Permissions
-import com.google.android.material.tabs.TabLayout
+import com.example.adacapstone.utils.Permissions
 
 class AddImageActivity : AppCompatActivity() {
     // Constants
