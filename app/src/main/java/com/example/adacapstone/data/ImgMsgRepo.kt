@@ -2,7 +2,7 @@ package com.example.adacapstone.data
 
 import androidx.lifecycle.LiveData
 
-class ImageMessageRepo(private val imgMsgDao: ImageMessageDao) {
+class ImgMsgRepo(private val imgMsgDao: ImgMsgDao) {
 
     val readAllData: LiveData<List<ImageMessage>> = imgMsgDao.readAllData()
 

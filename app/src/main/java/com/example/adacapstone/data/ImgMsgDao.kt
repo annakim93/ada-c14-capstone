@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface ImageMessageDao {
+interface ImgMsgDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addImgMsg(im: ImageMessage)

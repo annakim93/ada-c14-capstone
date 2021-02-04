@@ -6,15 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [ImageMessage::class], version = 1, exportSchema = false)
-abstract class ImageMessageDatabase : RoomDatabase() {
+abstract class ImgMsgDatabase : RoomDatabase() {
 
-    abstract fun imgMsgDao(): ImageMessageDao
+    abstract fun imgMsgDao(): ImgMsgDao
 
     companion object {
         @Volatile // writes are immediately made visible to other threads
-        private var INSTANCE: ImageMessageDatabase? = null
+        private var INSTANCE: ImgMsgDatabase? = null
 
-        fun getDatabase(context: Context): ImageMessageDatabase{
+        fun getDatabase(context: Context): ImgMsgDatabase{
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -22,7 +22,7 @@ abstract class ImageMessageDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ImageMessageDatabase::class.java,
+                    ImgMsgDatabase::class.java,
                     "img_msg_database"
                 ).build()
                 INSTANCE = instance

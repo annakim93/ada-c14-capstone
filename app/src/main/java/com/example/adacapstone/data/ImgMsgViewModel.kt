@@ -1,0 +1,28 @@
+package com.example.adacapstone.data
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class ImgMsgViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val readAllData: LiveData<List<ImageMessage>>
+    private val repository: ImgMsgRepo
+
+    init {
+        val imgMsgDao = ImgMsgDatabase.getDatabase(application).imgMsgDao()
+        repository = ImgMsgRepo(imgMsgDao)
+        readAllData = repository.readAllData
+    }
+
+    fun addImgMsg(imgMsg: ImageMessage) {
+        // Dispatchers.IO --> run in background/worker thread (not main thread)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addImgMsg(imgMsg)
+        }
+    }
+
+}
