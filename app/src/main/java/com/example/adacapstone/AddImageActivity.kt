@@ -6,8 +6,12 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.adacapstone.data.ImageMessage
+import com.example.adacapstone.data.ImgMsgViewModel
 import com.example.adacapstone.utils.Permissions
 
 class AddImageActivity : AppCompatActivity() {
@@ -15,6 +19,9 @@ class AddImageActivity : AppCompatActivity() {
     private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
     private val CAMERA_REQUEST_CODE = 5
     private val GALLERY_REQUEST_CODE = 6
+
+    // Room database
+    private lateinit var mImgMsgViewModel: ImgMsgViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +48,12 @@ class AddImageActivity : AppCompatActivity() {
         val newImgCloseBtn: ImageView = findViewById(R.id.close_add_img_btn)
         newImgCloseBtn.setOnClickListener { this@AddImageActivity.finish() }
 
+        mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
+
         val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
-        nextActivityBtn.setOnClickListener {} // TO:DO --> NAV TO MESSAGE SAVE SCREEN
+        nextActivityBtn.setOnClickListener {
+          addEntryToDatabase()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,5 +84,23 @@ class AddImageActivity : AppCompatActivity() {
 
     fun verifyPermissions(permissions: Array<String>) {
         ActivityCompat.requestPermissions(this@AddImageActivity, permissions, VERIFY_PERMISSIONS_REQUEST_CODE)
+    }
+
+    // Room database
+    private fun addEntryToDatabase() {
+        val alertText: TextView = findViewById(R.id.alertText)
+        val message = alertText.text.toString()
+
+        if (inputCheck(message)) {
+            val imgMsg = ImageMessage(message, ) // Create imgMsg object
+            mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
+            this@AddImageActivity.finish()
+        } else {
+            Toast.makeText(this, "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun inputCheck(message: String): Boolean {
+        return !(TextUtils.isEmpty(message))
     }
 }

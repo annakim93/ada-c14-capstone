@@ -1,5 +1,6 @@
 package com.example.adacapstone.data
 
+import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
