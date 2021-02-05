@@ -3,16 +3,18 @@ package com.example.adacapstone
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.adacapstone.data.ImageMessage
 import com.example.adacapstone.data.ImgMsgViewModel
 import com.example.adacapstone.utils.Permissions
+
 
 class AddImageActivity : AppCompatActivity() {
     // Constants
@@ -62,7 +64,7 @@ class AddImageActivity : AppCompatActivity() {
         val selectedImg: ImageView = findViewById(R.id.selected_img)
 
         if (requestCode == CAMERA_REQUEST_CODE) {
-            var bmp = data?.extras?.get("data") as Bitmap
+            val bmp = data?.extras?.get("data") as Bitmap
             selectedImg.setImageBitmap(bmp)
         } else if (requestCode == GALLERY_REQUEST_CODE) {
             selectedImg.setImageURI(data?.data)
@@ -78,12 +80,19 @@ class AddImageActivity : AppCompatActivity() {
     }
 
     fun checkSinglePermission(permission: String): Boolean {
-        val permissionRequest = ActivityCompat.checkSelfPermission(this@AddImageActivity, permission)
+        val permissionRequest = ActivityCompat.checkSelfPermission(
+            this@AddImageActivity,
+            permission
+        )
         return permissionRequest == PackageManager.PERMISSION_GRANTED
     }
 
     fun verifyPermissions(permissions: Array<String>) {
-        ActivityCompat.requestPermissions(this@AddImageActivity, permissions, VERIFY_PERMISSIONS_REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            this@AddImageActivity,
+            permissions,
+            VERIFY_PERMISSIONS_REQUEST_CODE
+        )
     }
 
     // Room database
@@ -91,10 +100,14 @@ class AddImageActivity : AppCompatActivity() {
         val alertText: TextView = findViewById(R.id.alertText)
         val message = alertText.text.toString()
 
+        val selectedImg: ImageView = findViewById(R.id.selected_img)
+        val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
+
         if (inputCheck(message)) {
-            val imgMsg = ImageMessage(message, ) // Create imgMsg object
+            val imgMsg = ImageMessage(message, selectedBM) // Create imgMsg object
             mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
             this@AddImageActivity.finish()
+            Toast.makeText(this, "Successfully saved.", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(this, "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
         }
