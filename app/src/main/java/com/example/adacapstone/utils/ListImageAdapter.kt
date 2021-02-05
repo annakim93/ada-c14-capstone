@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -29,7 +29,8 @@ class ListImageAdapter : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 //        if (holder.itemView.findViewById<TextView>(R.id.update_fragment_header) != null) {
             holder.itemView.findViewById<RelativeLayout>(R.id.squareLayout).setOnClickListener {
                 val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
-                holder.itemView.findNavController().navigate(action)
+                val navController = Navigation.findNavController(holder.itemView)
+                navController.navigate(action)
             }
 //        }
     }
