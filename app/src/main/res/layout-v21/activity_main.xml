@@ -16,10 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/rounded_nav"
+        app:backgroundTint="#90FFFFFF"
         app:fabCradleMargin="20dp"
         app:fabCradleRoundedCornerRadius="20dp"
-        app:fabCradleVerticalOffset="10dp">
+        app:fabCradleVerticalOffset="10dp"
+        app:hideOnScroll="true">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
@@ -28,7 +29,6 @@
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_nav_menu"
             android:background="@android:color/transparent"
-            android:layout_marginRight="18dp"
             android:layout_marginEnd="18dp" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -40,6 +40,7 @@
         android:src="@drawable/add"
         app:layout_anchor="@id/nav_view"
         android:backgroundTint="@color/fab"
-        app:tint="@android:color/white"/>
+        app:tint="@android:color/white"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

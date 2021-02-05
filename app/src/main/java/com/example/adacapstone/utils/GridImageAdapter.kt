@@ -26,7 +26,7 @@ class GridImageAdapter(context: Context, layoutResource: Int, imgURLs: ArrayList
         if (convertView == null) {
             convertView = mInflater.inflate(layoutResource, parent, false)
             holder = ViewHolder()
-            holder.image = convertView!!.findViewById(R.id.gridImage) as SquareImageView
+            holder.image = convertView!!.findViewById(R.id.squareImage) as SquareImageView
             convertView!!.tag = holder
         } else {
             holder = convertView.tag as ViewHolder
