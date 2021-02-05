@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.data.model.ImageMessage
-import com.example.adacapstone.ImgMsgBinding
+import com.example.adacapstone.databinding.SquareImageViewBinding
 
 class GridImageAdapter(val clickListener: ImgMsgListener) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
@@ -21,10 +21,11 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
         holder.bind(getItem(position)!!, clickListener)
     }
 
-    class ViewHolder private constructor(private val binding: ScriptGroup.Binding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(private val binding: SquareImageViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SleepNight, clickListener: SleepNightListener) {
-            binding.sleep = item
+        fun bind(item: ImageMessage, clickListener: ImgMsgListener) {
+            binding.imgMsg = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -32,7 +33,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemSleepNightBinding.inflate(layoutInflater, parent, false)
+                val binding = SquareImageViewBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

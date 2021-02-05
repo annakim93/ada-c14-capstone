@@ -10,6 +10,10 @@
             name="imgMsg"
             type="com.example.adacapstone.data.model.ImageMessage"/>
 
+        <variable
+            name="clickListener"
+            type="com.example.adacapstone.utils.ImgMsgListener"/>
+
     </data>
 
     <RelativeLayout
