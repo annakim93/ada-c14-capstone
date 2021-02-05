@@ -68,4 +68,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.2.6"
     implementation "androidx.room:room-ktx:2.2.6"
     androidTestImplementation "androidx.room:room-testing:2.2.6"
+
+    // Images (Coil)
+    implementation("io.coil-kt:coil:1.1.1")
+
 }

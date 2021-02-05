@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class ImgMsgViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val readAllData: LiveData<List<ImageMessage>>
+    val readAllData: LiveData<List<ImageMessage>>
     private val repository: ImgMsgRepo
 
     init {

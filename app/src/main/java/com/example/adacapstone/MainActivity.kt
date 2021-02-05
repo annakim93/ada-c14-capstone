@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.adacapstone.Fragments.ContactsFragment
-import com.example.adacapstone.Fragments.HomeFragment
+import com.example.adacapstone.fragments.ContactsFragment
+import com.example.adacapstone.fragments.HomeFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton

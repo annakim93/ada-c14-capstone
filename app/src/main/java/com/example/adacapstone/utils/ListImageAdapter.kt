@@ -4,9 +4,11 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.ImageMessage
 
@@ -22,7 +24,7 @@ class ListImageAdapter : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = imgMsgList[position]
-        holder.itemView.squareImage.load(imgMsgList[position].image)
+        holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
     }
 
     override fun getItemCount(): Int {

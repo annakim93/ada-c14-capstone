@@ -1,4 +1,4 @@
-package com.example.adacapstone.Fragments
+package com.example.adacapstone.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
