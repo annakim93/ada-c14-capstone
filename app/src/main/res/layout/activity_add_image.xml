@@ -47,7 +47,7 @@
                     android:textStyle="bold"/>
 
                 <ImageView
-                    android:id="@+id/cont_add_img_btn"
+                    android:id="@+id/save_img_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"

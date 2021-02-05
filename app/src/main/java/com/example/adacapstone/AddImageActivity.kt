@@ -52,7 +52,7 @@ class AddImageActivity : AppCompatActivity() {
 
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
 
-        val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
+        val nextActivityBtn: ImageView = findViewById(R.id.save_img_btn)
         nextActivityBtn.setOnClickListener {
           addEntryToDatabase()
         }
