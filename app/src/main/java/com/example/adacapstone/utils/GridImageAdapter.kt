@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.adacapstone.R
 
-
 class GridImageAdapter(context: Context, layoutResource: Int, imgURLs: ArrayList<String>) :
         ArrayAdapter<String?>(context, layoutResource, imgURLs as List<String?>) {
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
             fragmentTransaction.replace(R.id.fragment_container, fragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
+            Toast.makeText(activity, "Click on a photo to update or delete.", Toast.LENGTH_LONG).show()
         }
 
         return view
