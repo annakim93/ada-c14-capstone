@@ -30,7 +30,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/ic_baseline_close_24"/>
+                    android:src="@drawable/close"/>
 
                 <TextView
                     android:id="@+id/add_img_activity_title"
@@ -52,7 +52,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_baseline_check_24"
+                    android:src="@drawable/check"
                     app:tint="@color/blue" />
 
             </RelativeLayout>
@@ -128,7 +128,6 @@
                 android:scrollHorizontally="false" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 
