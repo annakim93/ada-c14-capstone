@@ -16,7 +16,7 @@ interface ImgMsgDao {
     @Query("SELECT * FROM img_msg_table ORDER BY id")
     fun readAllData(): LiveData<List<ImageMessage>>
 
-    @Query("SELECT * FROM img_msg_table WHERE id = :key")
-    fun getImgMsgWithId(key: Long): LiveData<ImageMessage>
+    @Query("SELECT * FROM img_msg_table WHERE id = :imgMsgId")
+    fun getImgMsgWithId(imgMsgId: Int): LiveData<ImageMessage>
 
 }

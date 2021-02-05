@@ -44,4 +44,8 @@ class ListImageAdapter : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun imgMsgListener(clickListener: (imgMsgId: Int) -> Unit) {
+        fun onClick(imgMsg: ImageMessage) = clickListener(imgMsg.id)
+    }
+
 }
