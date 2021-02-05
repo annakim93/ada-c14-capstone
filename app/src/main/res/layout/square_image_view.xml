@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <com.example.adacapstone.utils.SquareImageView
-        android:id="@+id/gridImage"
+        android:id="@+id/squareImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
