@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/update_fragment_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/manage_grid_header"

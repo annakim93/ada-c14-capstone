@@ -3,10 +3,14 @@ package com.example.adacapstone.utils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
+import com.example.adacapstone.fragments.ManageGridDirections
 
 class ListImageAdapter : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 
@@ -21,6 +25,13 @@ class ListImageAdapter : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = imgMsgList[position]
         holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
+
+//        if (holder.itemView.findViewById<TextView>(R.id.update_fragment_header) != null) {
+            holder.itemView.findViewById<RelativeLayout>(R.id.squareLayout).setOnClickListener {
+                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
+                holder.itemView.findNavController().navigate(action)
+            }
+//        }
     }
 
     override fun getItemCount(): Int {
