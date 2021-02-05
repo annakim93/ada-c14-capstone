@@ -1,4 +1,4 @@
-package com.example.adacapstone.data
+package com.example.adacapstone.data.model
 
 import android.graphics.Bitmap
 import androidx.room.Entity

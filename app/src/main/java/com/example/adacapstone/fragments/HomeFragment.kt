@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
-import com.example.adacapstone.data.ImgMsgViewModel
+import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.utils.ListImageAdapter
 
 class HomeFragment : Fragment() {

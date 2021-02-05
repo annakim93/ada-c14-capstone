@@ -1,9 +1,12 @@
-package com.example.adacapstone.data
+package com.example.adacapstone.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.adacapstone.data.ImgMsgDatabase
+import com.example.adacapstone.data.repository.ImgMsgRepo
+import com.example.adacapstone.data.model.ImageMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

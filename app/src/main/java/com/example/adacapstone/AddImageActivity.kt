@@ -11,8 +11,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.adacapstone.data.ImageMessage
-import com.example.adacapstone.data.ImgMsgViewModel
+import com.example.adacapstone.data.model.ImageMessage
+import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.utils.Permissions
 
 

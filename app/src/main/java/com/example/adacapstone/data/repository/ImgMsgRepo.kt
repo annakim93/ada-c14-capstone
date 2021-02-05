@@ -1,6 +1,8 @@
-package com.example.adacapstone.data
+package com.example.adacapstone.data.repository
 
 import androidx.lifecycle.LiveData
+import com.example.adacapstone.data.ImgMsgDao
+import com.example.adacapstone.data.model.ImageMessage
 
 class ImgMsgRepo(private val imgMsgDao: ImgMsgDao) {
 
