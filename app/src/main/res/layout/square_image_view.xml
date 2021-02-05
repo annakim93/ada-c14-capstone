@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:name="androidx.navigation.fragment.NavHostFragment"
-    android:id="@+id/squareLayout">
 
-    <com.example.adacapstone.utils.SquareImageView
-        android:id="@+id/squareImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_margin="16dp"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</RelativeLayout>
+    <data>
+
+        <variable
+            name="imgMsg"
+            type="com.example.adacapstone.data.model.ImageMessage"/>
+
+        <variable
+            name="clickListener"
+            type="com.example.adacapstone.utils.imgMsgListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/squareLayout">
+
+        <com.example.adacapstone.utils.SquareImageView
+            android:id="@+id/squareImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
+
+</layout>
