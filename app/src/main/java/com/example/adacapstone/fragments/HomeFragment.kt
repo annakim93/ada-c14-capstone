@@ -1,10 +1,13 @@
 package com.example.adacapstone.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.utils.ListImageAdapter
+
 
 class HomeFragment : Fragment() {
 
@@ -35,6 +39,17 @@ class HomeFragment : Fragment() {
         mImgMsgViewModel.readAllData.observe(viewLifecycleOwner, Observer { imgMsg ->
             adapter.setData(imgMsg)
         })
+
+        // Click listener for manage photo-msgs
+        val gridBtn: ImageView = view.findViewById(R.id.manage_grid_btn)
+        gridBtn.setOnClickListener {
+            val fragment: Fragment = ManageGrid()
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragment_container, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
 
         return view
     }
