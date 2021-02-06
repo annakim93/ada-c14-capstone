@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
             val fragment: Fragment = ManageGrid()
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_container, fragment)
+            fragmentTransaction.replace(R.id.nav_host_fragment, fragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
             Toast.makeText(activity, "Click on a photo to update or delete.", Toast.LENGTH_LONG).show()

@@ -58,6 +58,6 @@ class ImgMsgDiffCallback : DiffUtil.ItemCallback<ImageMessage>() {
     }
 }
 
-class ImgMsgListener(val clickListener: (imgMsgId: Int) -> Unit) {
-    fun onClick(imgMsg: ImageMessage) = clickListener(imgMsg.id)
+class ImgMsgListener(val clickListener: (imgMsg: ImageMessage) -> Unit) {
+    fun onClick(imgMsg: ImageMessage) = clickListener(imgMsg)
 }
