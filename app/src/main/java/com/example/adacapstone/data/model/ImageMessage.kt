@@ -9,9 +9,12 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "img_msg_table")
 data class ImageMessage(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val msg: String,
     val image: Bitmap
-    ) : Parcelable {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-}
+) : Parcelable
+//{
+//    @PrimaryKey(autoGenerate = true)
+//    var id: Int = 0
+//}

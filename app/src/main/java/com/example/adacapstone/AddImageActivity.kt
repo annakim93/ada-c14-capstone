@@ -104,7 +104,7 @@ class AddImageActivity : AppCompatActivity() {
         val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
 
         if (inputCheck(message, selectedImg)) {
-            val imgMsg = ImageMessage(message, selectedBM) // Create imgMsg object
+            val imgMsg = ImageMessage(0, message, selectedBM) // Create imgMsg object
             mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
             this@AddImageActivity.finish()
             Toast.makeText(this, "Successfully saved.", Toast.LENGTH_LONG).show()

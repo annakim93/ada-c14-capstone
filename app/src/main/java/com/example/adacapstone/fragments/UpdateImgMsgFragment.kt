@@ -65,7 +65,7 @@ class UpdateFragment : Fragment() {
             val updatedBM = (updatedImg.drawable as BitmapDrawable).bitmap
 
             if (inputCheck(updatedMsg, updatedImg)) {
-                val updatedImgMsg = ImageMessage(updatedMsg, updatedBM) // Create imgMsg object
+                val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, updatedBM) // Create imgMsg object
                 mImgMsgViewModel.updateImgMsg(updatedImgMsg)
                 navController.navigate(R.id.action_updateFragment_to_manageGrid)
                 Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_LONG).show()
