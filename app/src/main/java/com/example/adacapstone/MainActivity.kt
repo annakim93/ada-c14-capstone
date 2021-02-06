@@ -2,6 +2,7 @@ package com.example.adacapstone
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Bottom App Bar
+        // Bottom app bar
         val bottomAppBar: BottomAppBar = findViewById(R.id.bottom_app_bar)
         val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
         bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             .setTopRightCorner(RoundedCornerTreatment()).setTopRightCornerSize(RelativeCornerSize(0.5f))
             .build()
 
-        // Navigation Menu
+        // Navigation bottom menu
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.background = null
         navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
@@ -46,11 +47,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
         }
 
-//        val navController = findNavController(R.id.nav_host_fragment)
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        // Nav bottom menu visibility
+        val navController = findNavController(R.id.nav_host_fragment)
+        navController.addOnDestinationChangedListener{ _, destination, _ ->
+            if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
+                navView.visibility = View.GONE
+                fab.visibility = View.GONE
+                bottomAppBar.visibility = View.GONE
+            }
+        }
+
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
