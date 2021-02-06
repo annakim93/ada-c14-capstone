@@ -42,7 +42,7 @@ class ManageGrid : Fragment() {
         binding.imgMsgViewModel = mImgMsgViewModel
 
         val adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
-            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
+//            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
             mImgMsgViewModel.onImgMsgClicked(imgMsgId)
         })
         binding.recyclerViewManage.adapter = adapter

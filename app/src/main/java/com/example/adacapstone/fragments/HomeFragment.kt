@@ -20,7 +20,6 @@ import com.example.adacapstone.utils.ListImageAdapter
 class HomeFragment : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
-//    private val PLACEHOLDER_INDEX = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
