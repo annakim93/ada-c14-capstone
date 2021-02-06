@@ -33,6 +33,8 @@ class ManageGrid : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
+        container?.removeAllViews()
+
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentManageGridBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_manage_grid, container, false)
