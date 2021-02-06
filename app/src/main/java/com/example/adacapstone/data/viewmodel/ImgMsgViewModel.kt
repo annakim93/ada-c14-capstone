@@ -32,6 +32,12 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun updateImgMsg(imgMsg: ImageMessage) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateImgMsg(imgMsg)
+        }
+    }
+
     fun onImgMsgClicked(imgMsg: ImageMessage) {
         _navigateToUpdateFrag.value = imgMsg
     }
