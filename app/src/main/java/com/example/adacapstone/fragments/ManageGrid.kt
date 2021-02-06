@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,11 +25,6 @@ import com.example.adacapstone.utils.ImgMsgListener
 class ManageGrid : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
-
-    // Navigation
-//    val mainNavController: NavController? by lazy { activity?.findNavController(R.id.nav_host_fragment) }
-//    val localNavController: NavController? by lazy { view?.findNavController() }
-    private lateinit var localNavController: NavController
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -74,6 +70,19 @@ class ManageGrid : Fragment() {
         binding.recyclerViewManage.layoutManager = manager
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Click listener on close btn to navigate back to home fragment
+        val navController: NavController = Navigation.findNavController(view)
+        val closeBtn: ImageView = view.findViewById(R.id.close_btn)
+
+        closeBtn.setOnClickListener{
+            navController.navigate(R.id.action_global_homeFragment)
+        }
+
     }
 
 }
