@@ -1,27 +1,30 @@
 package com.example.adacapstone.utils
 
-import android.renderscript.ScriptGroup
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 
 class GridImageAdapter(val clickListener: ImgMsgListener) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
 
+    private var imgMsgList = emptyList<ImageMessage>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
         holder.bind(getItem(position)!!, clickListener)
     }
 
-    class ViewHolder private constructor(private val binding: SquareImageViewBinding) :
+    class ViewHolder private constructor(val binding: SquareImageViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ImageMessage, clickListener: ImgMsgListener) {
@@ -39,10 +42,13 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
         }
     }
 
+    fun setData(imgMsgs: List<ImageMessage>) {
+        this.imgMsgList = imgMsgs
+        notifyDataSetChanged()
+    }
 }
 
 class ImgMsgDiffCallback : DiffUtil.ItemCallback<ImageMessage>() {
-
     override fun areItemsTheSame(oldItem: ImageMessage, newItem: ImageMessage): Boolean {
         return oldItem.id == newItem.id
     }

@@ -29,12 +29,12 @@ class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>()
         holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
 
 //        if (holder.itemView.findViewById<TextView>(R.id.update_fragment_header) != null) {
-            holder.itemView.findViewById<RelativeLayout>(R.id.squareLayout).setOnClickListener {
-                Toast.makeText(holder.itemView.context, "$currentItem", Toast.LENGTH_LONG).show()
-//                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
-//                val navController = Navigation.findNavController(holder.itemView)
-//                navController.navigate(action)
-            }
+//            holder.itemView.findViewById<RelativeLayout>(R.id.squareLayout).setOnClickListener {
+//                Toast.makeText(holder.itemView.context, "$currentItem", Toast.LENGTH_LONG).show()
+////                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
+////                val navController = Navigation.findNavController(holder.itemView)
+////                navController.navigate(action)
+//            }
 //        }
     }
 
