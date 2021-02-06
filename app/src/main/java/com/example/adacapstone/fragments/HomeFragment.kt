@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
@@ -41,19 +44,20 @@ class HomeFragment : Fragment() {
             adapter.setData(imgMsg)
         })
 
-        // Click listener for manage photo-msgs
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Click listener to navigate to manage photo-msgs fragment
+        val navController: NavController = Navigation.findNavController(view)
         val gridBtn: ImageView = view.findViewById(R.id.manage_grid_btn)
-        gridBtn.setOnClickListener {
-            val fragment: Fragment = ManageGrid()
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.nav_host_fragment, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+
+        gridBtn.setOnClickListener{
+            navController.navigate(R.id.action_homeFragment_to_manageGrid)
             Toast.makeText(activity, "Click on a photo to update or delete.", Toast.LENGTH_LONG).show()
         }
-
-        return view
     }
 
 }

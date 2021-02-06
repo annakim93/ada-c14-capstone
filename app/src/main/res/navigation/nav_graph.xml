@@ -9,13 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.adacapstone.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_manageGrid"
             app:destination="@id/child_nav_graph" />
     </fragment>
     <navigation
         android:id="@+id/child_nav_graph"
+        android:label="manage"
         app:startDestination="@id/manageGrid">
         <fragment
             android:id="@+id/manageGrid"
@@ -38,5 +39,8 @@
                 android:name="currentImgMsg"
                 app:argType="com.example.adacapstone.data.model.ImageMessage" />
         </fragment>
+        <action
+            android:id="@+id/action_global_homeFragment"
+            app:destination="@id/homeFragment" />
     </navigation>
 </navigation>
