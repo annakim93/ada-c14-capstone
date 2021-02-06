@@ -40,4 +40,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <include layout="@layout/main_bottom_nav" />
+
 </RelativeLayout>

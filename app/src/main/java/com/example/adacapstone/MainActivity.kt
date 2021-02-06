@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import com.example.adacapstone.fragments.ContactsFragment
 import com.example.adacapstone.fragments.HomeFragment
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -44,11 +46,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
         }
 
-        setFragment(HomeFragment())
-
 //        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(setOf(
 //                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
