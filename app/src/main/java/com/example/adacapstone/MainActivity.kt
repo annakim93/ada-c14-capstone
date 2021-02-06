@@ -54,6 +54,10 @@ class MainActivity : AppCompatActivity() {
                 navView.visibility = View.GONE
                 fab.visibility = View.GONE
                 bottomAppBar.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+                fab.visibility = View.VISIBLE
+                bottomAppBar.visibility = View.VISIBLE
             }
         }
 
