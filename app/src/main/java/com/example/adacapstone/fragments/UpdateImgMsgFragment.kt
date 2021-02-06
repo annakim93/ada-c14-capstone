@@ -64,8 +64,8 @@ class UpdateFragment : Fragment() {
             val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
             val updatedBM = (updatedImg.drawable as BitmapDrawable).bitmap
 
-            if (inputCheck(updatedMsg)) {
-                val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, updatedBM) // Create imgMsg object
+            if (inputCheck(updatedMsg, updatedImg)) {
+                val updatedImgMsg = ImageMessage(updatedMsg, updatedBM) // Create imgMsg object
                 mImgMsgViewModel.updateImgMsg(updatedImgMsg)
                 navController.navigate(R.id.action_updateFragment_to_manageGrid)
                 Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_LONG).show()
@@ -76,8 +76,8 @@ class UpdateFragment : Fragment() {
 
     }
 
-    private fun inputCheck(message: String): Boolean {
-        return !(TextUtils.isEmpty(message))
+    private fun inputCheck(message: String, img: ImageView): Boolean {
+        return !(TextUtils.isEmpty(message) || img.drawable == null)
     }
 
 }

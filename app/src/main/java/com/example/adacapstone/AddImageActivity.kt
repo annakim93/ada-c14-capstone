@@ -103,7 +103,7 @@ class AddImageActivity : AppCompatActivity() {
         val selectedImg: ImageView = findViewById(R.id.selected_img)
         val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
 
-        if (inputCheck(message)) {
+        if (inputCheck(message, selectedImg)) {
             val imgMsg = ImageMessage(message, selectedBM) // Create imgMsg object
             mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
             this@AddImageActivity.finish()
@@ -113,7 +113,7 @@ class AddImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun inputCheck(message: String): Boolean {
-        return !(TextUtils.isEmpty(message))
+    private fun inputCheck(message: String, image: ImageView): Boolean {
+        return !(TextUtils.isEmpty(message) || image.drawable == null)
     }
 }
