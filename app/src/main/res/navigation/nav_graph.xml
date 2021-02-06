@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_manageGrid"
             app:destination="@id/child_nav_graph" />
+        <action
+            android:id="@+id/action_homeFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
     </fragment>
     <navigation
         android:id="@+id/child_nav_graph"
@@ -43,4 +46,12 @@
             android:id="@+id/action_global_homeFragment"
             app:destination="@id/homeFragment" />
     </navigation>
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.example.adacapstone.fragments.ContactsFragment"
+        android:label="ContactsFragment" >
+        <action
+            android:id="@+id/action_contactsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

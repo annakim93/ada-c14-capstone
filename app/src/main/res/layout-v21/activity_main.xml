@@ -14,4 +14,6 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <include layout="@layout/main_bottom_nav" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

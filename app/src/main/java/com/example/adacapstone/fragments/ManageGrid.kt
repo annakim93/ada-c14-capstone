@@ -62,12 +62,6 @@ class ManageGrid : Fragment() {
 
         mImgMsgViewModel.navigateToUpdateFrag.observe(viewLifecycleOwner, Observer { imgMsg ->
             imgMsg?.let {
-//                val nestedNavHostFragment = childFragmentManager.findFragmentById(R.id.local_nav_host_fragment) as? NavHostFragment
-//                if (nestedNavHostFragment != null) {
-//                    localNavController = nestedNavHostFragment.navController
-//                }
-
-//                localNavController?.navigate(
                 this.findNavController().navigate(
                     ManageGridDirections.actionManageGridToUpdateFragment(imgMsg)
                 )
