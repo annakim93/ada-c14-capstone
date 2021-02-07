@@ -1,7 +1,9 @@
 package com.example.adacapstone.utils
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,19 +11,56 @@ import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
+import com.example.adacapstone.fragments.ManageGridDirections
 
 class GridImageAdapter(val clickListener: ImgMsgListener) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
 
     private var imgMsgList = emptyList<ImageMessage>()
 
+    private var multiSelect = false
+    private val selectedItems = arrayListOf<ImageMessage>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
+        val currentItem = imgMsgList[position]
+        val squareImageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
+
+        squareImageView.load(currentItem.image)
         holder.bind(getItem(position)!!, clickListener)
+
+        // Selected items have different opacity
+        if (selectedItems.contains(currentItem)) {
+            squareImageView.alpha = 0.3f
+        } else {
+            squareImageView.alpha = 1.0f
+        }
+
+        // Long-click handler - selection
+        squareImageView.setOnLongClickListener {
+            if (!multiSelect) {
+                multiSelect = true
+                selectItem(holder, currentItem)
+            }
+            true
+        }
+
+        // Normal click handler
+        squareImageView.setOnClickListener {
+            if (selectedItems.size == 0) {
+                multiSelect = false
+            }
+
+            if (multiSelect) {
+                selectItem(holder, currentItem)
+            } else {
+                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
+                holder.itemView.findNavController().navigate(action)
+            }
+        }
     }
 
     class ViewHolder private constructor(val binding: SquareImageViewBinding) :
@@ -45,6 +84,16 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
     fun setData(imgMsgs: List<ImageMessage>) {
         this.imgMsgList = imgMsgs
         notifyDataSetChanged()
+    }
+
+    private fun selectItem(holder: ViewHolder, imgMsg: ImageMessage) {
+        if (selectedItems.contains(imgMsg)) {
+            selectedItems.remove(imgMsg)
+            holder.itemView.findViewById<SquareImageView>(R.id.squareImage).alpha = 1.0f
+        } else {
+            selectedItems.add(imgMsg)
+            holder.itemView.findViewById<SquareImageView>(R.id.squareImage).alpha = 0.3f
+        }
     }
 }
 
