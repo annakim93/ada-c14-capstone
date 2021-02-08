@@ -42,13 +42,14 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         // FAB
+        val navController = findNavController(R.id.nav_host_fragment)
         val fab: FloatingActionButton = findViewById(R.id.add_img_fab)
         fab.setOnClickListener {
-            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+//            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+            navController.navigate(R.id.action_homeFragment_to_addNewFragment)
         }
 
         // Nav bottom menu visibility
-        val navController = findNavController(R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
                 navView.visibility = View.GONE

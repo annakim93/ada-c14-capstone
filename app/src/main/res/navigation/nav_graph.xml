@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_contactsFragment"
             app:destination="@id/contactsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
     </fragment>
     <navigation
         android:id="@+id/child_nav_graph"
@@ -52,6 +55,15 @@
         android:label="ContactsFragment" >
         <action
             android:id="@+id/action_contactsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewFragment"
+        android:name="com.example.adacapstone.fragments.AddNewFragment"
+        android:label="fragment_add_new"
+        tools:layout="@layout/fragment_add_new" >
+        <action
+            android:id="@+id/action_addNewFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
