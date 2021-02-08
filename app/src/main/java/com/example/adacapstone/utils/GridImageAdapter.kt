@@ -19,7 +19,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
     private var imgMsgList = emptyList<ImageMessage>()
 
     private var multiSelect = false
-    private val selectedItems = arrayListOf<ImageMessage>()
+    val selectedItems = arrayListOf<ImageMessage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)

@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
                 navView.visibility = View.GONE
-                fab.visibility = View.GONE
                 bottomAppBar.visibility = View.GONE
+                fab.hide()
             } else {
                 navView.visibility = View.VISIBLE
-                fab.visibility = View.VISIBLE
                 bottomAppBar.visibility = View.VISIBLE
+                fab.show()
             }
         }
 

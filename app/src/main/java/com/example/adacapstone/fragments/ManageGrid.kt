@@ -25,6 +25,7 @@ import com.example.adacapstone.utils.ImgMsgListener
 class ManageGrid : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
+    private lateinit var adapter: GridImageAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -41,7 +42,7 @@ class ManageGrid : Fragment() {
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
         binding.imgMsgViewModel = mImgMsgViewModel
 
-        val adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
+        adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
 //            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
             mImgMsgViewModel.onImgMsgClicked(imgMsgId)
         })
@@ -82,6 +83,14 @@ class ManageGrid : Fragment() {
         closeBtn.setOnClickListener{
             navController.navigate(R.id.action_global_homeFragment)
         }
+
+//        // Visibility of delete button
+//        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
+//        if (adapter.selectedItems.size > 0) {
+//            deleteBtn.visibility = View.VISIBLE
+//        } else {
+//            deleteBtn.visibility = View.GONE
+//        }
 
     }
 
