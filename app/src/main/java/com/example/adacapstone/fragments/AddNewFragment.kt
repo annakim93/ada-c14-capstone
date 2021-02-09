@@ -43,6 +43,7 @@ class AddNewFragment : Fragment() {
         }
 
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
+        selectedImg = view.findViewById(R.id.selected_img)
 
         return view
     }
@@ -83,13 +84,12 @@ class AddNewFragment : Fragment() {
             val alertText: TextView = view.findViewById(R.id.alertText)
             val message = alertText.text.toString()
 
-            val selectedImg: ImageView = view.findViewById(R.id.selected_img)
             val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
 
             if (inputCheck(message, selectedImg)) {
                 val imgMsg = ImageMessage(0, message, selectedBM) // Create imgMsg object
                 mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
-                activity?.finish()
+                navController.navigate(R.id.action_addNewFragment_to_homeFragment)
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()

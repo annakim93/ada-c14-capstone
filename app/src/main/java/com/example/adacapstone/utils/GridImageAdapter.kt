@@ -60,6 +60,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
 
             if (multiSelect) {
                 selectItem(holder, currentItem)
+                fragment.manageSelection(currentItem)
             } else {
                 val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
                 holder.itemView.findNavController().navigate(action)

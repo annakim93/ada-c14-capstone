@@ -36,6 +36,7 @@ class ManageGrid : Fragment() {
     private var counter = 0
     private lateinit var toolbarHeaderTxt: TextView
     private lateinit var toolbar: Toolbar
+    private lateinit var deleteBtn: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -96,6 +97,7 @@ class ManageGrid : Fragment() {
 
         toolbarHeaderTxt = view.findViewById(R.id.update_fragment_header)
         toolbar = view.findViewById(R.id.manage_frag_toolbar)
+        deleteBtn = view.findViewById(R.id.delete_btn)
 //        // Visibility of delete button
 //        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
 //        if (adapter.selectedItems.size > 0) {
@@ -112,13 +114,27 @@ class ManageGrid : Fragment() {
             selectedItems.add(imgMsg)
             counter++
             updateToolbarHeader(counter)
-            toolbar.inflateMenu(R.menu.multi_select_menu)
+            deleteBtn.visibility = View.VISIBLE
+//            toolbar.inflateMenu(R.menu.multi_select_menu)
+        }
+    }
+
+    fun manageSelection(imgMsg: ImageMessage) {
+        if (selectedItems.contains(imgMsg)) {
+            selectedItems.remove(imgMsg)
+            counter--
+            updateToolbarHeader(counter)
+        } else {
+            selectedItems.add(imgMsg)
+            counter++
+            updateToolbarHeader(counter)
         }
     }
 
     private fun updateToolbarHeader(counter: Int) {
         if (counter == 0) {
             toolbarHeaderTxt.text = "Manage"
+            deleteBtn.visibility = View.GONE
         } else if (counter == 1) {
             toolbarHeaderTxt.text = "1 item selected"
         } else {
