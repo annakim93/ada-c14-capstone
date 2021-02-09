@@ -38,6 +38,12 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun deleteImgMsg(imgMsg: ImageMessage) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteImgMsg(imgMsg)
+        }
+    }
+
     fun onImgMsgClicked(imgMsg: ImageMessage) {
         _navigateToUpdateFrag.value = imgMsg
     }

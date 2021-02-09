@@ -16,4 +16,8 @@ class ImgMsgRepo(private val imgMsgDao: ImgMsgDao) {
         imgMsgDao.updateImgMsg(imgMsg)
     }
 
+    suspend fun deleteImgMsg(imgMsg: ImageMessage) {
+        imgMsgDao.deleteImgMsg(imgMsg)
+    }
+
 }

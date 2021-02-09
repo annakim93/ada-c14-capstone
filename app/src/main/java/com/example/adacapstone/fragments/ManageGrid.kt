@@ -1,5 +1,6 @@
 package com.example.adacapstone.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AlertDialogLayout
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,6 +26,7 @@ import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
 import com.example.adacapstone.utils.GridImageAdapter
 import com.example.adacapstone.utils.ImgMsgListener
+import kotlinx.coroutines.selects.select
 
 class ManageGrid : Fragment() {
 
@@ -35,7 +38,6 @@ class ManageGrid : Fragment() {
     private val selectedItems = arrayListOf<ImageMessage>()
     private var counter = 0
     private lateinit var toolbarHeaderTxt: TextView
-    private lateinit var toolbar: Toolbar
     private lateinit var deleteBtn: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -91,21 +93,44 @@ class ManageGrid : Fragment() {
         val navController: NavController = Navigation.findNavController(view)
         val closeBtn: ImageView = view.findViewById(R.id.close_btn)
 
-        closeBtn.setOnClickListener{
+        closeBtn.setOnClickListener {
             navController.navigate(R.id.action_global_homeFragment)
         }
 
+        // Instantiate lateinit vars for multi-select
         toolbarHeaderTxt = view.findViewById(R.id.update_fragment_header)
-        toolbar = view.findViewById(R.id.manage_frag_toolbar)
         deleteBtn = view.findViewById(R.id.delete_btn)
-//        // Visibility of delete button
-//        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
-//        if (adapter.selectedItems.size > 0) {
-//            deleteBtn.visibility = View.VISIBLE
-//        } else {
-//            deleteBtn.visibility = View.GONE
-//        }
 
+        // Click listener for delete btn
+        deleteBtn.setOnClickListener {
+            deleteImgMsg()
+        }
+
+    }
+
+    private fun deleteImgMsg() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            for (imgMsg in selectedItems) {
+                mImgMsgViewModel.deleteImgMsg(imgMsg)
+            }
+
+            adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
+                mImgMsgViewModel.onImgMsgClicked(imgMsgId)
+            }, this)
+
+            isActionMode = false
+            counter = 0
+            updateToolbarHeader(counter)
+            Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        if (selectedItems.size == 1) {
+            builder.setMessage("Are you sure you want to delete this item?")
+        } else {
+            builder.setMessage("Are you sure you want to delete these items?")
+        }
+        builder.create().show()
     }
 
     fun startSelection(imgMsg: ImageMessage) {
@@ -115,7 +140,6 @@ class ManageGrid : Fragment() {
             counter++
             updateToolbarHeader(counter)
             deleteBtn.visibility = View.VISIBLE
-//            toolbar.inflateMenu(R.menu.multi_select_menu)
         }
     }
 
