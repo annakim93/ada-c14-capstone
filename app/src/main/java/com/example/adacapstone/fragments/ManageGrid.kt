@@ -9,15 +9,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AlertDialogLayout
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.adacapstone.R
@@ -26,15 +22,15 @@ import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
 import com.example.adacapstone.utils.GridImageAdapter
 import com.example.adacapstone.utils.ImgMsgListener
-import kotlinx.coroutines.selects.select
 
 class ManageGrid : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
     private lateinit var adapter: GridImageAdapter
+    private lateinit var navController: NavController
 
     // Action mode vars for mutliple selection
-    var isActionMode = false
+    private var isActionMode = false
     private val selectedItems = arrayListOf<ImageMessage>()
     private var counter = 0
     private lateinit var toolbarHeaderTxt: TextView
@@ -48,8 +44,8 @@ class ManageGrid : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentManageGridBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_manage_grid, container, false)
-
-        val application = requireNotNull(this.activity).application
+//        binding = DataBindingUtil.inflate(
+//            inflater, R.layout.fragment_manage_grid, container, false)
 
         // Get reference to ViewModel associated with manage grid fragment
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
@@ -90,7 +86,7 @@ class ManageGrid : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Click listener on close btn to navigate back to home fragment
-        val navController: NavController = Navigation.findNavController(view)
+        navController = Navigation.findNavController(view)
         val closeBtn: ImageView = view.findViewById(R.id.close_btn)
 
         closeBtn.setOnClickListener {
@@ -104,6 +100,7 @@ class ManageGrid : Fragment() {
         // Click listener for delete btn
         deleteBtn.setOnClickListener {
             deleteImgMsg()
+
         }
 
     }
@@ -115,13 +112,11 @@ class ManageGrid : Fragment() {
                 mImgMsgViewModel.deleteImgMsg(imgMsg)
             }
 
-            adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
-                mImgMsgViewModel.onImgMsgClicked(imgMsgId)
-            }, this)
-
-            isActionMode = false
-            counter = 0
-            updateToolbarHeader(counter)
+//            isActionMode = false
+//            selectedItems.clear()
+//            counter = 0
+//            updateToolbarHeader(counter)
+            navController.navigate(R.id.action_global_homeFragment)
             Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
         }
         builder.setNegativeButton("No") { _, _ -> }

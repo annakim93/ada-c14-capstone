@@ -18,7 +18,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
 
     // List to hold data
-    private var imgMsgList = emptyList<ImageMessage>()
+    var imgMsgList = emptyList<ImageMessage>()
 
     // Vars for multiple selection
     private var multiSelect = false
