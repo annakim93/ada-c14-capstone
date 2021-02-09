@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.adacapstone.R
+import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
 import com.example.adacapstone.utils.GridImageAdapter
@@ -26,6 +29,13 @@ class ManageGrid : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
     private lateinit var adapter: GridImageAdapter
+
+    // Action mode vars for mutliple selection
+    var isActionMode = false
+    private val selectedItems = arrayListOf<ImageMessage>()
+    private var counter = 0
+    private lateinit var toolbarHeaderTxt: TextView
+    private lateinit var toolbar: Toolbar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -45,7 +55,7 @@ class ManageGrid : Fragment() {
         adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
 //            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
             mImgMsgViewModel.onImgMsgClicked(imgMsgId)
-        })
+        }, this)
         binding.recyclerViewManage.adapter = adapter
 
         mImgMsgViewModel.readAllData.observe(viewLifecycleOwner, Observer {
@@ -84,6 +94,8 @@ class ManageGrid : Fragment() {
             navController.navigate(R.id.action_global_homeFragment)
         }
 
+        toolbarHeaderTxt = view.findViewById(R.id.update_fragment_header)
+        toolbar = view.findViewById(R.id.manage_frag_toolbar)
 //        // Visibility of delete button
 //        val deleteBtn: ImageView = view.findViewById(R.id.delete_btn)
 //        if (adapter.selectedItems.size > 0) {
@@ -92,6 +104,26 @@ class ManageGrid : Fragment() {
 //            deleteBtn.visibility = View.GONE
 //        }
 
+    }
+
+    fun startSelection(imgMsg: ImageMessage) {
+        if (!isActionMode) {
+            isActionMode = true
+            selectedItems.add(imgMsg)
+            counter++
+            updateToolbarHeader(counter)
+            toolbar.inflateMenu(R.menu.multi_select_menu)
+        }
+    }
+
+    private fun updateToolbarHeader(counter: Int) {
+        if (counter == 0) {
+            toolbarHeaderTxt.text = "Manage"
+        } else if (counter == 1) {
+            toolbarHeaderTxt.text = "1 item selected"
+        } else {
+            toolbarHeaderTxt.text = counter.toString() + " items selected"
+        }
     }
 
 }

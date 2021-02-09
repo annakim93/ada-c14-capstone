@@ -11,15 +11,18 @@ import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
+import com.example.adacapstone.fragments.ManageGrid
 import com.example.adacapstone.fragments.ManageGridDirections
 
-class GridImageAdapter(val clickListener: ImgMsgListener) :
+class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGrid) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
 
+    // List to hold data
     private var imgMsgList = emptyList<ImageMessage>()
 
+    // Vars for multiple selection
     private var multiSelect = false
-    val selectedItems = arrayListOf<ImageMessage>()
+    private val selectedItems = arrayListOf<ImageMessage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -44,6 +47,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener) :
             if (!multiSelect) {
                 multiSelect = true
                 selectItem(holder, currentItem)
+                fragment.startSelection(currentItem)
             }
             true
         }
