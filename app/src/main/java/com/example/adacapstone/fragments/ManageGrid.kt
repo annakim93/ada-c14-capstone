@@ -44,8 +44,6 @@ class ManageGrid : Fragment() {
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentManageGridBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_manage_grid, container, false)
-//        binding = DataBindingUtil.inflate(
-//            inflater, R.layout.fragment_manage_grid, container, false)
 
         // Get reference to ViewModel associated with manage grid fragment
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
@@ -117,11 +115,11 @@ class ManageGrid : Fragment() {
                 }
             })
 
-//            isActionMode = false
-//            selectedItems.clear()
-//            counter = 0
-//            updateToolbarHeader(counter)
-//            navController.navigate(R.id.action_global_homeFragment)
+            isActionMode = false
+            selectedItems.clear()
+            adapter.selectedItems.clear()
+            counter = 0
+            updateToolbarHeader(counter)
             Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
         }
         builder.setNegativeButton("No") { _, _ -> }
