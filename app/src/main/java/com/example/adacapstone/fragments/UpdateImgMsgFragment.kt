@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -58,6 +59,11 @@ class UpdateFragment : Fragment() {
         selectedImg = view.findViewById(R.id.selected_update_img)
         selectedImgPath = args.currentImgMsg.imageFilePath
         selectedImg.setImageBitmap(BitmapFactory.decodeFile(selectedImgPath))
+
+        if (selectedImgPath.contains("CAMERA")) {
+            selectedImg.rotation = 90F
+        }
+
         view.findViewById<EditText>(R.id.update_alert_text).setText(args.currentImgMsg.msg)
 
         return view
@@ -106,7 +112,7 @@ class UpdateFragment : Fragment() {
         val cameraBtn: Button = view.findViewById(R.id.update_camera_btn)
         cameraBtn.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val imgFile: File = createImageFile()
+            val imgFile: File = createImageFile("camera")
 
             imgFile.also {
                 selectedImgUri = FileProvider.getUriForFile(
@@ -134,7 +140,7 @@ class UpdateFragment : Fragment() {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 
-            val imgFile: File = createImageFile()
+            val imgFile: File = createImageFile("gallery")
 
             imgFile.also {
                 val fos = FileOutputStream(imgFile)
@@ -147,11 +153,19 @@ class UpdateFragment : Fragment() {
     }
 
     @Throws(IOException::class)
-    private fun createImageFile(): File {
+    private fun createImageFile(mode: String): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        var prefix: String
+
+        prefix = if (mode == "camera") {
+            "CAMERA_JPEG_${timeStamp}_"
+        } else {
+            "GALLERY_JPEG_${timeStamp}_"
+        }
+
         return File.createTempFile(
-                "JPEG_${timeStamp}_",
+                prefix,
                 ".jpg",
                 storageDir
         ).apply {

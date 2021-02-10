@@ -92,7 +92,7 @@ class AddNewFragment : Fragment() {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
             // Create the File where the img should go
-            val imgFile: File = createImageFile()
+            val imgFile: File = createImageFile("camera")
 
             // Continue only if the File was successfully created
             imgFile.also {
@@ -140,7 +140,7 @@ class AddNewFragment : Fragment() {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 
-            val imgFile: File = createImageFile()
+            val imgFile: File = createImageFile("gallery")
 
             imgFile.also {
                 val fos = FileOutputStream(imgFile)
@@ -153,12 +153,20 @@ class AddNewFragment : Fragment() {
     }
 
     @Throws(IOException::class)
-    private fun createImageFile(): File {
+    private fun createImageFile(mode: String): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        var prefix: String
+
+        prefix = if (mode == "camera") {
+            "CAMERA_JPEG_${timeStamp}_"
+        } else {
+            "GALLERY_JPEG_${timeStamp}_"
+        }
+
         return File.createTempFile(
-                "JPEG_${timeStamp}_", /* prefix */
+                prefix, /* prefix */
                 ".jpg", /* suffix */
                 storageDir /* directory */
         ).apply {
