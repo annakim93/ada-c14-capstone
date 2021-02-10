@@ -88,7 +88,8 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
 
     fun setData(imgMsgs: List<ImageMessage>) {
         this.imgMsgList = imgMsgs
-        notifyDataSetChanged()
+        submitList(imgMsgs)
+//        notifyDataSetChanged()
     }
 
     private fun selectItem(holder: ViewHolder, imgMsg: ImageMessage) {

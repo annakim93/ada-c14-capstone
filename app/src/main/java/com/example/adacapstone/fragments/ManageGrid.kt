@@ -60,7 +60,6 @@ class ManageGrid : Fragment() {
         mImgMsgViewModel.readAllData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.setData(it)
-                adapter.submitList(it)
             }
         })
 
@@ -112,11 +111,17 @@ class ManageGrid : Fragment() {
                 mImgMsgViewModel.deleteImgMsg(imgMsg)
             }
 
+            mImgMsgViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    adapter.setData(it)
+                }
+            })
+
 //            isActionMode = false
 //            selectedItems.clear()
 //            counter = 0
 //            updateToolbarHeader(counter)
-            navController.navigate(R.id.action_global_homeFragment)
+//            navController.navigate(R.id.action_global_homeFragment)
             Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
         }
         builder.setNegativeButton("No") { _, _ -> }
