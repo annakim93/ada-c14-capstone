@@ -1,19 +1,12 @@
 package com.example.adacapstone.utils
 
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.Toast
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
-import com.example.adacapstone.databinding.SquareImageViewBinding
-import com.example.adacapstone.fragments.ManageGridDirections
 import java.io.File
 
 class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {

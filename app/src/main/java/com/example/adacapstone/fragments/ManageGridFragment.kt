@@ -66,7 +66,7 @@ class ManageGridFragment : Fragment() {
         mImgMsgViewModel.navigateToUpdateFrag.observe(viewLifecycleOwner, Observer { imgMsg ->
             imgMsg?.let {
                 this.findNavController().navigate(
-                    ManageGridDirections.actionManageGridToUpdateFragment(imgMsg)
+                    ManageGridFragmentDirections.actionManageGridToUpdateFragment(imgMsg)
                 )
                 mImgMsgViewModel.onUpdateFragNavigated()
             }

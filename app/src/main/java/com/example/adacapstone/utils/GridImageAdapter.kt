@@ -11,7 +11,7 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 import com.example.adacapstone.fragments.ManageGridFragment
-import com.example.adacapstone.fragments.ManageGridDirections
+import com.example.adacapstone.fragments.ManageGridFragmentDirections
 import java.io.File
 
 class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGridFragment) :
@@ -62,7 +62,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
                 selectItem(holder, currentItem)
                 fragment.manageSelection(currentItem)
             } else {
-                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
+                val action = ManageGridFragmentDirections.actionManageGridToUpdateFragment(currentItem)
                 holder.itemView.findNavController().navigate(action)
             }
         }
