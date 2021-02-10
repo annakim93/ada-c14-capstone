@@ -1,15 +1,18 @@
 package com.example.adacapstone.fragments
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +33,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class AddNewFragment : Fragment() {
 
     // Constants
@@ -43,6 +47,7 @@ class AddNewFragment : Fragment() {
     // Image vars
     private lateinit var selectedImg: ImageView
     lateinit var currentImgPath: String
+    lateinit var currentImgUri: Uri
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -91,12 +96,12 @@ class AddNewFragment : Fragment() {
 
             // Continue only if the File was successfully created
             imgFile.also {
-                val imgURI: Uri = FileProvider.getUriForFile(
+                currentImgUri = FileProvider.getUriForFile(
                         requireContext(),
                         "com.example.android.fileprovider",
                         it
                 )
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgURI)
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentImgUri)
                 startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
             }
 
@@ -128,6 +133,9 @@ class AddNewFragment : Fragment() {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             val bmp = BitmapFactory.decodeFile(currentImgPath)
             selectedImg.setImageBitmap(bmp)
+
+            val imgRotation = getCameraPhotoOrientation(requireContext(), currentImgUri, currentImgPath)
+            selectedImg.rotation = imgRotation.toFloat()
         } else if (requestCode == GALLERY_REQUEST_CODE  && resultCode == RESULT_OK) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
@@ -157,6 +165,29 @@ class AddNewFragment : Fragment() {
             // Save a file: path for use with ACTION_VIEW intents
             currentImgPath = absolutePath
         }
+    }
+
+    fun getCameraPhotoOrientation(context: Context, imageUri: Uri,
+                                  imagePath: String): Int {
+        var rotate = 0
+        try {
+            context.contentResolver.notifyChange(imageUri, null)
+            val imageFile = File(imagePath)
+            val exif = ExifInterface(imageFile.absolutePath)
+            val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL)
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
+            }
+            Log.i("RotateImage", "Exif orientation: $orientation")
+            Log.i("RotateImage", "Rotate value: $rotate")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return rotate
     }
 
     // Database input check

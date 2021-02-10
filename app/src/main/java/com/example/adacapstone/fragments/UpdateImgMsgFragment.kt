@@ -1,14 +1,17 @@
 package com.example.adacapstone.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +38,7 @@ class UpdateFragment : Fragment() {
     private val GALLERY_REQUEST_CODE = 6
     private lateinit var selectedImg: ImageView
     lateinit var selectedImgPath: String
+    lateinit var selectedImgUri: Uri
 
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
@@ -79,7 +83,6 @@ class UpdateFragment : Fragment() {
         saveBtn.setOnClickListener {
             val updatedMsg = view.findViewById<EditText>(R.id.update_alert_text).text.toString()
             val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
-//            val updatedBM = (updatedImg.drawable as BitmapDrawable).bitmap
 
             if (inputCheck(updatedMsg, updatedImg)) {
                 val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, selectedImgPath) // Create imgMsg object
@@ -106,12 +109,12 @@ class UpdateFragment : Fragment() {
             val imgFile: File = createImageFile()
 
             imgFile.also {
-                val imgURI: Uri = FileProvider.getUriForFile(
+                selectedImgUri = FileProvider.getUriForFile(
                         requireContext(),
                         "com.example.android.fileprovider",
                         it
                 )
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgURI)
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImgUri)
                 startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
             }
         }
@@ -122,11 +125,11 @@ class UpdateFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == CAMERA_REQUEST_CODE) {
-//            val bmp = data?.extras?.get("data") as Bitmap
-//            selectedImg.setImageBitmap(bmp)
-
             val bmp = BitmapFactory.decodeFile(selectedImgPath)
             selectedImg.setImageBitmap(bmp)
+
+            val imgRotation = getCameraPhotoOrientation(requireContext(), selectedImgUri, selectedImgPath)
+            selectedImg.rotation = imgRotation.toFloat()
         } else if (requestCode == GALLERY_REQUEST_CODE) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
@@ -154,6 +157,29 @@ class UpdateFragment : Fragment() {
         ).apply {
             selectedImgPath = absolutePath
         }
+    }
+
+    fun getCameraPhotoOrientation(context: Context, imageUri: Uri,
+                                  imagePath: String): Int {
+        var rotate = 0
+        try {
+            context.contentResolver.notifyChange(imageUri, null)
+            val imageFile = File(imagePath)
+            val exif = ExifInterface(imageFile.absolutePath)
+            val orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL)
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
+            }
+            Log.i("RotateImage", "Exif orientation: $orientation")
+            Log.i("RotateImage", "Rotate value: $rotate")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return rotate
     }
 
     private fun inputCheck(message: String, img: ImageView): Boolean {
