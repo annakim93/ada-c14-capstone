@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val fab: FloatingActionButton = findViewById(R.id.add_img_fab)
         fab.setOnClickListener {
-//            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
             navController.navigate(R.id.action_homeFragment_to_addNewFragment)
         }
 
