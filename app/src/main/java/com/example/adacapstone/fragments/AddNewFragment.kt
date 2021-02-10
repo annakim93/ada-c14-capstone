@@ -42,7 +42,7 @@ class AddNewFragment : Fragment() {
 
     // Image vars
     private lateinit var selectedImg: ImageView
-    lateinit var currentPhotoPath: String
+    lateinit var currentImgPath: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -78,7 +78,6 @@ class AddNewFragment : Fragment() {
         galleryBtn.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
-
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
         }
 
@@ -87,17 +86,17 @@ class AddNewFragment : Fragment() {
         cameraBtn.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-            // Create the File where the photo should go
-            val photoFile: File = createImageFile()
+            // Create the File where the img should go
+            val imgFile: File = createImageFile()
 
             // Continue only if the File was successfully created
-            photoFile.also {
-                val photoURI: Uri = FileProvider.getUriForFile(
+            imgFile.also {
+                val imgURI: Uri = FileProvider.getUriForFile(
                         requireContext(),
                         "com.example.android.fileprovider",
                         it
                 )
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgURI)
                 startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
             }
 
@@ -111,7 +110,7 @@ class AddNewFragment : Fragment() {
             val message = alertText.text.toString()
 
             if (inputCheck(message, selectedImg)) {
-                val imgMsg = ImageMessage(0, message, currentPhotoPath) // Create imgMsg object
+                val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
                 mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
                 navController.navigate(R.id.action_addNewFragment_to_homeFragment)
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_LONG).show()
@@ -127,18 +126,16 @@ class AddNewFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-            val bmp = BitmapFactory.decodeFile(currentPhotoPath)
+            val bmp = BitmapFactory.decodeFile(currentImgPath)
             selectedImg.setImageBitmap(bmp)
         } else if (requestCode == GALLERY_REQUEST_CODE  && resultCode == RESULT_OK) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 
-            // Create the File where the photo should go
-            val photoFile: File = createImageFile()
+            val imgFile: File = createImageFile()
 
-            // Continue only if the File was successfully created
-            photoFile.also {
-                val fos = FileOutputStream(photoFile)
+            imgFile.also {
+                val fos = FileOutputStream(imgFile)
                 val bmp = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos)
                 fos.flush()
@@ -158,7 +155,7 @@ class AddNewFragment : Fragment() {
                 storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
+            currentImgPath = absolutePath
         }
     }
 
