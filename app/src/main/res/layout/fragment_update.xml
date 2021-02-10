@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddImageActivity">
-    
+    tools:context=".fragments.UpdateFragment">
+
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout_add_img"
+        android:id="@+id/app_bar_layout_update_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/add_img_toolbar"
+            android:id="@+id/update_img_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@android:color/white">
@@ -25,7 +25,7 @@
                 android:layout_marginEnd="16dp">
 
                 <ImageView
-                    android:id="@+id/close_add_img_btn"
+                    android:id="@+id/close_update_img_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
@@ -33,7 +33,7 @@
                     android:src="@drawable/close"/>
 
                 <TextView
-                    android:id="@+id/add_img_activity_title"
+                    android:id="@+id/update_img_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -43,11 +43,11 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="4dp"
                     android:textSize="16sp"
-                    android:text="@string/new_image_activity_header"
+                    android:text="Update"
                     android:textStyle="bold"/>
 
                 <ImageView
-                    android:id="@+id/save_img_btn"
+                    android:id="@+id/save_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="100"
-        android:layout_below="@+id/app_bar_layout_add_img">
+        android:layout_below="@+id/app_bar_layout_update_img">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,14 +74,14 @@
             android:layout_weight="60">
 
             <ImageView
-                android:id="@+id/selected_img"
+                android:id="@+id/selected_update_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_image_24"/>
 
         </RelativeLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -90,7 +90,7 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:id="@+id/gallery_btn"
+                android:id="@+id/update_gallery_btn"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
@@ -99,7 +99,7 @@
                 android:textColor="@android:color/white"/>
 
             <Button
-                android:id="@+id/camera_btn"
+                android:id="@+id/update_camera_btn"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -115,7 +115,7 @@
             android:layout_weight="25">
 
             <EditText
-                android:id="@+id/alertText"
+                android:id="@+id/update_alert_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/img_msg_hint"

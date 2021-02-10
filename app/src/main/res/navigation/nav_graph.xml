@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.adacapstone.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_manageGrid"
+            app:destination="@id/child_nav_graph" />
+        <action
+            android:id="@+id/action_homeFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
+    </fragment>
+    <navigation
+        android:id="@+id/child_nav_graph"
+        android:label="manage"
+        app:startDestination="@id/manageGrid">
+        <fragment
+            android:id="@+id/manageGrid"
+            android:name="com.example.adacapstone.fragments.ManageGrid"
+            android:label="fragment_manage_grid"
+            tools:layout="@layout/fragment_manage_grid">
+            <action
+                android:id="@+id/action_manageGrid_to_updateFragment"
+                app:destination="@id/updateFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/updateFragment"
+            android:name="com.example.adacapstone.fragments.UpdateFragment"
+            android:label="fragment_update"
+            tools:layout="@layout/fragment_update">
+            <action
+                android:id="@+id/action_updateFragment_to_manageGrid"
+                app:destination="@id/manageGrid" />
+            <argument
+                android:name="currentImgMsg"
+                app:argType="com.example.adacapstone.data.model.ImageMessage" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_homeFragment"
+            app:destination="@id/homeFragment" />
+    </navigation>
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.example.adacapstone.fragments.ContactsFragment"
+        android:label="ContactsFragment" >
+        <action
+            android:id="@+id/action_contactsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewFragment"
+        android:name="com.example.adacapstone.fragments.AddNewFragment"
+        android:label="fragment_add_new"
+        tools:layout="@layout/fragment_add_new" >
+        <action
+            android:id="@+id/action_addNewFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

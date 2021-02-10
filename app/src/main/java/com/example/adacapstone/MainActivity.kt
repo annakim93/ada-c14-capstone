@@ -2,10 +2,13 @@ package com.example.adacapstone
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.adacapstone.Fragments.ContactsFragment
-import com.example.adacapstone.Fragments.HomeFragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import com.example.adacapstone.fragments.ContactsFragment
+import com.example.adacapstone.fragments.HomeFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Bottom App Bar
+        // Bottom app bar
         val bottomAppBar: BottomAppBar = findViewById(R.id.bottom_app_bar)
         val bottomBarBackground = bottomAppBar.background as MaterialShapeDrawable
         bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
@@ -32,44 +35,47 @@ class MainActivity : AppCompatActivity() {
             .setTopRightCorner(RoundedCornerTreatment()).setTopRightCornerSize(RelativeCornerSize(0.5f))
             .build()
 
-        // Navigation Menu
+        // Navigation bottom menu
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.background = null
         navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         // FAB
+        val navController = findNavController(R.id.nav_host_fragment)
         val fab: FloatingActionButton = findViewById(R.id.add_img_fab)
         fab.setOnClickListener {
-            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+//            startActivity(Intent(this@MainActivity, AddImageActivity::class.java))
+            navController.navigate(R.id.action_homeFragment_to_addNewFragment)
         }
 
-        setFragment(HomeFragment())
+        // Nav bottom menu visibility
+        navController.addOnDestinationChangedListener{ _, destination, _ ->
+            if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
+                navView.visibility = View.GONE
+                bottomAppBar.visibility = View.GONE
+                fab.hide()
+            } else {
+                navView.visibility = View.VISIBLE
+                bottomAppBar.visibility = View.VISIBLE
+                fab.show()
+            }
+        }
 
-//        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        val navController = findNavController(R.id.nav_host_fragment)
         when (item.itemId) {
             R.id.nav_home -> {
-                setFragment(HomeFragment())
+                navController.navigate(R.id.action_contactsFragment_to_homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_contacts -> {
-                setFragment(ContactsFragment())
+                navController.navigate(R.id.action_homeFragment_to_contactsFragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
-    }
-
-    private fun setFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 }

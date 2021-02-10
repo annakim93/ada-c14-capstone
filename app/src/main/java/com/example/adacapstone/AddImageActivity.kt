@@ -3,24 +3,27 @@ package com.example.adacapstone
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.view.View
+import android.text.TextUtils
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.adacapstone.Utils.FilePaths
-import com.example.adacapstone.Utils.FileSearch
-import com.example.adacapstone.Utils.GridImageAdapter
-import com.example.adacapstone.Utils.Permissions
-import com.google.android.material.tabs.TabLayout
+import androidx.lifecycle.ViewModelProvider
+import com.example.adacapstone.data.model.ImageMessage
+import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.utils.Permissions
+
 
 class AddImageActivity : AppCompatActivity() {
     // Constants
     private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
     private val CAMERA_REQUEST_CODE = 5
     private val GALLERY_REQUEST_CODE = 6
+
+    // Room database
+    private lateinit var mImgMsgViewModel: ImgMsgViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +50,12 @@ class AddImageActivity : AppCompatActivity() {
         val newImgCloseBtn: ImageView = findViewById(R.id.close_add_img_btn)
         newImgCloseBtn.setOnClickListener { this@AddImageActivity.finish() }
 
-        val nextActivityBtn: ImageView = findViewById(R.id.cont_add_img_btn)
-        nextActivityBtn.setOnClickListener {} // TO:DO --> NAV TO MESSAGE SAVE SCREEN
+        mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
+
+        val nextActivityBtn: ImageView = findViewById(R.id.save_img_btn)
+        nextActivityBtn.setOnClickListener {
+          addEntryToDatabase()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -57,7 +64,7 @@ class AddImageActivity : AppCompatActivity() {
         val selectedImg: ImageView = findViewById(R.id.selected_img)
 
         if (requestCode == CAMERA_REQUEST_CODE) {
-            var bmp = data?.extras?.get("data") as Bitmap
+            val bmp = data?.extras?.get("data") as Bitmap
             selectedImg.setImageBitmap(bmp)
         } else if (requestCode == GALLERY_REQUEST_CODE) {
             selectedImg.setImageURI(data?.data)
@@ -73,11 +80,40 @@ class AddImageActivity : AppCompatActivity() {
     }
 
     fun checkSinglePermission(permission: String): Boolean {
-        val permissionRequest = ActivityCompat.checkSelfPermission(this@AddImageActivity, permission)
+        val permissionRequest = ActivityCompat.checkSelfPermission(
+            this@AddImageActivity,
+            permission
+        )
         return permissionRequest == PackageManager.PERMISSION_GRANTED
     }
 
     fun verifyPermissions(permissions: Array<String>) {
-        ActivityCompat.requestPermissions(this@AddImageActivity, permissions, VERIFY_PERMISSIONS_REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            this@AddImageActivity,
+            permissions,
+            VERIFY_PERMISSIONS_REQUEST_CODE
+        )
+    }
+
+    // Room database
+    private fun addEntryToDatabase() {
+        val alertText: TextView = findViewById(R.id.alertText)
+        val message = alertText.text.toString()
+
+        val selectedImg: ImageView = findViewById(R.id.selected_img)
+        val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
+
+        if (inputCheck(message, selectedImg)) {
+            val imgMsg = ImageMessage(0, message, selectedBM) // Create imgMsg object
+            mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
+            this@AddImageActivity.finish()
+            Toast.makeText(this, "Successfully saved.", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun inputCheck(message: String, image: ImageView): Boolean {
+        return !(TextUtils.isEmpty(message) || image.drawable == null)
     }
 }
