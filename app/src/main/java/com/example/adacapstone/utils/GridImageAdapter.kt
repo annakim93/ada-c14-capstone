@@ -54,13 +54,12 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
 
         // Normal click handler
         squareImageView.setOnClickListener {
-            if (selectedItems.size == 0) {
-                multiSelect = false
-            }
-
             if (multiSelect) {
                 selectItem(holder, currentItem)
                 fragment.manageSelection(currentItem)
+                if (selectedItems.size == 0) {
+                    multiSelect = false
+                }
             } else {
                 val action = ManageGridFragmentDirections.actionManageGridToUpdateFragment(currentItem)
                 holder.itemView.findNavController().navigate(action)

@@ -146,6 +146,11 @@ class ManageGridFragment : Fragment() {
             selectedItems.remove(imgMsg)
             counter--
             updateToolbarHeader(counter)
+
+            if (selectedItems.size == 0) {
+                isActionMode = false
+            }
+
         } else {
             selectedItems.add(imgMsg)
             counter++
