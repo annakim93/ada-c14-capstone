@@ -26,7 +26,7 @@
         app:startDestination="@id/manageGrid">
         <fragment
             android:id="@+id/manageGrid"
-            android:name="com.example.adacapstone.fragments.ManageGrid"
+            android:name="com.example.adacapstone.fragments.ManageGridFragment"
             android:label="fragment_manage_grid"
             tools:layout="@layout/fragment_manage_grid">
             <action

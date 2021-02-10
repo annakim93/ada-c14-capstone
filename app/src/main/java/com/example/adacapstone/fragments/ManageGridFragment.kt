@@ -23,7 +23,7 @@ import com.example.adacapstone.databinding.FragmentManageGridBinding
 import com.example.adacapstone.utils.GridImageAdapter
 import com.example.adacapstone.utils.ImgMsgListener
 
-class ManageGrid : Fragment() {
+class ManageGridFragment : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
     private lateinit var adapter: GridImageAdapter

@@ -1,6 +1,5 @@
 package com.example.adacapstone.utils
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -11,11 +10,11 @@ import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
-import com.example.adacapstone.fragments.ManageGrid
+import com.example.adacapstone.fragments.ManageGridFragment
 import com.example.adacapstone.fragments.ManageGridDirections
 import java.io.File
 
-class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGrid) :
+class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGridFragment) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
 
     // List to hold data
