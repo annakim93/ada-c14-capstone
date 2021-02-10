@@ -1,18 +1,22 @@
 package com.example.adacapstone.fragments
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,6 +24,11 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.utils.Permissions
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddNewFragment : Fragment() {
 
@@ -31,7 +40,9 @@ class AddNewFragment : Fragment() {
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
 
+    // Image vars
     private lateinit var selectedImg: ImageView
+    lateinit var currentPhotoPath: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -67,6 +78,7 @@ class AddNewFragment : Fragment() {
         galleryBtn.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
+
             startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
         }
 
@@ -74,7 +86,21 @@ class AddNewFragment : Fragment() {
         val cameraBtn: Button = view.findViewById(R.id.camera_btn)
         cameraBtn.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+
+            // Create the File where the photo should go
+            val photoFile: File = createImageFile()
+
+            // Continue only if the File was successfully created
+            photoFile.also {
+                val photoURI: Uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.example.android.fileprovider",
+                        it
+                )
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+            }
+
         }
 
         // Click listener for submit / save button
@@ -84,10 +110,8 @@ class AddNewFragment : Fragment() {
             val alertText: TextView = view.findViewById(R.id.alertText)
             val message = alertText.text.toString()
 
-            val selectedBM = (selectedImg.drawable as BitmapDrawable).bitmap
-
             if (inputCheck(message, selectedImg)) {
-                val imgMsg = ImageMessage(0, message, selectedBM) // Create imgMsg object
+                val imgMsg = ImageMessage(0, message, currentPhotoPath) // Create imgMsg object
                 mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
                 navController.navigate(R.id.action_addNewFragment_to_homeFragment)
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_LONG).show()
@@ -98,14 +122,43 @@ class AddNewFragment : Fragment() {
 
     }
 
+    // Camera and gallery image handling
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            val bmp = data?.extras?.get("data") as Bitmap
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            val bmp = BitmapFactory.decodeFile(currentPhotoPath)
             selectedImg.setImageBitmap(bmp)
-        } else if (requestCode == GALLERY_REQUEST_CODE) {
-            selectedImg.setImageURI(data?.data)
+        } else if (requestCode == GALLERY_REQUEST_CODE  && resultCode == RESULT_OK) {
+            val uri = data?.data
+            selectedImg.setImageURI(uri)
+
+            // Create the File where the photo should go
+            val photoFile: File = createImageFile()
+
+            // Continue only if the File was successfully created
+            photoFile.also {
+                val fos = FileOutputStream(photoFile)
+                val bmp = MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+                bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                fos.flush()
+                fos.close()
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
         }
     }
 

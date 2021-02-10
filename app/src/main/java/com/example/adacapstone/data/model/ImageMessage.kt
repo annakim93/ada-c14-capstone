@@ -12,9 +12,5 @@ data class ImageMessage(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val msg: String,
-    val image: Bitmap
+    val imageFilePath: String
 ) : Parcelable
-//{
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int = 0
-//}

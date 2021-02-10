@@ -2,6 +2,7 @@ package com.example.adacapstone.fragments
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
@@ -42,7 +43,8 @@ class UpdateFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_update, container, false)
 
         selectedImg = view.findViewById(R.id.selected_update_img)
-        selectedImg.setImageBitmap(args.currentImgMsg.image)
+        val imgFilePath = args.currentImgMsg.imageFilePath
+        selectedImg.setImageBitmap(BitmapFactory.decodeFile(imgFilePath))
         view.findViewById<EditText>(R.id.update_alert_text).setText(args.currentImgMsg.msg)
 
         return view
@@ -70,14 +72,14 @@ class UpdateFragment : Fragment() {
             val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
             val updatedBM = (updatedImg.drawable as BitmapDrawable).bitmap
 
-            if (inputCheck(updatedMsg, updatedImg)) {
-                val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, updatedBM) // Create imgMsg object
-                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
-                navController.navigate(R.id.action_updateFragment_to_manageGrid)
-                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
-            }
+//            if (inputCheck(updatedMsg, updatedImg)) {
+//                val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, updatedBM) // Create imgMsg object
+//                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
+//                navController.navigate(R.id.action_updateFragment_to_manageGrid)
+//                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_LONG).show()
+//            } else {
+//                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
+//            }
         }
 
         // Click listener for gallery selection

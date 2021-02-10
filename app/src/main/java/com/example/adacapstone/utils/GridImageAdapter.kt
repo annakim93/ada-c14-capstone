@@ -13,6 +13,7 @@ import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 import com.example.adacapstone.fragments.ManageGrid
 import com.example.adacapstone.fragments.ManageGridDirections
+import java.io.File
 
 class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGrid) :
     ListAdapter<ImageMessage, GridImageAdapter.ViewHolder>(ImgMsgDiffCallback()) {
@@ -32,7 +33,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
         val currentItem = imgMsgList[position]
         val squareImageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
 
-        squareImageView.load(currentItem.image)
+        squareImageView.load(File(currentItem.imageFilePath))
         holder.bind(getItem(position)!!, clickListener)
 
         // Selected items have different opacity

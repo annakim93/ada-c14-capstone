@@ -1,5 +1,7 @@
 package com.example.adacapstone.utils
 import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 
 class Permissions {
     companion object {
@@ -14,5 +16,6 @@ class Permissions {
         val WRITE_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
         val READ_STORAGE_PERMISSION = Manifest.permission.READ_EXTERNAL_STORAGE
+
     }
 }

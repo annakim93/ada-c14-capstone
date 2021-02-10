@@ -1,5 +1,6 @@
 package com.example.adacapstone.utils
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 import com.example.adacapstone.fragments.ManageGridDirections
+import java.io.File
 
 class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 
@@ -26,16 +28,9 @@ class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = imgMsgList[position]
-        holder.itemView.findViewById<SquareImageView>(R.id.squareImage).load(imgMsgList[position].image)
-
-//        if (holder.itemView.findViewById<TextView>(R.id.update_fragment_header) != null) {
-//            holder.itemView.findViewById<RelativeLayout>(R.id.squareLayout).setOnClickListener {
-//                Toast.makeText(holder.itemView.context, "$currentItem", Toast.LENGTH_LONG).show()
-////                val action = ManageGridDirections.actionManageGridToUpdateFragment(currentItem)
-////                val navController = Navigation.findNavController(holder.itemView)
-////                navController.navigate(action)
-//            }
-//        }
+        val imageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
+        imageView.load(File(currentItem.imageFilePath))
+//        imageView.setImageBitmap(BitmapFactory.decodeFile(currentItem.imageFilePath))
     }
 
     override fun getItemCount(): Int {
