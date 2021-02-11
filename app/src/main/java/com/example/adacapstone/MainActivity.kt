@@ -1,14 +1,11 @@
 package com.example.adacapstone
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import com.example.adacapstone.fragments.ContactsFragment
-import com.example.adacapstone.fragments.HomeFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,8 +17,9 @@ import com.google.android.material.shape.RoundedCornerTreatment
 class MainActivity : AppCompatActivity() {
 
     // Constants
+    val HOME_INDEX = 0
     private val PLACEHOLDER_INDEX = 1
-    private val CONTACTS_INDEX = 2
+    lateinit var navView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         // Navigation bottom menu
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
         navView.background = null
         navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -78,4 +76,5 @@ class MainActivity : AppCompatActivity() {
         }
         false
     }
+
 }
