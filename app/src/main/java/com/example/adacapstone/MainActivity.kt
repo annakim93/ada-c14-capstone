@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         // Nav bottom menu visibility
         navController.addOnDestinationChangedListener{ _, destination, _ ->
-            if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
+            if (destination.id != R.id.homeFragment) {
                 navView.visibility = View.GONE
                 bottomAppBar.visibility = View.GONE
                 fab.hide()
