@@ -103,7 +103,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
 
 class ImgMsgDiffCallback : DiffUtil.ItemCallback<ImageMessage>() {
     override fun areItemsTheSame(oldItem: ImageMessage, newItem: ImageMessage): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.imgMsgId == newItem.imgMsgId
     }
 
     override fun areContentsTheSame(oldItem: ImageMessage, newItem: ImageMessage): Boolean {

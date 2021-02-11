@@ -16,10 +16,10 @@ interface ImgMsgDao {
     @Delete
     suspend fun deleteImgMsg(im: ImageMessage)
 
-    @Query("SELECT * FROM img_msg_table ORDER BY id")
+    @Query("SELECT * FROM img_msg_table ORDER BY imgMsgId")
     fun readAllData(): LiveData<List<ImageMessage>>
 
-    @Query("SELECT * FROM img_msg_table WHERE id = :imgMsgId")
+    @Query("SELECT * FROM img_msg_table WHERE imgMsgId = :imgMsgId")
     fun getImgMsgWithId(imgMsgId: Int): LiveData<ImageMessage>
 
 }

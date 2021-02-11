@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "img_msg_table")
 data class ImageMessage(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val imgMsgId: Int,
     val msg: String,
     val imageFilePath: String
 ) : Parcelable
