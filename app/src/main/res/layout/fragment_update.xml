@@ -21,7 +21,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp">
 
                 <ImageView
@@ -29,7 +28,6 @@
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:src="@drawable/close"/>
 
                 <TextView
@@ -37,21 +35,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="30dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/update_frag_header"
                     android:textSize="16sp"
-                    android:text="Update"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/save_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:src="@drawable/check"
                     app:tint="@color/blue" />
 
@@ -93,17 +89,17 @@
                 android:id="@+id/update_gallery_btn"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="@string/gallery_btn"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/update_camera_btn"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="@string/camera_btn"
                 android:textColor="@android:color/white" />
 

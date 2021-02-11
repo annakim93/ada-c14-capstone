@@ -52,9 +52,10 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="40dp"
-                        android:layout_marginTop="4dp"
-                        android:textSize="16sp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/quicksand_bold"
                         android:text="@string/manage_grid_header"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <ImageView

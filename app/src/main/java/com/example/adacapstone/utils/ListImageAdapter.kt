@@ -23,7 +23,6 @@ class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>()
         val currentItem = imgMsgList[position]
         val imageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
         imageView.load(File(currentItem.imageFilePath))
-//        imageView.setImageBitmap(BitmapFactory.decodeFile(currentItem.imageFilePath))
     }
 
     override fun getItemCount(): Int {
