@@ -5,11 +5,19 @@ import androidx.core.app.ActivityCompat
 
 class Permissions {
     companion object {
-        val PERMISSIONS: Array<String> = arrayOf(
+
+        val VERIFY_PERMISSIONS_REQUEST_CODE = 1
+        val CAMERA_REQUEST_CODE = 5
+        val GALLERY_REQUEST_CODE = 6
+        val SEND_SMS_REQUEST_CODE = 7
+
+        val IMG_PERMISSIONS: Array<String> = arrayOf(
           Manifest.permission.CAMERA,
           Manifest.permission.WRITE_EXTERNAL_STORAGE,
           Manifest.permission.READ_EXTERNAL_STORAGE
         )
+
+        val SMS_PERMISSION: Array<String> = arrayOf(Manifest.permission.SEND_SMS)
 
         val CAMERA_PERMISSION = Manifest.permission.CAMERA
 

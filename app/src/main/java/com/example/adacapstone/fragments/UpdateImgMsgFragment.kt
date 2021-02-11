@@ -26,6 +26,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.utils.Permissions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -35,8 +36,6 @@ import java.util.*
 class UpdateFragment : Fragment() {
 
     // Camera and gallery
-    private val CAMERA_REQUEST_CODE = 5
-    private val GALLERY_REQUEST_CODE = 6
     private lateinit var selectedImg: ImageView
     lateinit var selectedImgPath: String
     lateinit var selectedImgUri: Uri
@@ -105,7 +104,7 @@ class UpdateFragment : Fragment() {
         galleryBtn.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+            startActivityForResult(galleryIntent, Permissions.GALLERY_REQUEST_CODE)
         }
 
         // Click listener for camera selection
@@ -121,7 +120,7 @@ class UpdateFragment : Fragment() {
                         it
                 )
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImgUri)
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+                startActivityForResult(cameraIntent, Permissions.CAMERA_REQUEST_CODE)
             }
         }
 
@@ -130,13 +129,13 @@ class UpdateFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST_CODE) {
+        if (requestCode == Permissions.CAMERA_REQUEST_CODE) {
             val bmp = BitmapFactory.decodeFile(selectedImgPath)
             selectedImg.setImageBitmap(bmp)
 
             val imgRotation = getCameraPhotoOrientation(requireContext(), selectedImgUri, selectedImgPath)
             selectedImg.rotation = imgRotation.toFloat()
-        } else if (requestCode == GALLERY_REQUEST_CODE) {
+        } else if (requestCode == Permissions.GALLERY_REQUEST_CODE) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 

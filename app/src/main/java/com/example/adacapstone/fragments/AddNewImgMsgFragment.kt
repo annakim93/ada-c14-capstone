@@ -36,11 +36,6 @@ import java.util.*
 
 class AddNewImgMsgFragment : Fragment() {
 
-    // Constants
-    private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
-    private val CAMERA_REQUEST_CODE = 5
-    private val GALLERY_REQUEST_CODE = 6
-
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
 
@@ -54,8 +49,8 @@ class AddNewImgMsgFragment : Fragment() {
 
         container?.removeAllViews()
 
-        if (!checkPermissions(Permissions.PERMISSIONS)) {
-            verifyPermissions(Permissions.PERMISSIONS)
+        if (!checkPermissions(Permissions.IMG_PERMISSIONS)) {
+            verifyPermissions(Permissions.IMG_PERMISSIONS)
         }
 
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
@@ -83,7 +78,7 @@ class AddNewImgMsgFragment : Fragment() {
         galleryBtn.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+            startActivityForResult(galleryIntent, Permissions.GALLERY_REQUEST_CODE)
         }
 
         // Click listener for camera selection
@@ -102,7 +97,7 @@ class AddNewImgMsgFragment : Fragment() {
                         it
                 )
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentImgUri)
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+                startActivityForResult(cameraIntent, Permissions.CAMERA_REQUEST_CODE)
             }
 
         }
@@ -130,13 +125,13 @@ class AddNewImgMsgFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == Permissions.CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             val bmp = BitmapFactory.decodeFile(currentImgPath)
             selectedImg.setImageBitmap(bmp)
 
             val imgRotation = getCameraPhotoOrientation(requireContext(), currentImgUri, currentImgPath)
             selectedImg.rotation = imgRotation.toFloat()
-        } else if (requestCode == GALLERY_REQUEST_CODE  && resultCode == RESULT_OK) {
+        } else if (requestCode == Permissions.GALLERY_REQUEST_CODE  && resultCode == RESULT_OK) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 
@@ -223,7 +218,7 @@ class AddNewImgMsgFragment : Fragment() {
         ActivityCompat.requestPermissions(
                 requireActivity(),
                 permissions,
-                VERIFY_PERMISSIONS_REQUEST_CODE
+                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
         )
     }
 
