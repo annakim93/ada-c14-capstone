@@ -1,4 +1,4 @@
-package com.example.adacapstone.data
+package com.example.adacapstone.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
