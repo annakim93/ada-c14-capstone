@@ -77,18 +77,20 @@
                 android:id="@+id/contact_name_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginEnd="45dp"
                 android:fontFamily="@font/quicksand_semibold"
                 android:text="Contact name"
                 android:textColor="@color/text_color"
                 android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"/>
+                android:layout_marginEnd="45dp"
+                android:drawableStart="@drawable/rename"
+                android:hint="Steven Universe"/>
 
         </LinearLayout>
 
@@ -102,18 +104,22 @@
                 android:id="@+id/contact_num_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginEnd="45dp"
                 android:fontFamily="@font/quicksand_semibold"
                 android:text="Phone number"
                 android:textColor="@color/text_color"
                 android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"/>
+                android:layout_marginEnd="45dp"
+                android:inputType="phone"
+                android:digits="0123456789+"
+                android:drawableStart="@drawable/phone"
+                android:hint="XXX-XXX-XXXX"/>
 
         </LinearLayout>
 
