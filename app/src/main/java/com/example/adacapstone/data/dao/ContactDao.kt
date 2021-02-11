@@ -3,7 +3,6 @@ package com.example.adacapstone.data.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.model.ImageMessage
 
 @Dao
 interface ContactDao {

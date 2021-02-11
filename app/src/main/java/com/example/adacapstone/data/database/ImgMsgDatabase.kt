@@ -1,10 +1,11 @@
-package com.example.adacapstone.data
+package com.example.adacapstone.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.adacapstone.data.Converters
 import com.example.adacapstone.data.dao.ImgMsgDao
 import com.example.adacapstone.data.model.ImageMessage
 
@@ -18,7 +19,7 @@ abstract class ImgMsgDatabase : RoomDatabase() {
         @Volatile // writes are immediately made visible to other threads
         private var INSTANCE: ImgMsgDatabase? = null
 
-        fun getDatabase(context: Context): ImgMsgDatabase{
+        fun getDatabase(context: Context): ImgMsgDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
