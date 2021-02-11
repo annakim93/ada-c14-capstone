@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewFragment"
-        android:name="com.example.adacapstone.fragments.AddNewFragment"
+        android:name="com.example.adacapstone.fragments.AddNewImgMsgFragment"
         android:label="fragment_add_new"
         tools:layout="@layout/fragment_add_new" >
         <action

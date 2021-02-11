@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
         gridBtn.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_manageGrid)
-            Toast.makeText(activity, "Click on a photo to update or long-click to delete.", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Click on a photo to update or long-click to delete.", Toast.LENGTH_SHORT).show()
         }
 
     }

@@ -121,7 +121,7 @@ class ManageGridFragment : Fragment() {
             adapter.multiSelect = false
             counter = 0
             updateToolbarHeader(counter)
-            Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Successfully removed.", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") { _, _ -> }
         if (selectedItems.size == 1) {

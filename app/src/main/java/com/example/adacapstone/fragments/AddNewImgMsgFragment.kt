@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddNewFragment : Fragment() {
+class AddNewImgMsgFragment : Fragment() {
 
     // Constants
     private val VERIFY_PERMISSIONS_REQUEST_CODE = 1
