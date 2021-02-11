@@ -12,11 +12,11 @@ class ContactRepo(private val contactDao: ContactDao) {
         contactDao.addContact(contact)
     }
 
-    suspend fun updateImgMsg(contact: Contact) {
+    suspend fun updateContact(contact: Contact) {
         contactDao.updateContact(contact)
     }
 
-    suspend fun deleteImgMsg(contact: Contact) {
+    suspend fun deleteContact(contact: Contact) {
         contactDao.deleteContact(contact)
     }
 
