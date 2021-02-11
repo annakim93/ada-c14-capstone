@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,6 +56,13 @@ class ContactsFragment : Fragment() {
             navController.navigate(R.id.action_contactsFragment_to_homeFragment)
             val activity: MainActivity = activity as MainActivity
             activity.navView.menu.getItem(activity.HOME_INDEX).isChecked = true
+        }
+
+        // Click listener - add new contact
+        val addNewBtn: RelativeLayout = view.findViewById(R.id.add_new_layout)
+
+        addNewBtn.setOnClickListener {
+            navController.navigate(R.id.action_contactsFragment_to_addNewContactFragment)
         }
     }
 
