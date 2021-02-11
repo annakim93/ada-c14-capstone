@@ -118,6 +118,7 @@ class ManageGridFragment : Fragment() {
             isActionMode = false
             selectedItems.clear()
             adapter.selectedItems.clear()
+            adapter.multiSelect = false
             counter = 0
             updateToolbarHeader(counter)
             Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()

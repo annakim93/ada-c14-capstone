@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     // Constants
     private val PLACEHOLDER_INDEX = 1
+    private val CONTACTS_INDEX = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
