@@ -5,9 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.adacapstone.data.dao.IMCRelationsDao
+import com.example.adacapstone.data.model.Contact
+import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 
-@Database(entities = [ImgMsgContactCrossRef::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        ImgMsgContactCrossRef::class,
+        Contact::class,
+        ImageMessage::class
+    ],
+    version = 1,
+    exportSchema = false
+)
 abstract class IMCRelationsDatabase : RoomDatabase() {
 
     abstract fun imcRelationsDao(): IMCRelationsDao
