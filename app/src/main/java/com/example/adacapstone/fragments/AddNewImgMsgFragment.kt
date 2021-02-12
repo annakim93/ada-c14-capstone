@@ -113,9 +113,9 @@ class AddNewImgMsgFragment : Fragment() {
                 val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
                 mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
                 navController.navigate(R.id.action_addNewFragment_to_homeFragment)
-                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
             }
         }
 
