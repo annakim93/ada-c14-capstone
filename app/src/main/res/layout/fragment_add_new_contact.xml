@@ -70,7 +70,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
+            android:layout_weight="20"
             android:orientation="vertical">
 
             <TextView
@@ -90,7 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="45dp"
-                android:drawableStart="@drawable/rename"
+                android:padding="12dp"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_name_icon"
                 android:drawablePadding="12dp"
                 android:hint="Steven Universe"/>
 
@@ -119,9 +121,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="45dp"
+                android:padding="12dp"
                 android:inputType="phone"
                 android:digits="0123456789+"
-                android:drawableStart="@drawable/phone"
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/custom_phone_icon"
                 android:drawablePadding="12dp"
                 android:hint="XXX-XXX-XXXX"/>
 
@@ -130,7 +134,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20" />
+            android:layout_weight="30" />
 
     </LinearLayout>
 
