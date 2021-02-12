@@ -12,16 +12,16 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_manageGrid"
-            app:destination="@id/child_nav_graph" />
+            app:destination="@id/manage_im_nav_graph" />
         <action
             android:id="@+id/action_homeFragment_to_contactsFragment"
-            app:destination="@id/contactsFragment" />
+            app:destination="@id/contact_nav_graph" />
         <action
             android:id="@+id/action_homeFragment_to_addNewFragment"
             app:destination="@id/addNewFragment" />
     </fragment>
     <navigation
-        android:id="@+id/child_nav_graph"
+        android:id="@+id/manage_im_nav_graph"
         android:label="manage"
         app:startDestination="@id/manageGrid">
         <fragment
@@ -50,20 +50,62 @@
             app:destination="@id/homeFragment" />
     </navigation>
     <fragment
-        android:id="@+id/contactsFragment"
-        android:name="com.example.adacapstone.fragments.ContactsFragment"
-        android:label="ContactsFragment" >
-        <action
-            android:id="@+id/action_contactsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/addNewFragment"
-        android:name="com.example.adacapstone.fragments.AddNewFragment"
+        android:name="com.example.adacapstone.fragments.AddNewImgMsgFragment"
         android:label="fragment_add_new"
         tools:layout="@layout/fragment_add_new" >
         <action
             android:id="@+id/action_addNewFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_addNewFragment_to_setContactsForImgMsgFragment"
+            app:destination="@id/setContactsForImgMsgFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/setContactsForImgMsgFragment"
+        android:name="com.example.adacapstone.fragments.SetContactsForImgMsgFragment"
+        android:label="SetContactsForImgMsgFragment" >
+        <argument
+            android:name="imgMsgStringArray"
+            app:argType="string[]" />
+        <action
+            android:id="@+id/action_setContactsForImgMsgFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
+    </fragment>
+    <navigation android:id="@+id/contact_nav_graph"
+        app:startDestination="@id/contactsFragment">
+        <fragment
+            android:id="@+id/updateContactFragment"
+            android:name="com.example.adacapstone.fragments.UpdateContactFragment"
+            android:label="UpdateContactFragment">
+            <action
+                android:id="@+id/action_updateContactFragment_to_contactsFragment"
+                app:destination="@id/contactsFragment" />
+            <argument
+                android:name="contact"
+                app:argType="com.example.adacapstone.data.model.Contact" />
+        </fragment>
+        <fragment
+            android:id="@+id/contactsFragment"
+            android:name="com.example.adacapstone.fragments.ContactsFragment"
+            android:label="ContactsFragment">
+            <action
+                android:id="@+id/action_contactsFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+            <action
+                android:id="@+id/action_contactsFragment_to_addNewContactFragment"
+                app:destination="@id/addNewContactFragment" />
+            <action
+                android:id="@+id/action_contactsFragment_to_updateContactFragment"
+                app:destination="@id/updateContactFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/addNewContactFragment"
+            android:name="com.example.adacapstone.fragments.AddNewContactFragment"
+            android:label="AddNewContactFragment">
+            <action
+                android:id="@+id/action_addNewContactFragment_to_contactsFragment"
+                app:destination="@id/contactsFragment" />
+        </fragment>
+    </navigation>
 </navigation>

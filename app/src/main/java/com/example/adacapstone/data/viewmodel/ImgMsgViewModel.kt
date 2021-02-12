@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.adacapstone.data.ImgMsgDatabase
+import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.repository.ImgMsgRepo
 import com.example.adacapstone.data.model.ImageMessage
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
         get() = _navigateToUpdateFrag
 
     init {
-        val imgMsgDao = ImgMsgDatabase.getDatabase(application).imgMsgDao()
+        val imgMsgDao = MainDatabase.getDatabase(application).imgMsgDao()
         repository = ImgMsgRepo(imgMsgDao)
         readAllData = repository.readAllData
     }

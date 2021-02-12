@@ -11,4 +11,9 @@
     <string name="nav_location">Location</string>
     <string name="manage_grid_header">Manage</string>
     <string name="delete_menu_icon">Delete</string>
+    <string name="add_new_contact">Add New Contact</string>
+    <string name="contacts_frag_header">Contacts</string>
+    <string name="update_frag_header">Update</string>
+    <string name="add_new_contact_header">Add New Contact</string>
+    <string name="update_contact_header">Update Contact</string>
 </resources>

@@ -20,8 +20,8 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
-import com.example.adacapstone.utils.GridImageAdapter
-import com.example.adacapstone.utils.ImgMsgListener
+import com.example.adacapstone.adapters.GridImageAdapter
+import com.example.adacapstone.adapters.ImgMsgListener
 
 class ManageGridFragment : Fragment() {
 
@@ -50,7 +50,6 @@ class ManageGridFragment : Fragment() {
         binding.imgMsgViewModel = mImgMsgViewModel
 
         adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
-//            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
             mImgMsgViewModel.onImgMsgClicked(imgMsgId)
         }, this)
         binding.recyclerViewManage.adapter = adapter
@@ -97,7 +96,6 @@ class ManageGridFragment : Fragment() {
         // Click listener for delete btn
         deleteBtn.setOnClickListener {
             deleteImgMsg()
-
         }
 
     }
@@ -118,9 +116,10 @@ class ManageGridFragment : Fragment() {
             isActionMode = false
             selectedItems.clear()
             adapter.selectedItems.clear()
+            adapter.multiSelect = false
             counter = 0
             updateToolbarHeader(counter)
-            Toast.makeText(context, "Successfully removed.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Successfully removed.", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") { _, _ -> }
         if (selectedItems.size == 1) {

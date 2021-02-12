@@ -1,14 +1,11 @@
-package com.example.adacapstone
+package com.example.adacapstone.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import com.example.adacapstone.fragments.ContactsFragment
-import com.example.adacapstone.fragments.HomeFragment
+import com.example.adacapstone.R
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,7 +17,9 @@ import com.google.android.material.shape.RoundedCornerTreatment
 class MainActivity : AppCompatActivity() {
 
     // Constants
+    val HOME_INDEX = 0
     private val PLACEHOLDER_INDEX = 1
+    lateinit var navView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         // Navigation bottom menu
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
         navView.background = null
         navView.menu.getItem(PLACEHOLDER_INDEX).isEnabled = false
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         // Nav bottom menu visibility
         navController.addOnDestinationChangedListener{ _, destination, _ ->
-            if (destination.id != R.id.homeFragment && destination.id != R.id.contactsFragment) {
+            if (destination.id != R.id.homeFragment) {
                 navView.visibility = View.GONE
                 bottomAppBar.visibility = View.GONE
                 fab.hide()
@@ -67,14 +66,18 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         when (item.itemId) {
             R.id.nav_home -> {
-                navController.navigate(R.id.action_contactsFragment_to_homeFragment)
-                return@OnNavigationItemSelectedListener true
+                if (!navView.menu.getItem(HOME_INDEX).isChecked) {
+                    navController.navigate(R.id.action_contactsFragment_to_homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             R.id.nav_contacts -> {
                 navController.navigate(R.id.action_homeFragment_to_contactsFragment)
+                Toast.makeText(this, "Click on a contact to update or long-click to delete.", Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
+
 }

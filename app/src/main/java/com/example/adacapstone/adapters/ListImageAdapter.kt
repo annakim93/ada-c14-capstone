@@ -1,4 +1,4 @@
-package com.example.adacapstone.utils
+package com.example.adacapstone.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
+import com.example.adacapstone.utils.SquareImageView
 import java.io.File
 
 class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
@@ -23,7 +24,6 @@ class ListImageAdapter() : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>()
         val currentItem = imgMsgList[position]
         val imageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
         imageView.load(File(currentItem.imageFilePath))
-//        imageView.setImageBitmap(BitmapFactory.decodeFile(currentItem.imageFilePath))
     }
 
     override fun getItemCount(): Int {

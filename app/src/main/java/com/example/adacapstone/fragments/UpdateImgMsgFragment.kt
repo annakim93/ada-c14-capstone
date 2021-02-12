@@ -1,24 +1,18 @@
 package com.example.adacapstone.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -26,17 +20,18 @@ import androidx.navigation.fragment.navArgs
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.interfaces.ImageHandling
+import com.example.adacapstone.interfaces.InputCheck
+import com.example.adacapstone.utils.Permissions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UpdateFragment : Fragment() {
+class UpdateFragment : Fragment(), InputCheck, ImageHandling {
 
     // Camera and gallery
-    private val CAMERA_REQUEST_CODE = 5
-    private val GALLERY_REQUEST_CODE = 6
     private lateinit var selectedImg: ImageView
     lateinit var selectedImgPath: String
     lateinit var selectedImgUri: Uri
@@ -44,6 +39,7 @@ class UpdateFragment : Fragment() {
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
 
+    // Nav (args passed from previous frag)
     private val args by navArgs<UpdateFragmentArgs>()
 
     override fun onCreateView(
@@ -90,13 +86,13 @@ class UpdateFragment : Fragment() {
             val updatedMsg = view.findViewById<EditText>(R.id.update_alert_text).text.toString()
             val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
 
-            if (inputCheck(updatedMsg, updatedImg)) {
-                val updatedImgMsg = ImageMessage(args.currentImgMsg.id, updatedMsg, selectedImgPath) // Create imgMsg object
+            if (imgMsgInputCheck(updatedMsg, updatedImg)) {
+                val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath) // Create imgMsg object
                 mImgMsgViewModel.updateImgMsg(updatedImgMsg)
                 navController.navigate(R.id.action_updateFragment_to_manageGrid)
-                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -105,7 +101,7 @@ class UpdateFragment : Fragment() {
         galleryBtn.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK)
             galleryIntent.type = "image/*"
-            startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+            startActivityForResult(galleryIntent, Permissions.GALLERY_REQUEST_CODE)
         }
 
         // Click listener for camera selection
@@ -121,7 +117,7 @@ class UpdateFragment : Fragment() {
                         it
                 )
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedImgUri)
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+                startActivityForResult(cameraIntent, Permissions.CAMERA_REQUEST_CODE)
             }
         }
 
@@ -130,13 +126,13 @@ class UpdateFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == CAMERA_REQUEST_CODE) {
+        if (requestCode == Permissions.CAMERA_REQUEST_CODE) {
             val bmp = BitmapFactory.decodeFile(selectedImgPath)
             selectedImg.setImageBitmap(bmp)
 
             val imgRotation = getCameraPhotoOrientation(requireContext(), selectedImgUri, selectedImgPath)
             selectedImg.rotation = imgRotation.toFloat()
-        } else if (requestCode == GALLERY_REQUEST_CODE) {
+        } else if (requestCode == Permissions.GALLERY_REQUEST_CODE) {
             val uri = data?.data
             selectedImg.setImageURI(uri)
 
@@ -171,33 +167,6 @@ class UpdateFragment : Fragment() {
         ).apply {
             selectedImgPath = absolutePath
         }
-    }
-
-    fun getCameraPhotoOrientation(context: Context, imageUri: Uri,
-                                  imagePath: String): Int {
-        var rotate = 0
-        try {
-            context.contentResolver.notifyChange(imageUri, null)
-            val imageFile = File(imagePath)
-            val exif = ExifInterface(imageFile.absolutePath)
-            val orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL)
-            when (orientation) {
-                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
-                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
-                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
-            }
-            Log.i("RotateImage", "Exif orientation: $orientation")
-            Log.i("RotateImage", "Rotate value: $rotate")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return rotate
-    }
-
-    private fun inputCheck(message: String, img: ImageView): Boolean {
-        return !(TextUtils.isEmpty(message) || img.drawable == null)
     }
 
 }

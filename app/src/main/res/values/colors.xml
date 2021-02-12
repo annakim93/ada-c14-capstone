@@ -6,4 +6,5 @@
     <color name="black">#C2BDBF</color>
     <color name="blue">#454ef0</color>
     <color name="fab">#6C7BC6</color>
+    <color name="text_color">#334184</color>
 </resources>

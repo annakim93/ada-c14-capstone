@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
-import com.example.adacapstone.utils.ListImageAdapter
+import com.example.adacapstone.adapters.ListImageAdapter
 
 class HomeFragment : Fragment() {
 
@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
         gridBtn.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_manageGrid)
-            Toast.makeText(activity, "Click on a photo to update or long-click to delete.", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Click on a photo to update or long-click to delete.", Toast.LENGTH_SHORT).show()
         }
 
     }

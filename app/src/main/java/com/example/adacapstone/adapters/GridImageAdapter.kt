@@ -1,4 +1,4 @@
-package com.example.adacapstone.utils
+package com.example.adacapstone.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 import com.example.adacapstone.fragments.ManageGridFragment
 import com.example.adacapstone.fragments.ManageGridFragmentDirections
+import com.example.adacapstone.utils.SquareImageView
 import java.io.File
 
 class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGridFragment) :
@@ -21,7 +22,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
     var imgMsgList = emptyList<ImageMessage>()
 
     // Vars for multiple selection
-    private var multiSelect = false
+    var multiSelect = false
     val selectedItems = arrayListOf<ImageMessage>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -103,7 +104,7 @@ class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGr
 
 class ImgMsgDiffCallback : DiffUtil.ItemCallback<ImageMessage>() {
     override fun areItemsTheSame(oldItem: ImageMessage, newItem: ImageMessage): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.imgMsgId == newItem.imgMsgId
     }
 
     override fun areContentsTheSame(oldItem: ImageMessage, newItem: ImageMessage): Boolean {
