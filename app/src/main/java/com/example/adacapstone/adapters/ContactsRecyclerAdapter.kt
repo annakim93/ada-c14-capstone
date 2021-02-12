@@ -1,4 +1,4 @@
-package com.example.adacapstone.utils
+package com.example.adacapstone.adapters
 
 import android.view.LayoutInflater
 import android.view.View

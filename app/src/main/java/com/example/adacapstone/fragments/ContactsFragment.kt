@@ -16,11 +16,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.adacapstone.MainActivity
+import com.example.adacapstone.activities.MainActivity
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.viewmodel.ContactViewModel
-import com.example.adacapstone.utils.ContactsRecyclerAdapter
+import com.example.adacapstone.adapters.ContactsRecyclerAdapter
 
 class ContactsFragment : Fragment() {
 

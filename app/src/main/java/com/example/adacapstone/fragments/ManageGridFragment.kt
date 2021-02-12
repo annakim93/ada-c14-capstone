@@ -20,8 +20,8 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
-import com.example.adacapstone.utils.GridImageAdapter
-import com.example.adacapstone.utils.ImgMsgListener
+import com.example.adacapstone.adapters.GridImageAdapter
+import com.example.adacapstone.adapters.ImgMsgListener
 
 class ManageGridFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.example.adacapstone.utils
+package com.example.adacapstone.interfaces
 
 import android.text.TextUtils
 import android.widget.ImageView

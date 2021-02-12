@@ -23,7 +23,7 @@ import androidx.navigation.Navigation
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
-import com.example.adacapstone.utils.InputCheck
+import com.example.adacapstone.interfaces.InputCheck
 import com.example.adacapstone.utils.Permissions
 import java.io.File
 import java.io.FileOutputStream
@@ -190,29 +190,5 @@ class AddNewImgMsgFragment : Fragment(), InputCheck {
         }
         return rotate
     }
-
-//    // Permissions handling
-//    fun checkPermissions(permissions: Array<String>): Boolean {
-//        for (i in permissions) {
-//            if (!checkSinglePermission(i)) return false
-//        }
-//        return true
-//    }
-//
-//    fun checkSinglePermission(permission: String): Boolean {
-//        val permissionRequest = ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                permission
-//        )
-//        return permissionRequest == PackageManager.PERMISSION_GRANTED
-//    }
-//
-//    fun verifyPermissions(permissions: Array<String>) {
-//        ActivityCompat.requestPermissions(
-//                requireActivity(),
-//                permissions,
-//                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
-//        )
-//    }
 
 }

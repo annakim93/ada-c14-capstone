@@ -11,7 +11,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.adacapstone.utils.ImgMsgListener"/>
+            type="com.example.adacapstone.adapters.ImgMsgListener"/>
 
     </data>
 

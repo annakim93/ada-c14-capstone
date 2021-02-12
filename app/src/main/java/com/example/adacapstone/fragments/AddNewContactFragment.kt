@@ -1,24 +1,20 @@
 package com.example.adacapstone.fragments
 
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ContactViewModel
-import com.example.adacapstone.utils.InputCheck
+import com.example.adacapstone.interfaces.InputCheck
 import com.example.adacapstone.utils.Permissions
 
 class AddNewContactFragment : Fragment(), InputCheck {
@@ -74,29 +70,5 @@ class AddNewContactFragment : Fragment(), InputCheck {
             }
         }
     }
-
-//    // Permissions handling
-//    fun checkPermissions(permissions: Array<String>): Boolean {
-//        for (i in permissions) {
-//            if (!checkSinglePermission(i)) return false
-//        }
-//        return true
-//    }
-//
-//    fun checkSinglePermission(permission: String): Boolean {
-//        val permissionRequest = ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                permission
-//        )
-//        return permissionRequest == PackageManager.PERMISSION_GRANTED
-//    }
-//
-//    fun verifyPermissions(permissions: Array<String>) {
-//        ActivityCompat.requestPermissions(
-//                requireActivity(),
-//                permissions,
-//                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
-//        )
-//    }
 
 }

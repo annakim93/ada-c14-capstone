@@ -1,4 +1,4 @@
-package com.example.adacapstone.utils
+package com.example.adacapstone.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.databinding.SquareImageViewBinding
 import com.example.adacapstone.fragments.ManageGridFragment
 import com.example.adacapstone.fragments.ManageGridFragmentDirections
+import com.example.adacapstone.utils.SquareImageView
 import java.io.File
 
 class GridImageAdapter(val clickListener: ImgMsgListener, val fragment: ManageGridFragment) :
