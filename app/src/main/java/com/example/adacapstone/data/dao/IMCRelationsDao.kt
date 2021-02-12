@@ -14,10 +14,10 @@ interface IMCRelationsDao {
 
     @Transaction
     @Query("SELECT * FROM img_msg_table WHERE imgMsgId = :imgMsgId ORDER BY imgMsgId")
-    suspend fun getContactsOfImgMsg(imgMsgId: Int): LiveData<List<ImgMsgWithContacts>>
+    fun getContactsOfImgMsg(imgMsgId: Int): LiveData<List<ImgMsgWithContacts>>
 
     @Transaction
     @Query("SELECT * FROM contact_table WHERE contactId = :contactId ORDER BY contactId")
-    suspend fun getImgMsgsOfContact(contactId: Int): LiveData<List<ContactWithImgMsgs>>
+    fun getImgMsgsOfContact(contactId: Int): LiveData<List<ContactWithImgMsgs>>
 
 }
