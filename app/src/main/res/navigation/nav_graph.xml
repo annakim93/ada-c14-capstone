@@ -87,5 +87,8 @@
         <action
             android:id="@+id/action_updateContactFragment_to_contactsFragment"
             app:destination="@id/contactsFragment" />
+        <argument
+            android:name="contact"
+            app:argType="com.example.adacapstone.data.model.Contact" />
     </fragment>
 </navigation>

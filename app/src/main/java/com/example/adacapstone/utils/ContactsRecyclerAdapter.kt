@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.fragments.ContactsFragment
+import com.example.adacapstone.fragments.ContactsFragmentDirections
 
 class ContactsRecyclerAdapter(val fragment: ContactsFragment) : RecyclerView.Adapter<ContactsRecyclerAdapter.MyViewHolder>() {
 
@@ -67,8 +69,8 @@ class ContactsRecyclerAdapter(val fragment: ContactsFragment) : RecyclerView.Ada
                     notifyDataSetChanged()
                 }
             } else {
-//                val action = ManageGridFragmentDirections.actionManageGridToUpdateFragment(currentItem)
-//                holder.itemView.findNavController().navigate(action)
+                val action = ContactsFragmentDirections.actionContactsFragmentToUpdateContactFragment(currentItem)
+                holder.itemView.findNavController().navigate(action)
             }
         }
     }
