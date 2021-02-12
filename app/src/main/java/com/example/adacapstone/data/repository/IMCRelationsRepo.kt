@@ -11,7 +11,7 @@ import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 class IMCRelationsRepo(private val imcRelationsDao: IMCRelationsDao) {
 
 //    val readAllData: LiveData<List<Contact>> = imcRelationsDao.readAllData()
-    
+
     fun getContactsOfImgMsg(imgMsgId: Int) {
         imcRelationsDao.getContactsOfImgMsg(imgMsgId)
     }
