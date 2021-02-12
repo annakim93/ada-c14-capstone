@@ -66,8 +66,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         when (item.itemId) {
             R.id.nav_home -> {
-                navController.navigate(R.id.action_contactsFragment_to_homeFragment)
-                return@OnNavigationItemSelectedListener true
+                if (!navView.menu.getItem(HOME_INDEX).isChecked) {
+                    navController.navigate(R.id.action_contactsFragment_to_homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             R.id.nav_contacts -> {
                 navController.navigate(R.id.action_homeFragment_to_contactsFragment)

@@ -43,7 +43,7 @@ class AddNewContactFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Model
-        val mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
+        mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
 
         // Click listener on close btn to navigate back to contacts fragment
         val navController: NavController = Navigation.findNavController(view)
