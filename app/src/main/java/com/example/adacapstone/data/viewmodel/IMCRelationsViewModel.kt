@@ -3,7 +3,7 @@ package com.example.adacapstone.data.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.adacapstone.data.database.IMCRelationsDatabase
+import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.repository.IMCRelationsRepo
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ class IMCRelationsViewModel(application: Application) : AndroidViewModel(applica
     private val repository: IMCRelationsRepo
 
     init {
-        val imcRelationsDao = IMCRelationsDatabase.getDatabase(application).imcRelationsDao()
+        val imcRelationsDao = MainDatabase.getDatabase(application).imcRelationsDao()
         repository = IMCRelationsRepo(imcRelationsDao)
     }
 

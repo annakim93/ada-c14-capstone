@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.adacapstone.data.database.ContactDatabase
+import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.repository.ContactRepo
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     private val repository: ContactRepo
 
     init {
-        val contactDao = ContactDatabase.getDatabase(application).contactDao()
+        val contactDao = MainDatabase.getDatabase(application).contactDao()
         repository = ContactRepo(contactDao)
         readAllData = repository.readAllData
     }
