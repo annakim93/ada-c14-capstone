@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_contactsFragment_to_addNewContactFragment"
             app:destination="@id/addNewContactFragment" />
+        <action
+            android:id="@+id/action_contactsFragment_to_updateContactFragment"
+            app:destination="@id/updateContactFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewFragment"
@@ -75,6 +78,14 @@
         android:label="AddNewContactFragment" >
         <action
             android:id="@+id/action_addNewContactFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateContactFragment"
+        android:name="com.example.adacapstone.fragments.UpdateContactFragment"
+        android:label="UpdateContactFragment" >
+        <action
+            android:id="@+id/action_updateContactFragment_to_contactsFragment"
             app:destination="@id/contactsFragment" />
     </fragment>
 </navigation>

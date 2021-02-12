@@ -18,7 +18,6 @@ class ContactsRecyclerAdapter(val fragment: ContactsFragment) : RecyclerView.Ada
     val selectedItems = arrayListOf<Contact>()
     lateinit var checkBox: CheckBox
 
-
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : MyViewHolder {
