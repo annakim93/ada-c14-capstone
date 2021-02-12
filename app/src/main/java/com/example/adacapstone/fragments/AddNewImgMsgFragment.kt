@@ -1,16 +1,13 @@
 package com.example.adacapstone.fragments
 
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +20,7 @@ import androidx.navigation.Navigation
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.interfaces.ImageHandling
 import com.example.adacapstone.interfaces.InputCheck
 import com.example.adacapstone.utils.Permissions
 import java.io.File
@@ -32,7 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddNewImgMsgFragment : Fragment(), InputCheck {
+class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
 
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
@@ -166,29 +164,6 @@ class AddNewImgMsgFragment : Fragment(), InputCheck {
             // Save a file: path for use with ACTION_VIEW intents
             currentImgPath = absolutePath
         }
-    }
-
-    fun getCameraPhotoOrientation(context: Context, imageUri: Uri,
-                                  imagePath: String): Int {
-        var rotate = 0
-        try {
-            context.contentResolver.notifyChange(imageUri, null)
-            val imageFile = File(imagePath)
-            val exif = ExifInterface(imageFile.absolutePath)
-            val orientation = exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL)
-            when (orientation) {
-                ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
-                ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
-                ExifInterface.ORIENTATION_ROTATE_90 -> rotate = 90
-            }
-            Log.i("RotateImage", "Exif orientation: $orientation")
-            Log.i("RotateImage", "Rotate value: $rotate")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return rotate
     }
 
 }
