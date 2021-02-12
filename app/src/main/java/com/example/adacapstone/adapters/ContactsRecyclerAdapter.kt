@@ -13,7 +13,8 @@ import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.fragments.ContactsFragment
 import com.example.adacapstone.fragments.ContactsFragmentDirections
 
-class ContactsRecyclerAdapter(val fragment: ContactsFragment) : RecyclerView.Adapter<ContactsRecyclerAdapter.MyViewHolder>() {
+class ContactsRecyclerAdapter(val fragment: ContactsFragment) :
+        RecyclerView.Adapter<ContactsRecyclerAdapter.MyViewHolder>() {
 
     var contactsList = emptyList<Contact>()
     var multiSelect = false
