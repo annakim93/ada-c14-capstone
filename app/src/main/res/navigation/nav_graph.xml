@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_addNewFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_addNewFragment_to_setContactsForImgMsgFragment"
+            app:destination="@id/setContactsForImgMsgFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewContactFragment"
@@ -90,5 +93,16 @@
         <argument
             android:name="contact"
             app:argType="com.example.adacapstone.data.model.Contact" />
+    </fragment>
+    <fragment
+        android:id="@+id/setContactsForImgMsgFragment"
+        android:name="com.example.adacapstone.fragments.SetContactsForImgMsgFragment"
+        android:label="SetContactsForImgMsgFragment" >
+        <argument
+            android:name="imgMsgStringArray"
+            app:argType="string[]" />
+        <action
+            android:id="@+id/action_setContactsForImgMsgFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
     </fragment>
 </navigation>
