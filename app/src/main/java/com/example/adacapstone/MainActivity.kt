@@ -1,9 +1,8 @@
 package com.example.adacapstone
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -73,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.nav_contacts -> {
                 navController.navigate(R.id.action_homeFragment_to_contactsFragment)
+                Toast.makeText(this, "Click on a contact to update or long-click to delete.", Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
         }

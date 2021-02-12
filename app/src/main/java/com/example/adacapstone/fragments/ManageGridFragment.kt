@@ -50,7 +50,6 @@ class ManageGridFragment : Fragment() {
         binding.imgMsgViewModel = mImgMsgViewModel
 
         adapter = GridImageAdapter(ImgMsgListener { imgMsgId ->
-//            Toast.makeText(context, "You clicked $imgMsgId", Toast.LENGTH_LONG).show()
             mImgMsgViewModel.onImgMsgClicked(imgMsgId)
         }, this)
         binding.recyclerViewManage.adapter = adapter
@@ -97,7 +96,6 @@ class ManageGridFragment : Fragment() {
         // Click listener for delete btn
         deleteBtn.setOnClickListener {
             deleteImgMsg()
-
         }
 
     }

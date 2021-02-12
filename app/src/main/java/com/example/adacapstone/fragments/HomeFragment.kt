@@ -13,7 +13,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.adacapstone.MainActivity
 import com.example.adacapstone.R
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.utils.ListImageAdapter
