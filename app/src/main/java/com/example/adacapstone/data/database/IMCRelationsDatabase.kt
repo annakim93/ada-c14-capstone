@@ -27,7 +27,7 @@ abstract class IMCRelationsDatabase : RoomDatabase() {
         private var INSTANCE: IMCRelationsDatabase? = null
 
         fun getDatabase(context: Context): IMCRelationsDatabase {
-            val tempInstance = IMCRelationsDatabase.INSTANCE
+            val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
@@ -37,7 +37,7 @@ abstract class IMCRelationsDatabase : RoomDatabase() {
                         IMCRelationsDatabase::class.java,
                         "imc_relations_database"
                 ).build()
-                IMCRelationsDatabase.INSTANCE = instance
+                INSTANCE = instance
                 return instance
             }
         }
