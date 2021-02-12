@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.adacapstone.data.database.ContactDatabase
 import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.repository.ContactRepo
