@@ -1,7 +1,10 @@
 package com.example.adacapstone.utils
 import android.Manifest
+import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 
 class Permissions {
     companion object {
@@ -19,11 +22,29 @@ class Permissions {
 
         val SMS_PERMISSION: Array<String> = arrayOf(Manifest.permission.SEND_SMS)
 
-        val CAMERA_PERMISSION = Manifest.permission.CAMERA
+        // Permissions handling
+        fun checkPermissions(permissions: Array<String>, context: Context): Boolean {
+            for (i in permissions) {
+                if (!checkSinglePermission(i, context)) return false
+            }
+            return true
+        }
 
-        val WRITE_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        fun checkSinglePermission(permission: String, context: Context): Boolean {
+            val permissionRequest = ActivityCompat.checkSelfPermission(
+                    context,
+                    permission
+            )
+            return permissionRequest == PackageManager.PERMISSION_GRANTED
+        }
 
-        val READ_STORAGE_PERMISSION = Manifest.permission.READ_EXTERNAL_STORAGE
+        fun verifyPermissions(permissions: Array<String>, activity: Activity) {
+            ActivityCompat.requestPermissions(
+                    activity,
+                    permissions,
+                    VERIFY_PERMISSIONS_REQUEST_CODE
+            )
+        }
 
     }
 }

@@ -18,9 +18,10 @@ import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ContactViewModel
+import com.example.adacapstone.utils.InputCheck
 import com.example.adacapstone.utils.Permissions
 
-class AddNewContactFragment : Fragment() {
+class AddNewContactFragment : Fragment(), InputCheck {
 
     // Room database
     private lateinit var mContactViewModel: ContactViewModel
@@ -29,8 +30,8 @@ class AddNewContactFragment : Fragment() {
 
         container?.removeAllViews()
 
-        if (!checkPermissions(Permissions.SMS_PERMISSION)) {
-            verifyPermissions(Permissions.SMS_PERMISSION)
+        if (!Permissions.checkPermissions(Permissions.SMS_PERMISSION, requireContext())) {
+            Permissions.verifyPermissions(Permissions.SMS_PERMISSION, requireActivity())
         }
 
         val view = inflater.inflate(R.layout.fragment_add_new_contact, container, false)
@@ -63,7 +64,7 @@ class AddNewContactFragment : Fragment() {
             val numInput: TextView = view.findViewById(R.id.contact_num_input)
             val num = numInput.text.toString()
 
-            if (inputCheck(name, num)) {
+            if (contactInputCheck(name, num)) {
                 val contact = Contact(0, name, num)
                 mContactViewModel.addContact(contact)
                 navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
@@ -74,32 +75,28 @@ class AddNewContactFragment : Fragment() {
         }
     }
 
-    // Permissions handling
-    fun checkPermissions(permissions: Array<String>): Boolean {
-        for (i in permissions) {
-            if (!checkSinglePermission(i)) return false
-        }
-        return true
-    }
+//    // Permissions handling
+//    fun checkPermissions(permissions: Array<String>): Boolean {
+//        for (i in permissions) {
+//            if (!checkSinglePermission(i)) return false
+//        }
+//        return true
+//    }
+//
+//    fun checkSinglePermission(permission: String): Boolean {
+//        val permissionRequest = ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                permission
+//        )
+//        return permissionRequest == PackageManager.PERMISSION_GRANTED
+//    }
+//
+//    fun verifyPermissions(permissions: Array<String>) {
+//        ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                permissions,
+//                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
+//        )
+//    }
 
-    fun checkSinglePermission(permission: String): Boolean {
-        val permissionRequest = ActivityCompat.checkSelfPermission(
-                requireContext(),
-                permission
-        )
-        return permissionRequest == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun verifyPermissions(permissions: Array<String>) {
-        ActivityCompat.requestPermissions(
-                requireActivity(),
-                permissions,
-                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
-        )
-    }
-
-    // Database input check
-    private fun inputCheck(name: String, num: String): Boolean {
-        return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
-    }
 }

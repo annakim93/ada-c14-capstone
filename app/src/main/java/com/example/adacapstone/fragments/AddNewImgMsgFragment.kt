@@ -3,7 +3,6 @@ package com.example.adacapstone.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.ExifInterface
@@ -11,13 +10,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +23,7 @@ import androidx.navigation.Navigation
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.utils.InputCheck
 import com.example.adacapstone.utils.Permissions
 import java.io.File
 import java.io.FileOutputStream
@@ -34,7 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddNewImgMsgFragment : Fragment() {
+class AddNewImgMsgFragment : Fragment(), InputCheck {
 
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
@@ -49,8 +47,8 @@ class AddNewImgMsgFragment : Fragment() {
 
         container?.removeAllViews()
 
-        if (!checkPermissions(Permissions.IMG_PERMISSIONS)) {
-            verifyPermissions(Permissions.IMG_PERMISSIONS)
+        if (!Permissions.checkPermissions(Permissions.IMG_PERMISSIONS, requireContext())) {
+            Permissions.verifyPermissions(Permissions.IMG_PERMISSIONS, requireActivity())
         }
 
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
@@ -109,7 +107,7 @@ class AddNewImgMsgFragment : Fragment() {
             val alertText: TextView = view.findViewById(R.id.alertText)
             val message = alertText.text.toString()
 
-            if (inputCheck(message, selectedImg)) {
+            if (imgMsgInputCheck(message, selectedImg)) {
                 val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
                 mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
                 navController.navigate(R.id.action_addNewFragment_to_homeFragment)
@@ -193,33 +191,28 @@ class AddNewImgMsgFragment : Fragment() {
         return rotate
     }
 
-    // Database input check
-    private fun inputCheck(message: String, image: ImageView): Boolean {
-        return !(TextUtils.isEmpty(message) || image.drawable == null)
-    }
-
-    // Permissions handling
-    fun checkPermissions(permissions: Array<String>): Boolean {
-        for (i in permissions) {
-            if (!checkSinglePermission(i)) return false
-        }
-        return true
-    }
-
-    fun checkSinglePermission(permission: String): Boolean {
-        val permissionRequest = ActivityCompat.checkSelfPermission(
-                requireContext(),
-                permission
-        )
-        return permissionRequest == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun verifyPermissions(permissions: Array<String>) {
-        ActivityCompat.requestPermissions(
-                requireActivity(),
-                permissions,
-                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
-        )
-    }
+//    // Permissions handling
+//    fun checkPermissions(permissions: Array<String>): Boolean {
+//        for (i in permissions) {
+//            if (!checkSinglePermission(i)) return false
+//        }
+//        return true
+//    }
+//
+//    fun checkSinglePermission(permission: String): Boolean {
+//        val permissionRequest = ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                permission
+//        )
+//        return permissionRequest == PackageManager.PERMISSION_GRANTED
+//    }
+//
+//    fun verifyPermissions(permissions: Array<String>) {
+//        ActivityCompat.requestPermissions(
+//                requireActivity(),
+//                permissions,
+//                Permissions.VERIFY_PERMISSIONS_REQUEST_CODE
+//        )
+//    }
 
 }
