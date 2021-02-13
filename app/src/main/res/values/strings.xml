@@ -16,4 +16,5 @@
     <string name="update_frag_header">Update</string>
     <string name="add_new_contact_header">Add New Contact</string>
     <string name="update_contact_header">Update Contact</string>
+    <string name="select_contacts_header">Select Contacts</string>
 </resources>

@@ -48,7 +48,7 @@ class ContactsFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // ImgMsgModel
+        // ContactViewModel
         mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
         mContactViewModel.readAllData.observe(viewLifecycleOwner, Observer { contact ->
             adapter.setData(contact)
