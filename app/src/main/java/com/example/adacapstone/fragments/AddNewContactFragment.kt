@@ -70,7 +70,13 @@ class AddNewContactFragment : Fragment(), InputCheck {
             if (contactInputCheck(name, num)) {
                 val contact = Contact(0, name, num)
                 mContactViewModel.addContact(contact)
-                navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
+
+                if (args.forImgMsg) {
+                    navController.navigate(R.id.action_addNewContactFragment_to_setContactsForImgMsgFragment)
+                } else {
+                    navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
+                }
+
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_LONG).show()

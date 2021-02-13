@@ -1,6 +1,7 @@
 package com.example.adacapstone.fragments
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
+import com.example.adacapstone.activities.MainActivity
 import com.example.adacapstone.adapters.ContactSelectionRecyclerAdapter
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.model.ImageMessage
@@ -24,6 +27,7 @@ import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.viewmodel.ContactViewModel
 import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import kotlinx.coroutines.launch
 
 class SetContactsForImgMsgFragment : Fragment() {
 
@@ -60,6 +64,10 @@ class SetContactsForImgMsgFragment : Fragment() {
             adapter.setData(contact)
         })
 
+        // Instantiate view models
+        mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
+        mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
+
         return view
 
     }
@@ -89,15 +97,15 @@ class SetContactsForImgMsgFragment : Fragment() {
         // Click listener for save btn
         saveBtn.setOnClickListener {
             mImgMsgViewModel.addImgMsg(args.imgMsg)
-            val addedImgMsg = mImgMsgViewModel.latestImgMsg as ImageMessage
+            SystemClock.sleep(1000)
+            mImgMsgViewModel.latestImgMsg.observe(viewLifecycleOwner, Observer { imgMsg ->
+                for (contact in selectedItems) {
+                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(imgMsg.imgMsgId, contact.contactId))
+                }
 
-            // get id of last image message
-            for (contact in selectedItems) {
-                mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(addedImgMsg.imgMsgId, contact.contactId))
-            }
-
-            navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
-            Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
+                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+            })
         }
 
     }

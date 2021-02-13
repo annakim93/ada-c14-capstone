@@ -42,17 +42,17 @@ class ContactSelectionRecyclerAdapter(val fragment: SetContactsForImgMsgFragment
         checkBox = holder.itemView.findViewById(R.id.checkbox)
         checkBox.visibility = View.VISIBLE
 
-        // Selected items are checked off
-        checkBox.isChecked = selectedItems.contains(currentItem)
+//        // Selected items are checked off
+//        checkBox.isChecked = selectedItems.contains(currentItem)
 
         // Normal click handler
         layoutItem.setOnClickListener {
-            selectItem(holder, currentItem)
             if (selectedItems.size == 0) {
                 fragment.startSelection(currentItem)
             } else {
                 fragment.manageSelection(currentItem)
             }
+            selectItem(holder, currentItem)
         }
     }
 
