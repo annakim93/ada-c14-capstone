@@ -97,7 +97,7 @@ class SetContactsForImgMsgFragment : Fragment() {
         // Click listener for save btn
         saveBtn.setOnClickListener {
             mImgMsgViewModel.addImgMsg(args.imgMsg)
-            SystemClock.sleep(1000)
+            SystemClock.sleep(500)
             mImgMsgViewModel.latestImgMsg.observe(viewLifecycleOwner, Observer { imgMsg ->
                 for (contact in selectedItems) {
                     mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(imgMsg.imgMsgId, contact.contactId))
