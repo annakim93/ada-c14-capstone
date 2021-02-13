@@ -44,10 +44,27 @@
             <argument
                 android:name="currentImgMsg"
                 app:argType="com.example.adacapstone.data.model.ImageMessage" />
+            <action
+                android:id="@+id/action_updateFragment_to_updateSetContactsFragment2"
+                app:destination="@id/updateSetContactsFragment2" />
         </fragment>
         <action
             android:id="@+id/action_global_homeFragment"
             app:destination="@id/homeFragment" />
+        <fragment
+            android:id="@+id/updateSetContactsFragment2"
+            android:name="com.example.adacapstone.fragments.UpdateSetContactsFragment"
+            android:label="UpdateSetContactsFragment" >
+            <action
+                android:id="@+id/action_updateSetContactsFragment2_to_updateFragment"
+                app:destination="@id/updateFragment" />
+            <action
+                android:id="@+id/action_updateSetContactsFragment2_to_manageGrid"
+                app:destination="@id/manageGrid" />
+            <argument
+                android:name="currentContactList"
+                app:argType="com.example.adacapstone.data.model.Contact[]" />
+        </fragment>
     </navigation>
     <fragment
         android:id="@+id/addNewFragment"
