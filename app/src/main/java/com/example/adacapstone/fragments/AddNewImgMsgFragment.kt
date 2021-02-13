@@ -99,21 +99,35 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
         }
 
         // Click listener for submit / save button
-        val saveBtn: ImageView = view.findViewById(R.id.save_img_btn)
+        val nextBtn: ImageView = view.findViewById(R.id.next_btn)
 
-        saveBtn.setOnClickListener {
+        nextBtn.setOnClickListener{
             val alertText: TextView = view.findViewById(R.id.alertText)
             val message = alertText.text.toString()
 
             if (imgMsgInputCheck(message, selectedImg)) {
                 val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
-                mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
-                navController.navigate(R.id.action_addNewFragment_to_homeFragment)
-                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+                navController.navigate(AddNewImgMsgFragmentDirections.actionAddNewFragmentToSetContactsForImgMsgFragment(imgMsg))
+                Toast.makeText(requireContext(), "Please select contacts to send this message to.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
             }
+
         }
+
+//        saveBtn.setOnClickListener {
+//            val alertText: TextView = view.findViewById(R.id.alertText)
+//            val message = alertText.text.toString()
+//
+//            if (imgMsgInputCheck(message, selectedImg)) {
+//                val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
+//                mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
+//                navController.navigate(R.id.action_addNewFragment_to_homeFragment)
+//                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
     }
 

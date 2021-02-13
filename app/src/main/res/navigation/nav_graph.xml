@@ -66,8 +66,8 @@
         android:name="com.example.adacapstone.fragments.SetContactsForImgMsgFragment"
         android:label="SetContactsForImgMsgFragment" >
         <argument
-            android:name="imgMsgStringArray"
-            app:argType="string[]" />
+            android:name="imgMsg"
+            app:argType="com.example.adacapstone.data.model.ImageMessage" />
         <action
             android:id="@+id/action_setContactsForImgMsgFragment_to_addNewFragment"
             app:destination="@id/addNewFragment" />
