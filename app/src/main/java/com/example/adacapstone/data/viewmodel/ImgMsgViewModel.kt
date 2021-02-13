@@ -1,6 +1,7 @@
 package com.example.adacapstone.data.viewmodel
 
 import android.app.Application
+import android.media.Image
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,8 +14,9 @@ import kotlinx.coroutines.launch
 
 class ImgMsgViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<ImageMessage>>
     private val repository: ImgMsgRepo
+    val readAllData: LiveData<List<ImageMessage>>
+    var latestImgMsg: LiveData<ImageMessage>
     private val _navigateToUpdateFrag = MutableLiveData<ImageMessage>()
     val navigateToUpdateFrag: LiveData<ImageMessage>
         get() = _navigateToUpdateFrag
@@ -23,6 +25,7 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
         val imgMsgDao = MainDatabase.getDatabase(application).imgMsgDao()
         repository = ImgMsgRepo(imgMsgDao)
         readAllData = repository.readAllData
+        latestImgMsg = repository.latestImgMsg
     }
 
     fun addImgMsg(imgMsg: ImageMessage) {

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.viewmodel.ContactViewModel
@@ -22,6 +23,8 @@ class AddNewContactFragment : Fragment(), InputCheck {
     // Room database
     private lateinit var mContactViewModel: ContactViewModel
 
+    private val args by navArgs<AddNewContactFragmentArgs>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         container?.removeAllViews()
@@ -30,9 +33,7 @@ class AddNewContactFragment : Fragment(), InputCheck {
             Permissions.verifyPermissions(Permissions.SMS_PERMISSION, requireActivity())
         }
 
-        val view = inflater.inflate(R.layout.fragment_add_new_contact, container, false)
-
-        return view
+        return inflater.inflate(R.layout.fragment_add_new_contact, container, false)
 
     }
 
@@ -46,8 +47,14 @@ class AddNewContactFragment : Fragment(), InputCheck {
         val navController: NavController = Navigation.findNavController(view)
         val closeBtn: ImageView = view.findViewById(R.id.close_add_contact_btn)
 
-        closeBtn.setOnClickListener {
-            navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
+        if (args.forImgMsg) {
+            closeBtn.setOnClickListener {
+                navController.navigate(R.id.action_addNewContactFragment_to_setContactsForImgMsgFragment)
+            }
+        } else {
+            closeBtn.setOnClickListener {
+                navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
+            }
         }
 
         // Click listener for submit / save button

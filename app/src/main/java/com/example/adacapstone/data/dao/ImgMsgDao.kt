@@ -22,4 +22,7 @@ interface ImgMsgDao {
     @Query("SELECT * FROM img_msg_table WHERE imgMsgId = :imgMsgId")
     fun getImgMsgWithId(imgMsgId: Int): LiveData<ImageMessage>
 
+    @Query("SELECT * FROM img_msg_table ORDER BY imgMsgId DESC LIMIT 1")
+    fun getLatestImgMsg(): LiveData<ImageMessage>
+
 }
