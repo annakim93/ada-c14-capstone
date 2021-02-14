@@ -23,7 +23,8 @@ import com.example.adacapstone.data.model.ImageMessage
             onDelete = CASCADE,
             onUpdate = CASCADE
         )
-    ]
+    ],
+    tableName = "imc_relations"
 )
 data class ImgMsgContactCrossRef(
     val imgMsgId: Int,

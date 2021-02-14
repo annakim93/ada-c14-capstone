@@ -17,8 +17,8 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
     private val repository: ImgMsgRepo
     val readAllData: LiveData<List<ImageMessage>>
     var latestImgMsg: LiveData<ImageMessage>
-    private val _navigateToUpdateFrag = MutableLiveData<ImageMessage>()
-    val navigateToUpdateFrag: LiveData<ImageMessage>
+    private val _navigateToUpdateFrag = MutableLiveData<ImageMessage?>()
+    val navigateToUpdateFrag: LiveData<ImageMessage?>
         get() = _navigateToUpdateFrag
 
     init {

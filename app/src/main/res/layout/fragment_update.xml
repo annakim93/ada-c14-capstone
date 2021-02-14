@@ -44,11 +44,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/save_btn"
+                    android:id="@+id/next_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/check"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
                     app:tint="@color/blue" />
 
             </RelativeLayout>

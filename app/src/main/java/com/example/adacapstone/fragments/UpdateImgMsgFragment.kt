@@ -14,11 +14,13 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
+import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.interfaces.ImageHandling
 import com.example.adacapstone.interfaces.InputCheck
@@ -38,6 +40,7 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
 
     // Room database
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
+    private lateinit var mIMCRelationsViewModel: IMCRelationsViewModel
 
     // Nav (args passed from previous frag)
     private val args by navArgs<UpdateFragmentArgs>()
@@ -70,6 +73,7 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
 
         // Model
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
+        mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
 
         // Click listener on close btn to navigate back to home fragment
         val navController: NavController = Navigation.findNavController(view)
@@ -80,21 +84,47 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
         }
 
         // Click listener for update / save changes button
-        val saveBtn: ImageView = view.findViewById(R.id.save_btn)
+        val nextBtn: ImageView = view.findViewById(R.id.next_btn)
 
-        saveBtn.setOnClickListener {
+        nextBtn.setOnClickListener {
             val updatedMsg = view.findViewById<EditText>(R.id.update_alert_text).text.toString()
             val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
 
             if (imgMsgInputCheck(updatedMsg, updatedImg)) {
-                val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath) // Create imgMsg object
+
+                val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath)
                 mImgMsgViewModel.updateImgMsg(updatedImgMsg)
-                navController.navigate(R.id.action_updateFragment_to_manageGrid)
-                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_SHORT).show()
+
+                mIMCRelationsViewModel.setImgMsgId(args.currentImgMsg.imgMsgId)
+                mIMCRelationsViewModel.contactsList.observe(viewLifecycleOwner, Observer { it ->
+                    val currentContactList = it.first().contacts
+                    navController.navigate(UpdateFragmentDirections.actionUpdateFragmentToUpdateSetContactsFragment2(currentContactList.toTypedArray()))
+                    Toast.makeText(requireContext(), "$currentContactList", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Please review selected contacts.", Toast.LENGTH_SHORT).show()
+                })
+
             } else {
                 Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
+//        val saveBtn: ImageView = view.findViewById(R.id.save_btn)
+//
+//        saveBtn.setOnClickListener {
+//            val updatedMsg = view.findViewById<EditText>(R.id.update_alert_text).text.toString()
+//            val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
+//
+//            if (imgMsgInputCheck(updatedMsg, updatedImg)) {
+//                val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath) // Create imgMsg object
+//                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
+//                navController.navigate(R.id.action_updateFragment_to_manageGrid)
+//                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         // Click listener for gallery selection
         val galleryBtn: Button = view.findViewById(R.id.update_gallery_btn)
