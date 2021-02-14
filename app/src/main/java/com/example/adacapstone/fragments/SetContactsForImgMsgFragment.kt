@@ -102,15 +102,6 @@ class SetContactsForImgMsgFragment : Fragment() {
                 navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
             })
-//            SystemClock.sleep(500)
-//            mImgMsgViewModel.latestImgMsg.observe(viewLifecycleOwner, Observer { imgMsg ->
-//                for (contact in selectedItems) {
-//                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(imgMsg.imgMsgId, contact.contactId))
-//                }
-//
-//                navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
-//                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
-//            })
         }
 
     }

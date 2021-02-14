@@ -7,7 +7,6 @@ import com.example.adacapstone.data.model.ImageMessage
 class ImgMsgRepo(private val imgMsgDao: ImgMsgDao) {
 
     val readAllData: LiveData<List<ImageMessage>> = imgMsgDao.readAllData()
-    val latestImgMsg: LiveData<ImageMessage> = imgMsgDao.getLatestImgMsg()
 
     suspend fun addImgMsg(imgMsg: ImageMessage): Long {
         return imgMsgDao.addImgMsg(imgMsg)

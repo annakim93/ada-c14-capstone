@@ -3,7 +3,6 @@ package com.example.adacapstone.data.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.adacapstone.data.database.MainDatabase
-import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.relations.ImgMsgWithContacts
 import com.example.adacapstone.data.repository.IMCRelationsRepo

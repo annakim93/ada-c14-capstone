@@ -19,7 +19,6 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
     val latestImgMsgId: MutableLiveData<Long> by lazy {
         MutableLiveData<Long>()
     }
-    var latestImgMsg: LiveData<ImageMessage>
     private val _navigateToUpdateFrag = MutableLiveData<ImageMessage?>()
     val navigateToUpdateFrag: LiveData<ImageMessage?>
         get() = _navigateToUpdateFrag
@@ -28,7 +27,6 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
         val imgMsgDao = MainDatabase.getDatabase(application).imgMsgDao()
         repository = ImgMsgRepo(imgMsgDao)
         readAllData = repository.readAllData
-        latestImgMsg = repository.latestImgMsg
     }
 
     fun addImgMsg(imgMsg: ImageMessage) {
