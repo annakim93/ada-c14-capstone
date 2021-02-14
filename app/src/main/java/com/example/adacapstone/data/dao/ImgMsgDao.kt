@@ -8,7 +8,7 @@ import com.example.adacapstone.data.model.ImageMessage
 interface ImgMsgDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addImgMsg(im: ImageMessage)
+    suspend fun addImgMsg(im: ImageMessage): Long
 
     @Update
     suspend fun updateImgMsg(im: ImageMessage)

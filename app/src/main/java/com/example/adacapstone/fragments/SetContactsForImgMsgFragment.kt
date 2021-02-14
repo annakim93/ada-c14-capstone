@@ -12,22 +12,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
-import com.example.adacapstone.activities.MainActivity
 import com.example.adacapstone.adapters.ContactSelectionRecyclerAdapter
 import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.viewmodel.ContactViewModel
 import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
-import kotlinx.coroutines.launch
 
 class SetContactsForImgMsgFragment : Fragment() {
 
@@ -97,15 +93,24 @@ class SetContactsForImgMsgFragment : Fragment() {
         // Click listener for save btn
         saveBtn.setOnClickListener {
             mImgMsgViewModel.addImgMsg(args.imgMsg)
-            SystemClock.sleep(500)
-            mImgMsgViewModel.latestImgMsg.observe(viewLifecycleOwner, Observer { imgMsg ->
+
+            mImgMsgViewModel.latestImgMsgId.observe(viewLifecycleOwner, Observer { it ->
                 for (contact in selectedItems) {
-                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(imgMsg.imgMsgId, contact.contactId))
+                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(it.toInt(), contact.contactId))
                 }
 
                 navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
                 Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
             })
+//            SystemClock.sleep(500)
+//            mImgMsgViewModel.latestImgMsg.observe(viewLifecycleOwner, Observer { imgMsg ->
+//                for (contact in selectedItems) {
+//                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(imgMsg.imgMsgId, contact.contactId))
+//                }
+//
+//                navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
+//                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+//            })
         }
 
     }

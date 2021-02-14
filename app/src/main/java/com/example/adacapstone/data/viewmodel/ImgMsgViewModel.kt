@@ -16,6 +16,9 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
 
     private val repository: ImgMsgRepo
     val readAllData: LiveData<List<ImageMessage>>
+    val latestImgMsgId: MutableLiveData<Long> by lazy {
+        MutableLiveData<Long>()
+    }
     var latestImgMsg: LiveData<ImageMessage>
     private val _navigateToUpdateFrag = MutableLiveData<ImageMessage?>()
     val navigateToUpdateFrag: LiveData<ImageMessage?>
@@ -31,7 +34,7 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
     fun addImgMsg(imgMsg: ImageMessage) {
         // Dispatchers.IO --> run in background/worker thread (not main thread)
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addImgMsg(imgMsg)
+            latestImgMsgId.postValue(repository.addImgMsg(imgMsg))
         }
     }
 

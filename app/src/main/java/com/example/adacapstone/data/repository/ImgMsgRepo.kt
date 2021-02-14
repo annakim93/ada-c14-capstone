@@ -9,8 +9,8 @@ class ImgMsgRepo(private val imgMsgDao: ImgMsgDao) {
     val readAllData: LiveData<List<ImageMessage>> = imgMsgDao.readAllData()
     val latestImgMsg: LiveData<ImageMessage> = imgMsgDao.getLatestImgMsg()
 
-    suspend fun addImgMsg(imgMsg: ImageMessage) {
-        imgMsgDao.addImgMsg(imgMsg)
+    suspend fun addImgMsg(imgMsg: ImageMessage): Long {
+        return imgMsgDao.addImgMsg(imgMsg)
     }
 
     suspend fun updateImgMsg(imgMsg: ImageMessage) {

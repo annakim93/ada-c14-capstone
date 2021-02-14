@@ -14,19 +14,10 @@ import kotlinx.coroutines.launch
 class IMCRelationsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: IMCRelationsRepo
-    val currentImgMsgId: MutableLiveData<Int> by lazy {
+    private val currentImgMsgId: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
     lateinit var contactsList: LiveData<List<ImgMsgWithContacts>>
-
-//    fun getUsersWithNameLiveData(): LiveData<List<String>>? {
-//        return Transformations.switchMap(
-//                nameQueryLiveData
-//        ) { name: Any? -> myDataSource.getUsersWithNameLiveData(name) }
-//    }
-
-    // Instance variable that stores the current list of words. This will automatically change when currentDictionaryId value changes.
-//    private val words: LiveData<List<Word>> = Transformations.switchMap<Any, List<Word>>(currentDictionaryId) { dictionaryId: Any? -> mWordRepository.getWordByDictionaryId(dictionaryId) }
 
     init {
         val imcRelationsDao = MainDatabase.getDatabase(application).imcRelationsDao()
@@ -42,10 +33,6 @@ class IMCRelationsViewModel(application: Application) : AndroidViewModel(applica
     fun setImgMsgId(imgMsgId: Int) {
         currentImgMsgId.value = imgMsgId
         contactsList = repository.getContactsOfImgMsg(currentImgMsgId.value!!)
-    }
-
-    fun getContactsOfImgMsg(): LiveData<List<ImgMsgWithContacts>> {
-        return contactsList
     }
 
 }
