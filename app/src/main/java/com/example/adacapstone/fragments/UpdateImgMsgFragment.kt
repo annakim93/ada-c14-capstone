@@ -93,7 +93,7 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
             if (imgMsgInputCheck(updatedMsg, updatedImg)) {
 
                 val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath)
-                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
+//                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
 
                 mIMCRelationsViewModel.setImgMsgId(args.currentImgMsg.imgMsgId)
                 mIMCRelationsViewModel.contactsList.observe(viewLifecycleOwner, Observer { it ->
