@@ -47,7 +47,7 @@ class AddNewContactFragment : Fragment(), InputCheck {
         val navController: NavController = Navigation.findNavController(view)
         val closeBtn: ImageView = view.findViewById(R.id.close_add_contact_btn)
 
-        if (args.forImgMsg) {
+        if (args.newImgMsg) {
             closeBtn.setOnClickListener {
                 navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
             }
@@ -71,8 +71,10 @@ class AddNewContactFragment : Fragment(), InputCheck {
                 val contact = Contact(0, name, num)
                 mContactViewModel.addContact(contact)
 
-                if (args.forImgMsg) {
+                if (args.newImgMsg) {
                     navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
+                } else if (args.updateImgMsg) {
+                    navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToUpdateSetContactsFragment2(args.selectedContacts!!, args.currentImgMsg!!))
                 } else {
                     navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
                 }

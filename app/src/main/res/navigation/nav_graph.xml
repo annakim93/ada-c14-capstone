@@ -12,63 +12,72 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_manageGrid"
-            app:destination="@id/manage_im_nav_graph" />
+            app:destination="@id/manageGrid" />
         <action
             android:id="@+id/action_homeFragment_to_contactsFragment"
             app:destination="@id/contactsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_addNewFragment"
             app:destination="@id/addNewFragment" />
-    </fragment>
-    <navigation
-        android:id="@+id/manage_im_nav_graph"
-        android:label="manage"
-        app:startDestination="@id/manageGrid">
-        <fragment
-            android:id="@+id/manageGrid"
-            android:name="com.example.adacapstone.fragments.ManageGridFragment"
-            android:label="fragment_manage_grid"
-            tools:layout="@layout/fragment_manage_grid">
-            <action
-                android:id="@+id/action_manageGrid_to_updateFragment"
-                app:destination="@id/updateFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/updateFragment"
-            android:name="com.example.adacapstone.fragments.UpdateFragment"
-            android:label="fragment_update"
-            tools:layout="@layout/fragment_update">
-            <action
-                android:id="@+id/action_updateFragment_to_manageGrid"
-                app:destination="@id/manageGrid" />
-            <argument
-                android:name="currentImgMsg"
-                app:argType="com.example.adacapstone.data.model.ImageMessage" />
-            <action
-                android:id="@+id/action_updateFragment_to_updateSetContactsFragment2"
-                app:destination="@id/updateSetContactsFragment2" />
-        </fragment>
         <action
-            android:id="@+id/action_global_homeFragment"
+            android:id="@+id/action_homeFragment_to_manageGrid2"
+            app:destination="@id/manageGrid" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/manageGrid"
+        android:name="com.example.adacapstone.fragments.ManageGridFragment"
+        android:label="fragment_manage_grid"
+        tools:layout="@layout/fragment_manage_grid">
+        <action
+            android:id="@+id/action_manageGrid_to_updateFragment"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_manageGrid_to_homeFragment"
             app:destination="@id/homeFragment" />
-        <fragment
-            android:id="@+id/updateSetContactsFragment2"
-            android:name="com.example.adacapstone.fragments.UpdateSetContactsFragment"
-            android:label="UpdateSetContactsFragment" >
-            <action
-                android:id="@+id/action_updateSetContactsFragment2_to_updateFragment"
-                app:destination="@id/updateFragment" />
-            <action
-                android:id="@+id/action_updateSetContactsFragment2_to_manageGrid"
-                app:destination="@id/manageGrid" />
-            <argument
-                android:name="currentContactList"
-                app:argType="com.example.adacapstone.data.model.Contact[]" />
-            <argument
-                android:name="currentImgMsg"
-                app:argType="com.example.adacapstone.data.model.ImageMessage" />
-        </fragment>
-    </navigation>
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.adacapstone.fragments.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update">
+        <action
+            android:id="@+id/action_updateFragment_to_manageGrid"
+            app:destination="@id/manageGrid" />
+        <argument
+            android:name="currentImgMsg"
+            app:argType="com.example.adacapstone.data.model.ImageMessage" />
+        <action
+            android:id="@+id/action_updateFragment_to_updateSetContactsFragment2"
+            app:destination="@id/updateSetContactsFragment2" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment" />
+
+    <fragment
+        android:id="@+id/updateSetContactsFragment2"
+        android:name="com.example.adacapstone.fragments.UpdateSetContactsFragment"
+        android:label="UpdateSetContactsFragment" >
+        <action
+            android:id="@+id/action_updateSetContactsFragment2_to_updateFragment"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_updateSetContactsFragment2_to_manageGrid"
+            app:destination="@id/manageGrid" />
+        <argument
+            android:name="currentContactList"
+            app:argType="com.example.adacapstone.data.model.Contact[]" />
+        <argument
+            android:name="currentImgMsg"
+            app:argType="com.example.adacapstone.data.model.ImageMessage" />
+        <action
+            android:id="@+id/action_updateSetContactsFragment2_to_addNewContactFragment"
+            app:destination="@id/addNewContactFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/addNewFragment"
         android:name="com.example.adacapstone.fragments.AddNewImgMsgFragment"
@@ -90,6 +99,7 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
     <fragment
         android:id="@+id/setContactsForImgMsgFragment"
         android:name="com.example.adacapstone.fragments.SetContactsForImgMsgFragment"
@@ -107,6 +117,7 @@
             android:id="@+id/action_setContactsForImgMsgFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/updateContactFragment"
         android:name="com.example.adacapstone.fragments.UpdateContactFragment"
@@ -118,6 +129,7 @@
             android:name="contact"
             app:argType="com.example.adacapstone.data.model.Contact" />
     </fragment>
+
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.example.adacapstone.fragments.ContactsFragment"
@@ -132,6 +144,7 @@
             android:id="@+id/action_contactsFragment_to_updateContactFragment"
             app:destination="@id/updateContactFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addNewContactFragment"
         android:name="com.example.adacapstone.fragments.AddNewContactFragment"
@@ -143,7 +156,7 @@
             android:id="@+id/action_addNewContactFragment_to_setContactsForImgMsgFragment"
             app:destination="@id/setContactsForImgMsgFragment" />
         <argument
-            android:name="forImgMsg"
+            android:name="newImgMsg"
             app:argType="boolean"
             android:defaultValue="false" />
         <argument
@@ -151,5 +164,18 @@
             app:argType="com.example.adacapstone.data.model.ImageMessage"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addNewContactFragment_to_updateSetContactsFragment2"
+            app:destination="@id/updateSetContactsFragment2" />
+        <argument
+            android:name="updateImgMsg"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="selectedContacts"
+            app:argType="com.example.adacapstone.data.model.Contact[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
+
 </navigation>

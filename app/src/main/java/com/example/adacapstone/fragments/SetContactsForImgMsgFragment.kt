@@ -20,7 +20,6 @@ import com.example.adacapstone.R
 import com.example.adacapstone.adapters.ContactSelectionRecyclerAdapter
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
-import com.example.adacapstone.data.relations.ImgMsgWithContacts
 import com.example.adacapstone.data.viewmodel.ContactViewModel
 import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
