@@ -80,7 +80,8 @@ class SetContactsForImgMsgFragment : Fragment() {
         val backBtn: ImageView = view.findViewById(R.id.back_btn)
 
         backBtn.setOnClickListener {
-            navController.navigate(R.id.action_setContactsForImgMsgFragment_to_addNewFragment)
+//            navController.navigate(R.id.action_setContactsForImgMsgFragment_to_addNewFragment)
+            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewFragment(false, args.imgMsg))
         }
 
         // Click listener - add new contact

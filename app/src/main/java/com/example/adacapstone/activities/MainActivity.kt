@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.adacapstone.R
+import com.example.adacapstone.fragments.AddNewImgMsgFragmentDirections
+import com.example.adacapstone.fragments.HomeFragmentDirections
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val fab: FloatingActionButton = findViewById(R.id.add_img_fab)
         fab.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_addNewFragment)
+//            navController.navigate(R.id.action_homeFragment_to_addNewFragment)
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToAddNewFragment(true))
         }
 
         // Nav bottom menu visibility

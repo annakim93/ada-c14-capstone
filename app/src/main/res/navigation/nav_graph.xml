@@ -77,6 +77,15 @@
         <action
             android:id="@+id/action_addNewFragment_to_setContactsForImgMsgFragment"
             app:destination="@id/setContactsForImgMsgFragment" />
+        <argument
+            android:name="isProcessStart"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="currentImgMsg"
+            app:argType="com.example.adacapstone.data.model.ImageMessage"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/setContactsForImgMsgFragment"

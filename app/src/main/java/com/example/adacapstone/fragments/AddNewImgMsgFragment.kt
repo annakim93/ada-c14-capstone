@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
@@ -40,6 +41,9 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
     lateinit var currentImgPath: String
     lateinit var currentImgUri: Uri
 
+    // Nav (args passed from previous frag)
+    private val args by navArgs<AddNewImgMsgFragmentArgs>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -51,6 +55,24 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
 
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
         selectedImg = view.findViewById(R.id.selected_img)
+
+        if (!args.isProcessStart) {
+            val imgMsgInProgress = args.currentImgMsg
+            val selectedImgPath = imgMsgInProgress?.imageFilePath
+            if (selectedImgPath != null) {
+                currentImgPath = selectedImgPath
+            }
+            selectedImg.setImageBitmap(BitmapFactory.decodeFile(selectedImgPath))
+
+            if (selectedImgPath?.contains("CAMERA") == true) {
+                selectedImg.rotation = 90F
+            }
+
+            val alertText: TextView = view.findViewById(R.id.alertText)
+            if (imgMsgInProgress != null) {
+                alertText.text = imgMsgInProgress.msg
+            }
+        }
 
         return view
     }
