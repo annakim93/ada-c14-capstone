@@ -64,6 +64,9 @@
             <argument
                 android:name="currentContactList"
                 app:argType="com.example.adacapstone.data.model.Contact[]" />
+            <argument
+                android:name="currentImgMsg"
+                app:argType="com.example.adacapstone.data.model.ImageMessage" />
         </fragment>
     </navigation>
     <fragment

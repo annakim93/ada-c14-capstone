@@ -98,7 +98,7 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
                 mIMCRelationsViewModel.setImgMsgId(args.currentImgMsg.imgMsgId)
                 mIMCRelationsViewModel.contactsList.observe(viewLifecycleOwner, Observer { it ->
                     val currentContactList = it.first().contacts
-                    navController.navigate(UpdateFragmentDirections.actionUpdateFragmentToUpdateSetContactsFragment2(currentContactList.toTypedArray()))
+                    navController.navigate(UpdateFragmentDirections.actionUpdateFragmentToUpdateSetContactsFragment2(currentContactList.toTypedArray(), updatedImgMsg))
                     Toast.makeText(requireContext(), "$currentContactList", Toast.LENGTH_SHORT).show()
                     Toast.makeText(requireContext(), "Please review selected contacts.", Toast.LENGTH_SHORT).show()
                 })

@@ -137,20 +137,6 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
 
         }
 
-//        saveBtn.setOnClickListener {
-//            val alertText: TextView = view.findViewById(R.id.alertText)
-//            val message = alertText.text.toString()
-//
-//            if (imgMsgInputCheck(message, selectedImg)) {
-//                val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
-//                mImgMsgViewModel.addImgMsg(imgMsg) // Add to db
-//                navController.navigate(R.id.action_addNewFragment_to_homeFragment)
-//                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
     }
 
     // Camera and gallery image handling

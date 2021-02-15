@@ -1,8 +1,10 @@
 package com.example.adacapstone.data.viewmodel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.model.Contact
@@ -14,6 +16,9 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
 
     val readAllData: LiveData<List<Contact>>
     private val repository: ContactRepo
+    val selectedContactsList: MutableLiveData<List<Contact>> by lazy {
+        MutableLiveData<List<Contact>>()
+    }
 
     init {
         val contactDao = MainDatabase.getDatabase(application).contactDao()
@@ -37,6 +42,10 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteContact(contact)
         }
+    }
+
+    fun setSelection(contactList: List<Contact>) {
+        selectedContactsList.postValue(contactList)
     }
 
 }

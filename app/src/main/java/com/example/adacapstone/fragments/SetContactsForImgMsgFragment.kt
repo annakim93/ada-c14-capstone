@@ -1,7 +1,6 @@
 package com.example.adacapstone.fragments
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +20,7 @@ import com.example.adacapstone.R
 import com.example.adacapstone.adapters.ContactSelectionRecyclerAdapter
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
+import com.example.adacapstone.data.relations.ImgMsgWithContacts
 import com.example.adacapstone.data.viewmodel.ContactViewModel
 import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
@@ -33,13 +33,13 @@ class SetContactsForImgMsgFragment : Fragment() {
     private lateinit var mIMCRelationsViewModel: IMCRelationsViewModel
 
     private lateinit var navController: NavController
-    private val adapter = ContactSelectionRecyclerAdapter(this)
+    private lateinit var adapter: ContactSelectionRecyclerAdapter
 
     // Nav (args passed from previous frag)
     private val args by navArgs<SetContactsForImgMsgFragmentArgs>()
 
     // Vars for mutliple selection
-    private val selectedItems = arrayListOf<Contact>()
+    private lateinit var selectedItems: List<Contact>
     private var counter = 0
     private lateinit var toolbarHeaderTxt: TextView
     private lateinit var saveBtn: ImageView
@@ -49,20 +49,29 @@ class SetContactsForImgMsgFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_select_contacts, container, false)
 
-        // Recyclerview setup
+        // Recyclerview & contact viewmodel setup
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_home)
+        mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
+        adapter = ContactSelectionRecyclerAdapter(mContactViewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        // Contact data
-        mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
-        mContactViewModel.readAllData.observe(viewLifecycleOwner, Observer { contact ->
-            adapter.setData(contact)
+        mContactViewModel.readAllData.observe(viewLifecycleOwner, Observer { contactList ->
+            adapter.setData(contactList)
         })
 
         // Instantiate view models
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
         mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
+
+        // Set up observer for selection list
+        val selectionListObserver = Observer<List<Contact>> { contactsList ->
+            selectedItems = contactsList
+
+            counter = selectedItems.size
+            updateToolbarHeader(counter)
+        }
+
+        mContactViewModel.selectedContactsList.observe(viewLifecycleOwner, selectionListObserver)
 
         return view
 
@@ -80,14 +89,20 @@ class SetContactsForImgMsgFragment : Fragment() {
         val backBtn: ImageView = view.findViewById(R.id.back_btn)
 
         backBtn.setOnClickListener {
-            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewFragment(false, args.currentImgMsg))
+            navController.navigate(
+                    SetContactsForImgMsgFragmentDirections
+                            .actionSetContactsForImgMsgFragmentToAddNewFragment(false, args.currentImgMsg)
+            )
         }
 
         // Click listener - add new contact
         val addNewBtn: RelativeLayout = view.findViewById(R.id.add_new_layout)
 
         addNewBtn.setOnClickListener {
-            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewContactFragment(true, args.currentImgMsg))
+            navController.navigate(
+                    SetContactsForImgMsgFragmentDirections
+                            .actionSetContactsForImgMsgFragmentToAddNewContactFragment(true, args.currentImgMsg)
+            )
         }
 
         // Click listener for save btn
@@ -106,24 +121,24 @@ class SetContactsForImgMsgFragment : Fragment() {
 
     }
 
-    fun startSelection(contact: Contact) {
-        selectedItems.add(contact)
-        counter++
-        updateToolbarHeader(counter)
-        saveBtn.visibility = View.VISIBLE
-    }
-
-    fun manageSelection(contact: Contact) {
-        if (selectedItems.contains(contact)) {
-            selectedItems.remove(contact)
-            counter--
-            updateToolbarHeader(counter)
-        } else {
-            selectedItems.add(contact)
-            counter++
-            updateToolbarHeader(counter)
-        }
-    }
+//    fun startSelection(contact: Contact) {
+//        selectedItems.add(contact)
+//        counter++
+//        updateToolbarHeader(counter)
+//        saveBtn.visibility = View.VISIBLE
+//    }
+//
+//    fun manageSelection(contact: Contact) {
+//        if (selectedItems.contains(contact)) {
+//            selectedItems.remove(contact)
+//            counter--
+//            updateToolbarHeader(counter)
+//        } else {
+//            selectedItems.add(contact)
+//            counter++
+//            updateToolbarHeader(counter)
+//        }
+//    }
 
     private fun updateToolbarHeader(counter: Int) {
         if (counter == 0) {
@@ -131,8 +146,10 @@ class SetContactsForImgMsgFragment : Fragment() {
             saveBtn.visibility = View.GONE
         } else if (counter == 1) {
             toolbarHeaderTxt.text = "1 contact selected"
+            saveBtn.visibility = View.VISIBLE
         } else {
             toolbarHeaderTxt.text = counter.toString() + " contacts selected"
+            saveBtn.visibility = View.VISIBLE
         }
     }
 

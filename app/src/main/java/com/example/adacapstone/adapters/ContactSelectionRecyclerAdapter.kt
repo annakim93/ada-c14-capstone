@@ -6,15 +6,17 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
+import com.example.adacapstone.data.viewmodel.ContactViewModel
 import com.example.adacapstone.fragments.ContactsFragment
 import com.example.adacapstone.fragments.ContactsFragmentDirections
 import com.example.adacapstone.fragments.SetContactsForImgMsgFragment
 
-class ContactSelectionRecyclerAdapter(val fragment: SetContactsForImgMsgFragment) :
+class ContactSelectionRecyclerAdapter(val mContactViewModel: ContactViewModel) :
         RecyclerView.Adapter<ContactSelectionRecyclerAdapter.MyViewHolder>() {
 
     var contactsList = emptyList<Contact>()
@@ -47,12 +49,15 @@ class ContactSelectionRecyclerAdapter(val fragment: SetContactsForImgMsgFragment
 
         // Normal click handler
         layoutItem.setOnClickListener {
-            if (selectedItems.size == 0) {
-                fragment.startSelection(currentItem)
-            } else {
-                fragment.manageSelection(currentItem)
-            }
             selectItem(holder, currentItem)
+            mContactViewModel.setSelection(selectedItems)
+//            if (selectedItems.size == 0) {
+////                fragment.startSelection(currentItem)
+//                mContactViewModel.setSelection(selectedItems)
+//            } else {
+//                fragment.manageSelection(currentItem)
+//            }
+////            selectItem(holder, currentItem)
         }
     }
 
