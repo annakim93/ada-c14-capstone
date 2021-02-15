@@ -80,20 +80,19 @@ class SetContactsForImgMsgFragment : Fragment() {
         val backBtn: ImageView = view.findViewById(R.id.back_btn)
 
         backBtn.setOnClickListener {
-//            navController.navigate(R.id.action_setContactsForImgMsgFragment_to_addNewFragment)
-            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewFragment(false, args.imgMsg))
+            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewFragment(false, args.currentImgMsg))
         }
 
         // Click listener - add new contact
         val addNewBtn: RelativeLayout = view.findViewById(R.id.add_new_layout)
 
         addNewBtn.setOnClickListener {
-            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewContactFragment(true))
+            navController.navigate(SetContactsForImgMsgFragmentDirections.actionSetContactsForImgMsgFragmentToAddNewContactFragment(true, args.currentImgMsg))
         }
 
         // Click listener for save btn
         saveBtn.setOnClickListener {
-            mImgMsgViewModel.addImgMsg(args.imgMsg)
+            mImgMsgViewModel.addImgMsg(args.currentImgMsg)
 
             mImgMsgViewModel.latestImgMsgId.observe(viewLifecycleOwner, Observer { it ->
                 for (contact in selectedItems) {

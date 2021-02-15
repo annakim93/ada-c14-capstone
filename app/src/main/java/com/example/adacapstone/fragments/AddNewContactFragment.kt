@@ -49,7 +49,7 @@ class AddNewContactFragment : Fragment(), InputCheck {
 
         if (args.forImgMsg) {
             closeBtn.setOnClickListener {
-                navController.navigate(R.id.action_addNewContactFragment_to_setContactsForImgMsgFragment)
+                navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
             }
         } else {
             closeBtn.setOnClickListener {
@@ -72,7 +72,7 @@ class AddNewContactFragment : Fragment(), InputCheck {
                 mContactViewModel.addContact(contact)
 
                 if (args.forImgMsg) {
-                    navController.navigate(R.id.action_addNewContactFragment_to_setContactsForImgMsgFragment)
+                    navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
                 } else {
                     navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
                 }
