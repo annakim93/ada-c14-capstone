@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +22,7 @@ class ContactSelectionRecyclerAdapter(val mContactViewModel: ContactViewModel) :
         RecyclerView.Adapter<ContactSelectionRecyclerAdapter.MyViewHolder>() {
 
     var contactsList = emptyList<Contact>()
-    val selectedItems = arrayListOf<Contact>()
+    var selectedItems = arrayListOf<Contact>()
     lateinit var checkBox: CheckBox
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
@@ -43,21 +45,14 @@ class ContactSelectionRecyclerAdapter(val mContactViewModel: ContactViewModel) :
         // Make checkboxes visible
         checkBox = holder.itemView.findViewById(R.id.checkbox)
         checkBox.visibility = View.VISIBLE
-
-//        // Selected items are checked off
-//        checkBox.isChecked = selectedItems.contains(currentItem)
+        if (selectedItems.contains(currentItem)) {
+            checkBox.isChecked = true
+        }
 
         // Normal click handler
         layoutItem.setOnClickListener {
             selectItem(holder, currentItem)
             mContactViewModel.setSelection(selectedItems)
-//            if (selectedItems.size == 0) {
-////                fragment.startSelection(currentItem)
-//                mContactViewModel.setSelection(selectedItems)
-//            } else {
-//                fragment.manageSelection(currentItem)
-//            }
-////            selectItem(holder, currentItem)
         }
     }
 
@@ -67,6 +62,13 @@ class ContactSelectionRecyclerAdapter(val mContactViewModel: ContactViewModel) :
 
     fun setData(contacts: List<Contact>) {
         this.contactsList = contacts
+        notifyDataSetChanged()
+    }
+
+    fun setData(contacts: List<Contact>, selectedContacts: ArrayList<Contact>) {
+        this.contactsList = contacts
+        this.selectedItems = selectedContacts
+        mContactViewModel.setSelection(selectedItems)
         notifyDataSetChanged()
     }
 

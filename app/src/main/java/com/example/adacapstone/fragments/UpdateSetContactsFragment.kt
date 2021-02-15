@@ -8,7 +8,9 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -37,7 +39,7 @@ class UpdateSetContactsFragment : Fragment() {
     private val args by navArgs<UpdateSetContactsFragmentArgs>()
 
     // Vars for mutliple selection
-    private val selectedItems = arrayListOf<Contact>()
+    private lateinit var selectedItems: List<Contact>
     private var counter = 0
     private lateinit var toolbarHeaderTxt: TextView
     private lateinit var saveBtn: ImageView
@@ -53,6 +55,23 @@ class UpdateSetContactsFragment : Fragment() {
         adapter = ContactSelectionRecyclerAdapter(mContactViewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mContactViewModel.readAllData.observe(viewLifecycleOwner, Observer { contactList ->
+            adapter.setData(contactList, args.currentContactList.toCollection(ArrayList<Contact>()))
+        })
+
+        // Instantiate other view models
+        mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
+        mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
+
+        // Set up observer for selection list
+        val selectionListObserver = Observer<List<Contact>> { contactsList ->
+            selectedItems = contactsList
+
+            counter = selectedItems.size
+            updateToolbarHeader(counter)
+        }
+
+        mContactViewModel.selectedContactsList.observe(viewLifecycleOwner, selectionListObserver)
 
         return view
 
@@ -82,7 +101,12 @@ class UpdateSetContactsFragment : Fragment() {
         addNewBtn.setOnClickListener {
             navController.navigate(
                     UpdateSetContactsFragmentDirections
-                            .actionUpdateSetContactsFragment2ToAddNewContactFragment(false, args.currentImgMsg, true, args.currentContactList)
+                            .actionUpdateSetContactsFragment2ToAddNewContactFragment(
+                                    false,
+                                    args.currentImgMsg,
+                                    true,
+                                    args.currentContactList
+                            )
             )
         }
 //
@@ -100,6 +124,19 @@ class UpdateSetContactsFragment : Fragment() {
 //            })
 //        }
 
+    }
+
+    private fun updateToolbarHeader(counter: Int) {
+        if (counter == 0) {
+            toolbarHeaderTxt.text = "Select Contacts"
+            saveBtn.visibility = View.GONE
+        } else if (counter == 1) {
+            toolbarHeaderTxt.text = "1 contact selected"
+            saveBtn.visibility = View.VISIBLE
+        } else {
+            toolbarHeaderTxt.text = counter.toString() + " contacts selected"
+            saveBtn.visibility = View.VISIBLE
+        }
     }
 
 }

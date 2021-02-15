@@ -48,7 +48,7 @@ class SetContactsForImgMsgFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_select_contacts, container, false)
 
-        // Recyclerview & contact viewmodel setup
+        // Recyclerview & contact view model setup
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_home)
         mContactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
         adapter = ContactSelectionRecyclerAdapter(mContactViewModel)
@@ -58,7 +58,7 @@ class SetContactsForImgMsgFragment : Fragment() {
             adapter.setData(contactList)
         })
 
-        // Instantiate view models
+        // Instantiate other view models
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
         mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
 
@@ -119,25 +119,6 @@ class SetContactsForImgMsgFragment : Fragment() {
         }
 
     }
-
-//    fun startSelection(contact: Contact) {
-//        selectedItems.add(contact)
-//        counter++
-//        updateToolbarHeader(counter)
-//        saveBtn.visibility = View.VISIBLE
-//    }
-//
-//    fun manageSelection(contact: Contact) {
-//        if (selectedItems.contains(contact)) {
-//            selectedItems.remove(contact)
-//            counter--
-//            updateToolbarHeader(counter)
-//        } else {
-//            selectedItems.add(contact)
-//            counter++
-//            updateToolbarHeader(counter)
-//        }
-//    }
 
     private fun updateToolbarHeader(counter: Int) {
         if (counter == 0) {
