@@ -53,6 +53,10 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
             Permissions.verifyPermissions(Permissions.IMG_PERMISSIONS, requireActivity())
         }
 
+        if (!Permissions.checkPermissions(Permissions.LOCATION_PERMISSION, requireContext())) {
+            Permissions.verifyPermissions(Permissions.LOCATION_PERMISSION, requireActivity())
+        }
+
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
         selectedImg = view.findViewById(R.id.selected_img)
 

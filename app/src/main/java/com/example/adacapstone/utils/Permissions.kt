@@ -13,6 +13,7 @@ class Permissions {
         val CAMERA_REQUEST_CODE = 5
         val GALLERY_REQUEST_CODE = 6
         val SEND_SMS_REQUEST_CODE = 7
+        val LOCATION_REQUEST_CODE = 8
 
         val IMG_PERMISSIONS: Array<String> = arrayOf(
           Manifest.permission.CAMERA,
@@ -21,6 +22,8 @@ class Permissions {
         )
 
         val SMS_PERMISSION: Array<String> = arrayOf(Manifest.permission.SEND_SMS)
+
+        val LOCATION_PERMISSION: Array<String> = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
 
         // Permissions handling
         fun checkPermissions(permissions: Array<String>, context: Context): Boolean {
