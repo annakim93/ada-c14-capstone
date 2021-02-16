@@ -82,4 +82,7 @@ dependencies {
     // Images (Coil)
     implementation("io.coil-kt:coil:1.1.1")
 
+    // Location (GPlay services)
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
 }
