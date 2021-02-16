@@ -49,7 +49,17 @@ class AddNewContactFragment : Fragment(), InputCheck {
 
         if (args.newImgMsg) {
             closeBtn.setOnClickListener {
-                navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
+                navController.navigate(
+                        AddNewContactFragmentDirections
+                                .actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!)
+                )
+            }
+        } else if (args.updateImgMsg) {
+            closeBtn.setOnClickListener {
+                navController.navigate(
+                        AddNewContactFragmentDirections
+                                .actionAddNewContactFragmentToUpdateSetContactsFragment2(args.selectedContacts!!, args.currentImgMsg!!)
+                )
             }
         } else {
             closeBtn.setOnClickListener {
@@ -72,9 +82,15 @@ class AddNewContactFragment : Fragment(), InputCheck {
                 mContactViewModel.addContact(contact)
 
                 if (args.newImgMsg) {
-                    navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!))
+                    navController.navigate(
+                            AddNewContactFragmentDirections
+                                    .actionAddNewContactFragmentToSetContactsForImgMsgFragment(args.currentImgMsg!!)
+                    )
                 } else if (args.updateImgMsg) {
-                    navController.navigate(AddNewContactFragmentDirections.actionAddNewContactFragmentToUpdateSetContactsFragment2(args.selectedContacts!!, args.currentImgMsg!!))
+                    navController.navigate(
+                            AddNewContactFragmentDirections
+                                    .actionAddNewContactFragmentToUpdateSetContactsFragment2(args.selectedContacts!!, args.currentImgMsg!!)
+                    )
                 } else {
                     navController.navigate(R.id.action_addNewContactFragment_to_contactsFragment)
                 }

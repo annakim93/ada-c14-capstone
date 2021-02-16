@@ -9,13 +9,13 @@ import com.example.adacapstone.data.repository.IMCRelationsRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class IMCRelationsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: IMCRelationsRepo
     private val currentImgMsgId: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
+    lateinit var originalContactsList: LiveData<List<ImgMsgWithContacts>>
     lateinit var contactsList: LiveData<List<ImgMsgWithContacts>>
 
     init {
@@ -29,9 +29,19 @@ class IMCRelationsViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
+    fun deleteIMCCrossRef(imcCrossRef: ImgMsgContactCrossRef) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteIMCCrossRef(imcCrossRef)
+        }
+    }
+
     fun setImgMsgId(imgMsgId: Int) {
         currentImgMsgId.value = imgMsgId
-        contactsList = repository.getContactsOfImgMsg(currentImgMsgId.value!!)
+        contactsList = repository.getContactsOfImgMsg(imgMsgId)
+    }
+
+    fun setOriginalContactsList(imgMsgId: Int) {
+        originalContactsList = repository.getContactsOfImgMsg(imgMsgId)
     }
 
 }

@@ -24,4 +24,8 @@ class IMCRelationsRepo(private val imcRelationsDao: IMCRelationsDao) {
         imcRelationsDao.addIMCCrossRef(crossRef)
     }
 
+    suspend fun deleteIMCCrossRef(crossRef: ImgMsgContactCrossRef) {
+        imcRelationsDao.deleteIMCCrossRef(crossRef)
+    }
+
 }

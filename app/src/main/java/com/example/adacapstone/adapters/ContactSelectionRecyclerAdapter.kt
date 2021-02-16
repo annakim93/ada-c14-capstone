@@ -6,19 +6,12 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.viewmodel.ContactViewModel
-import com.example.adacapstone.fragments.ContactsFragment
-import com.example.adacapstone.fragments.ContactsFragmentDirections
-import com.example.adacapstone.fragments.SetContactsForImgMsgFragment
 
-class ContactSelectionRecyclerAdapter(val mContactViewModel: ContactViewModel) :
+class ContactSelectionRecyclerAdapter(private val mContactViewModel: ContactViewModel) :
         RecyclerView.Adapter<ContactSelectionRecyclerAdapter.MyViewHolder>() {
 
     var contactsList = emptyList<Contact>()

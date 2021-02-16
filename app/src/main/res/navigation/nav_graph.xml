@@ -51,6 +51,11 @@
         <action
             android:id="@+id/action_updateFragment_to_updateSetContactsFragment2"
             app:destination="@id/updateSetContactsFragment2" />
+        <argument
+            android:name="selectedContacts"
+            app:argType="com.example.adacapstone.data.model.Contact[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <action

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -62,6 +61,7 @@ class UpdateSetContactsFragment : Fragment() {
         // Instantiate other view models
         mImgMsgViewModel = ViewModelProvider(this).get(ImgMsgViewModel::class.java)
         mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
+        mIMCRelationsViewModel.setOriginalContactsList(args.currentImgMsg.imgMsgId)
 
         // Set up observer for selection list
         val selectionListObserver = Observer<List<Contact>> { contactsList ->
@@ -91,7 +91,7 @@ class UpdateSetContactsFragment : Fragment() {
         backBtn.setOnClickListener {
             navController.navigate(
                     UpdateSetContactsFragmentDirections
-                            .actionUpdateSetContactsFragment2ToUpdateFragment(args.currentImgMsg)
+                            .actionUpdateSetContactsFragment2ToUpdateFragment(args.currentImgMsg, selectedItems.toTypedArray())
             )
         }
 
@@ -105,24 +105,32 @@ class UpdateSetContactsFragment : Fragment() {
                                     false,
                                     args.currentImgMsg,
                                     true,
-                                    args.currentContactList
+                                    selectedItems.toTypedArray()
                             )
             )
         }
-//
-//        // Click listener for save btn
-//        saveBtn.setOnClickListener {
-//            mImgMsgViewModel.addImgMsg(args.currentImgMsg)
-//
-//            mImgMsgViewModel.latestImgMsgId.observe(viewLifecycleOwner, Observer { it ->
-//                for (contact in selectedItems) {
-//                    mIMCRelationsViewModel.addIMCCrossRef(ImgMsgContactCrossRef(it.toInt(), contact.contactId))
-//                }
-//
-//                navController.navigate(R.id.action_setContactsForImgMsgFragment_to_homeFragment)
-//                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
-//            })
-//        }
+
+        // Click listener for save btn
+        saveBtn.setOnClickListener {
+
+            mImgMsgViewModel.updateImgMsg(args.currentImgMsg)
+
+            mIMCRelationsViewModel.originalContactsList.observe(viewLifecycleOwner, Observer { oldContacts ->
+                for (oldContact in oldContacts.first().contacts) {
+                    val oldCrossRef = ImgMsgContactCrossRef(args.currentImgMsg.imgMsgId, oldContact.contactId)
+                    mIMCRelationsViewModel.deleteIMCCrossRef(oldCrossRef)
+                }
+
+                for (contact in selectedItems) {
+                    val newCrossRef = ImgMsgContactCrossRef(args.currentImgMsg.imgMsgId, contact.contactId)
+                    mIMCRelationsViewModel.addIMCCrossRef(newCrossRef)
+                }
+
+                navController.navigate(R.id.action_updateSetContactsFragment2_to_manageGrid)
+                Toast.makeText(requireContext(), "Successfully saved.", Toast.LENGTH_SHORT).show()
+            })
+
+        }
 
     }
 
