@@ -33,7 +33,7 @@
                     android:layout_toRightOf="@+id/app_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/rancho_regular"
                     android:text="@string/app_name"
                     android:textSize="24sp" />
