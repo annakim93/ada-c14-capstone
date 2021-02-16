@@ -46,7 +46,7 @@
                     android:layout_width="20dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    android:src="@drawable/arrow_forward"
                     app:tint="@color/blue" />
 
             </RelativeLayout>
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_image_24"/>
+                android:src="@drawable/default_img"/>
 
         </RelativeLayout>
 
