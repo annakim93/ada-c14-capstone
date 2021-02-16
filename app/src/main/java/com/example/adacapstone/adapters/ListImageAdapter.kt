@@ -1,17 +1,14 @@
 package com.example.adacapstone.adapters
 
-import android.content.Context
 import android.telephony.SmsManager
 import android.view.*
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
-import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
-import com.example.adacapstone.fragments.UpdateFragmentDirections
+import com.example.adacapstone.data.viewmodels.IMCRelationsViewModel
 import com.example.adacapstone.utils.DoubleClickListener
 import com.example.adacapstone.utils.Permissions
 import com.example.adacapstone.utils.SquareImageView

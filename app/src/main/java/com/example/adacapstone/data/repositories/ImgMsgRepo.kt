@@ -1,4 +1,4 @@
-package com.example.adacapstone.data.repository
+package com.example.adacapstone.data.repositories
 
 import androidx.lifecycle.LiveData
 import com.example.adacapstone.data.dao.ImgMsgDao

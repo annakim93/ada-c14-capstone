@@ -7,7 +7,7 @@
 
         <variable
             name="imgMsgViewModel"
-            type="com.example.adacapstone.data.viewmodel.ImgMsgViewModel" />
+            type="com.example.adacapstone.data.viewmodels.ImgMsgViewModel" />
 
     </data>
 

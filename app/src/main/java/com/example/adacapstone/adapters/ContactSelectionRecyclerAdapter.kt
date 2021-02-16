@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.viewmodel.ContactViewModel
+import com.example.adacapstone.data.viewmodels.ContactViewModel
 
 class ContactSelectionRecyclerAdapter(private val mContactViewModel: ContactViewModel) :
         RecyclerView.Adapter<ContactSelectionRecyclerAdapter.MyViewHolder>() {

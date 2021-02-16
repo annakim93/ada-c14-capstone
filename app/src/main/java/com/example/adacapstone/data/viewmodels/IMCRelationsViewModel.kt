@@ -1,11 +1,11 @@
-package com.example.adacapstone.data.viewmodel
+package com.example.adacapstone.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.relations.ImgMsgWithContacts
-import com.example.adacapstone.data.repository.IMCRelationsRepo
+import com.example.adacapstone.data.repositories.IMCRelationsRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

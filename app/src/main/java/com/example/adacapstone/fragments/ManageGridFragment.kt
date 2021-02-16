@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.adacapstone.R
 import com.example.adacapstone.data.model.ImageMessage
-import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.data.viewmodels.ImgMsgViewModel
 import com.example.adacapstone.databinding.FragmentManageGridBinding
 import com.example.adacapstone.adapters.GridImageAdapter
 import com.example.adacapstone.adapters.ImgMsgListener

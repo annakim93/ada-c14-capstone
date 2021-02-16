@@ -20,9 +20,9 @@ import com.example.adacapstone.R
 import com.example.adacapstone.adapters.ContactSelectionRecyclerAdapter
 import com.example.adacapstone.data.model.Contact
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
-import com.example.adacapstone.data.viewmodel.ContactViewModel
-import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
-import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.data.viewmodels.ContactViewModel
+import com.example.adacapstone.data.viewmodels.IMCRelationsViewModel
+import com.example.adacapstone.data.viewmodels.ImgMsgViewModel
 
 class SetContactsForImgMsgFragment : Fragment() {
 

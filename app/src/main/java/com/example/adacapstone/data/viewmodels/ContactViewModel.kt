@@ -1,4 +1,4 @@
-package com.example.adacapstone.data.viewmodel
+package com.example.adacapstone.data.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.adacapstone.data.database.MainDatabase
 import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.repository.ContactRepo
+import com.example.adacapstone.data.repositories.ContactRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

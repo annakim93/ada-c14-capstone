@@ -1,13 +1,12 @@
-package com.example.adacapstone.data.viewmodel
+package com.example.adacapstone.data.viewmodels
 
 import android.app.Application
-import android.media.Image
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.adacapstone.data.database.MainDatabase
-import com.example.adacapstone.data.repository.ImgMsgRepo
+import com.example.adacapstone.data.repositories.ImgMsgRepo
 import com.example.adacapstone.data.model.ImageMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

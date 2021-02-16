@@ -14,9 +14,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
-import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
+import com.example.adacapstone.data.viewmodels.ImgMsgViewModel
 import com.example.adacapstone.adapters.ListImageAdapter
-import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
+import com.example.adacapstone.data.viewmodels.IMCRelationsViewModel
 
 class HomeFragment : Fragment() {
 

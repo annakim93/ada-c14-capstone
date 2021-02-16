@@ -1,11 +1,7 @@
-package com.example.adacapstone.data.repository
+package com.example.adacapstone.data.repositories
 
-import android.media.Image
 import androidx.lifecycle.LiveData
-import com.example.adacapstone.data.dao.ContactDao
 import com.example.adacapstone.data.dao.IMCRelationsDao
-import com.example.adacapstone.data.model.Contact
-import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.relations.ContactWithImgMsgs
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.relations.ImgMsgWithContacts
