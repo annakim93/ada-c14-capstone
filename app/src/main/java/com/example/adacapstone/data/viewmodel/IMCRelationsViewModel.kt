@@ -17,6 +17,7 @@ class IMCRelationsViewModel(application: Application) : AndroidViewModel(applica
     }
     lateinit var originalContactsList: LiveData<List<ImgMsgWithContacts>>
     lateinit var contactsList: LiveData<List<ImgMsgWithContacts>>
+    lateinit var sendList: LiveData<List<ImgMsgWithContacts>>
 
     init {
         val imcRelationsDao = MainDatabase.getDatabase(application).imcRelationsDao()
@@ -42,6 +43,10 @@ class IMCRelationsViewModel(application: Application) : AndroidViewModel(applica
 
     fun setOriginalContactsList(imgMsgId: Int) {
         originalContactsList = repository.getContactsOfImgMsg(imgMsgId)
+    }
+
+    fun setSendList(imgMsgId: Int) {
+        sendList = repository.getContactsOfImgMsg(imgMsgId)
     }
 
 }

@@ -129,7 +129,10 @@ class AddNewImgMsgFragment : Fragment(), InputCheck, ImageHandling {
 
             if (imgMsgInputCheck(message, selectedImg)) {
                 val imgMsg = ImageMessage(0, message, currentImgPath) // Create imgMsg object
-                navController.navigate(AddNewImgMsgFragmentDirections.actionAddNewFragmentToSetContactsForImgMsgFragment(imgMsg))
+                navController.navigate(
+                        AddNewImgMsgFragmentDirections
+                                .actionAddNewFragmentToSetContactsForImgMsgFragment(imgMsg)
+                )
                 Toast.makeText(requireContext(), "Please select contacts to send this message to.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()

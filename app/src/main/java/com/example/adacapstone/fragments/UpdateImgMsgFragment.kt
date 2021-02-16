@@ -121,24 +121,6 @@ class UpdateFragment : Fragment(), InputCheck, ImageHandling {
             }
         }
 
-
-
-//        val saveBtn: ImageView = view.findViewById(R.id.save_btn)
-//
-//        saveBtn.setOnClickListener {
-//            val updatedMsg = view.findViewById<EditText>(R.id.update_alert_text).text.toString()
-//            val updatedImg = view.findViewById<ImageView>(R.id.selected_update_img)
-//
-//            if (imgMsgInputCheck(updatedMsg, updatedImg)) {
-//                val updatedImgMsg = ImageMessage(args.currentImgMsg.imgMsgId, updatedMsg, selectedImgPath) // Create imgMsg object
-//                mImgMsgViewModel.updateImgMsg(updatedImgMsg)
-//                navController.navigate(R.id.action_updateFragment_to_manageGrid)
-//                Toast.makeText(requireContext(), "Successfully updated.", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(requireContext(), "Please make sure all fields are complete.", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
         // Click listener for gallery selection
         val galleryBtn: Button = view.findViewById(R.id.update_gallery_btn)
         galleryBtn.setOnClickListener {

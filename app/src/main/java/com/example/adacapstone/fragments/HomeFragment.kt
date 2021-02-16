@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.adacapstone.R
 import com.example.adacapstone.data.viewmodel.ImgMsgViewModel
 import com.example.adacapstone.adapters.ListImageAdapter
+import com.example.adacapstone.data.viewmodel.IMCRelationsViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var mImgMsgViewModel: ImgMsgViewModel
+    private lateinit var mIMCRelationsViewModel: IMCRelationsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +33,8 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         // Recyclerview setup
-        val adapter = ListImageAdapter()
+        mIMCRelationsViewModel = ViewModelProvider(this).get(IMCRelationsViewModel::class.java)
+        val adapter = ListImageAdapter(mIMCRelationsViewModel, viewLifecycleOwner)
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_home)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -54,7 +57,11 @@ class HomeFragment : Fragment() {
 
         gridBtn.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_manageGrid)
-            Toast.makeText(activity, "Click on a photo to update or long-click to delete.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                    activity,
+                    "Click on a photo to update or long-click to delete.",
+                    Toast.LENGTH_SHORT
+            ).show()
         }
 
     }
