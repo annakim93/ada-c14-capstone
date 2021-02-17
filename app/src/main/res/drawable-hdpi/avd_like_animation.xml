@@ -1,0 +1,85 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="1024dp"
+            android:height="1024dp"
+            android:viewportWidth="1024"
+            android:viewportHeight="1024">
+            <group
+                android:name="group"
+                android:pivotX="215"
+                android:pivotY="215">
+                <path
+                    android:name="path"
+                    android:pathData="M 544.62 866.32 C 495.98 846.1 449.37 821.32 403.5 795.38 C 296.3 734.85 189 664.57 124.33 559.81 C 59.66 455.05 49.63 307.33 131.55 215.43 C 179 162.19 259.72 134.57 324.67 164 C 354.19 177.4 377.91 200.8 399.61 224.9 C 442.548 272.612 480.169 324.852 511.81 380.7 C 559.58 316.978 617.878 261.875 684.19 217.77 C 746.32 176.49 831.03 146.06 892.54 188.26 C 933 216 950.16 268.07 951 317.06 C 952.22 388.24 924.84 456.77 892.51 520.18 C 815.69 670.82 700.66 811 543 872"
+                    android:fillColor="#7986cb"
+                    android:strokeWidth="1"/>
+                <path
+                    android:name="path_1"
+                    android:pathData="M 547.28 856.68 C 498.82 836.48 452.43 811.58 406.78 785.75 C 366.68 763.07 327.12 739.32 289.46 712.75 C 252.46 686.66 217.46 657.65 186.54 624.5 C 156.93 592.72 131.12 557 113 517.4 C 96.28 480.635 86.321 441.157 83.6 400.86 C 81.07 360.74 85.87 321.65 100.74 284.11 C 114.87 248.43 139.68 215.11 172 193.11 C 205.29 170.5 245.48 157.94 285.61 163.11 C 289.01 163.55 295.03 164.72 299.33 165.79 C 304.173 166.992 308.944 168.467 313.62 170.21 C 323.798 174.192 333.474 179.354 342.45 185.59 C 361.53 198.59 377.69 215.47 393.04 232.59 C 426.812 270.163 457.247 310.605 484 353.46 Q 493.94 369.4 503.21 385.74 C 507.21 392.86 516.21 391.49 520.48 385.74 C 547.747 349.527 578.516 316.089 612.34 285.91 C 645.17 256.51 681 228.83 720 208 C 755.87 188.84 796.88 174.54 837.86 178.67 C 856.896 180.641 875.064 187.661 890.48 199 C 905.17 209.91 916.37 225.2 924.48 241.91 C 942.1 278.31 944.11 321.33 938.21 361.33 C 931.21 408.51 913.94 453.48 893.28 496.21 C 857.17 570.92 812.46 642.31 757.45 704.6 C 703.95 765.18 640.35 817.04 566.71 851.11 C 557.95 855.11 549.29 858.83 540.32 862.32 C 535.32 864.27 531.8 869.03 533.32 874.62 C 534.64 879.42 540.56 883.62 545.62 881.62 C 625.03 850.79 694.87 800.14 753.38 738.62 C 812 677 859.85 605.29 898.79 529.79 C 921.56 485.65 942.13 439.56 952.98 390.9 C 962.9 346.42 965.29 298.54 950.98 254.71 C 944.51 234.92 934.79 216.32 921.15 200.53 C 906.944 184.234 888.682 171.976 868.22 165 C 827.37 150.91 781.82 159.5 742.81 175.34 C 699.73 192.83 661.37 219.58 625.35 248.64 C 588.648 278.243 555.027 311.474 525 347.83 Q 513.74 361.47 503.14 375.65 L 520.41 375.65 C 494.354 329.806 464.336 286.33 430.7 245.72 C 399.7 208.22 365.33 167.98 318.35 150.72 C 277.15 135.6 231.24 141.48 191.86 159.12 C 152.27 176.85 119.68 207.57 97.8 244.85 C 76.59 281 65.75 322.49 63.43 364.22 C 61.06 406.81 67.62 450.1 81.13 490.5 C 95.46 533.36 117.91 572.2 145.79 607.63 C 174.79 644.48 209.25 676.71 246.22 705.43 C 284.03 734.81 324.22 760.8 365.51 785.06 C 410.79 811.69 456.89 837.29 504.51 859.48 Q 523.06 868.12 542 876 C 547 878.08 553 873.76 554.3 869 C 555.88 863.24 552.3 858.79 547.3 856.7 Z"
+                    android:fillColor="#ffffff"
+                    android:strokeWidth="1"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:duration="400"
+                    android:valueFrom="0"
+                    android:valueTo="0.85"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/overshoot_interpolator"/>
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:duration="400"
+                    android:valueFrom="0"
+                    android:valueTo="0.85"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/overshoot_interpolator"/>
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:startOffset="600"
+                    android:duration="200"
+                    android:valueFrom="0.85"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_interpolator"/>
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:startOffset="600"
+                    android:duration="200"
+                    android:valueFrom="0.85"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="path">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="50"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_interpolator"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:startOffset="750"
+                    android:duration="50"
+                    android:valueFrom="1"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

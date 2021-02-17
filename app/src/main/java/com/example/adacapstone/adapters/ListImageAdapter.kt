@@ -3,13 +3,16 @@ package com.example.adacapstone.adapters
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.telephony.SmsManager
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import coil.load
 import com.example.adacapstone.R
 import com.example.adacapstone.activities.MainActivity
@@ -31,6 +34,8 @@ class ListImageAdapter(
     : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 
     private var imgMsgList = emptyList<ImageMessage>()
+    private lateinit var avd: AnimatedVectorDrawableCompat
+    private lateinit var avd2: AnimatedVectorDrawable
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
@@ -44,13 +49,29 @@ class ListImageAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = imgMsgList[position]
-        val imageView = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
-        imageView.load(File(currentItem.imageFilePath))
+        val squareImg = holder.itemView.findViewById<SquareImageView>(R.id.squareImage)
+        squareImg.load(File(currentItem.imageFilePath))
+        val likeAnim = holder.itemView.findViewById<ImageView>(R.id.like_animation)
+        val drawable = likeAnim.drawable
+        val likeCornerIndicator = holder.itemView.findViewById<ImageView>(R.id.like_indicator)
 
-        imageView.setOnClickListener(object : DoubleClickListener() {
+        squareImg.setOnClickListener(object : DoubleClickListener() {
             override fun onSingleClick(v: View?) {}
             override fun onDoubleClick(v: View?) {
                 if (v != null) {
+                    // Set up animation
+                    likeAnim.alpha = 0.80f
+                    if (drawable is AnimatedVectorDrawableCompat) {
+                        avd = drawable
+                        avd.start()
+                    } else if (drawable is AnimatedVectorDrawable) {
+                        avd2 = drawable
+                        avd2.start()
+                    }
+
+                    likeCornerIndicator.visibility = View.VISIBLE
+
+                    // Send texts: message and GMaps location link
                     if (Permissions.checkPermissions(Permissions.SMS_PERMISSION, v.context)) {
                         val smsManager = SmsManager.getDefault()
 
@@ -72,6 +93,7 @@ class ListImageAdapter(
                             )
                             return
                         }
+
                         mFusedLocationProviderClient.lastLocation
                             .addOnSuccessListener { location : android.location.Location? ->
                                 if (location != null) {
