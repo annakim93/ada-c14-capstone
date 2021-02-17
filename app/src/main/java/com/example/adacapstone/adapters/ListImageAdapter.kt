@@ -1,22 +1,32 @@
 package com.example.adacapstone.adapters
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.telephony.SmsManager
 import android.view.*
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.adacapstone.R
+import com.example.adacapstone.activities.MainActivity
 import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.viewmodels.IMCRelationsViewModel
+import com.example.adacapstone.interfaces.Location
 import com.example.adacapstone.utils.DoubleClickListener
 import com.example.adacapstone.utils.Permissions
 import com.example.adacapstone.utils.SquareImageView
+import com.google.android.gms.location.FusedLocationProviderClient
 import java.io.File
 
 class ListImageAdapter(
         private var mIMCRelationsViewModel: IMCRelationsViewModel,
-        private var mViewLifecycleOwner: LifecycleOwner
+        private var mViewLifecycleOwner: LifecycleOwner,
+        private var mFusedLocationProviderClient: FusedLocationProviderClient,
+        private var mActivity: Activity
         )
     : RecyclerView.Adapter<ListImageAdapter.MyViewHolder>() {
 
@@ -43,17 +53,61 @@ class ListImageAdapter(
                 if (v != null) {
                     if (Permissions.checkPermissions(Permissions.SMS_PERMISSION, v.context)) {
                         val smsManager = SmsManager.getDefault()
-                        mIMCRelationsViewModel.setSendList(currentItem.imgMsgId)
-                        mIMCRelationsViewModel.sendList.observe(mViewLifecycleOwner, Observer { it ->
-                            val contactList = it.first().contacts
 
-                            for (contact in contactList) {
-                                val phoneNum = contact.phoneNumber
-                                smsManager.sendTextMessage(phoneNum, null, currentItem.msg, null, null)
+                        if (ActivityCompat.checkSelfPermission(
+                                v.context,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                v.context,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            ActivityCompat.requestPermissions(
+                                mActivity,
+                                arrayOf(
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ),
+                                Permissions.LOCATION_REQUEST_CODE
+                            )
+                            return
+                        }
+                        mFusedLocationProviderClient.lastLocation
+                            .addOnSuccessListener { location : android.location.Location? ->
+                                if (location != null) {
+                                    val lat = location.latitude
+                                    val long = location.longitude
+
+                                    mIMCRelationsViewModel.setSendList(currentItem.imgMsgId)
+                                    mIMCRelationsViewModel.sendList.observe(mViewLifecycleOwner, Observer { it ->
+                                        val contactList = it.first().contacts
+
+                                        for (contact in contactList) {
+                                            val phoneNum = contact.phoneNumber
+                                            smsManager.sendTextMessage(
+                                                phoneNum,
+                                                null,
+                                                currentItem.msg,
+                                                null,
+                                                null
+                                            )
+                                            smsManager.sendTextMessage(
+                                                phoneNum,
+                                                null,
+                                                "Here is my location: http://www.google.com/maps/place/$lat,$long",
+                                                null,
+                                                null
+                                            )
+                                        }
+
+                                        return@Observer
+                                    })
+
+
+                                } else {
+                                    Toast.makeText(v.context, "Failed to retrieve lat-longs", Toast.LENGTH_SHORT).show()
+                                }
                             }
-
-                            return@Observer
-                        })
                     }
                 }
             }

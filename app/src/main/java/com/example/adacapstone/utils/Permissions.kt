@@ -23,7 +23,10 @@ class Permissions {
 
         val SMS_PERMISSION: Array<String> = arrayOf(Manifest.permission.SEND_SMS)
 
-        val LOCATION_PERMISSION: Array<String> = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        val LOCATION_PERMISSION: Array<String> = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
 
         // Permissions handling
         fun checkPermissions(permissions: Array<String>, context: Context): Boolean {
