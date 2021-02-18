@@ -2,7 +2,6 @@ package com.example.adacapstone.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.adacapstone.data.model.ImageMessage
 import com.example.adacapstone.data.relations.ContactWithImgMsgs
 import com.example.adacapstone.data.relations.ImgMsgContactCrossRef
 import com.example.adacapstone.data.relations.ImgMsgWithContacts

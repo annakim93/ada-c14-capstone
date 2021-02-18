@@ -21,12 +21,6 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
     private val _navigateToUpdateFrag = MutableLiveData<ImageMessage?>()
     val navigateToUpdateFrag: LiveData<ImageMessage?>
         get() = _navigateToUpdateFrag
-//    val currentLatitude: MutableLiveData<Double> by lazy {
-//        MutableLiveData<Double>()
-//    }
-//    var currentLongitude: MutableLiveData<Double> by lazy {
-//        MutableLiveData<Double>
-//    }
 
     init {
         val imgMsgDao = MainDatabase.getDatabase(application).imgMsgDao()
@@ -52,14 +46,6 @@ class ImgMsgViewModel(application: Application) : AndroidViewModel(application) 
             repository.deleteImgMsg(imgMsg)
         }
     }
-
-//    fun setLatitude(lat: Double) {
-//        currentLatitude.postValue(lat)
-//    }
-//
-//    fun setLongitude(long: Double) {
-//        currentLongitude.postValue(long)
-//    }
 
     fun onImgMsgClicked(imgMsg: ImageMessage) {
         _navigateToUpdateFrag.value = imgMsg
